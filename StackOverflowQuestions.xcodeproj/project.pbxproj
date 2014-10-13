@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		205F61A30321B972285FF0E4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F984BD706DBA301702C1C5B /* libPods.a */; };
+		4D7DC88D19E668ED00D9294B /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC88B19E668ED00D9294B /* CustomTableViewCell.m */; };
 		4DDA7BC419E3B9D00021DFFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC319E3B9D00021DFFB /* main.m */; };
 		4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC619E3B9D00021DFFB /* AppDelegate.m */; };
-		4DDA7BCA19E3B9D00021DFFB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC919E3B9D00021DFFB /* ViewController.m */; };
+		4DDA7BCA19E3B9D00021DFFB /* QuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC919E3B9D00021DFFB /* QuestionsTableViewController.m */; };
 		4DDA7BCD19E3B9D00021DFFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA7BCB19E3B9D00021DFFB /* Main.storyboard */; };
 		4DDA7BCF19E3B9D00021DFFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA7BCE19E3B9D00021DFFB /* Images.xcassets */; };
 		4DDA7BD219E3B9D00021DFFB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA7BD019E3B9D00021DFFB /* LaunchScreen.xib */; };
 		4DDA7BDE19E3B9D00021DFFB /* StackOverflowQuestionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BDD19E3B9D00021DFFB /* StackOverflowQuestionsTests.m */; };
+		4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */; };
+		4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,19 +31,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D7DC88A19E668ED00D9294B /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		4D7DC88B19E668ED00D9294B /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		4DDA7BBE19E3B9CF0021DFFB /* StackOverflowQuestions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowQuestions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDA7BC219E3B9CF0021DFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDA7BC319E3B9D00021DFFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4DDA7BC519E3B9D00021DFFB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4DDA7BC619E3B9D00021DFFB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4DDA7BC819E3B9D00021DFFB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4DDA7BC919E3B9D00021DFFB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		4DDA7BC819E3B9D00021DFFB /* QuestionsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuestionsTableViewController.h; sourceTree = "<group>"; };
+		4DDA7BC919E3B9D00021DFFB /* QuestionsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionsTableViewController.m; sourceTree = "<group>"; };
 		4DDA7BCC19E3B9D00021DFFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4DDA7BCE19E3B9D00021DFFB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4DDA7BD119E3B9D00021DFFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4DDA7BD719E3B9D00021DFFB /* StackOverflowQuestionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StackOverflowQuestionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDA7BDC19E3B9D00021DFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDA7BDD19E3B9D00021DFFB /* StackOverflowQuestionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StackOverflowQuestionsTests.m; sourceTree = "<group>"; };
+		4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowAPI.m; sourceTree = "<group>"; };
+		4DDA7BF119E3D67F0021DFFB /* StackOverflowAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StackOverflowAPI.h; sourceTree = "<group>"; };
+		4DDA7BF419E51E4E0021DFFB /* QuestionProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionProfileViewController.h; path = Controllers/QuestionProfileViewController.h; sourceTree = "<group>"; };
+		4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionProfileViewController.m; path = Controllers/QuestionProfileViewController.m; sourceTree = "<group>"; };
+		73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		9F984BD706DBA301702C1C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B550769617CD92B6AA96C123 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				205F61A30321B972285FF0E4 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +74,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D7DC88919E6689300D9294B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4D7DC88A19E668ED00D9294B /* CustomTableViewCell.h */,
+				4D7DC88B19E668ED00D9294B /* CustomTableViewCell.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		4DDA7BB519E3B9CF0021DFFB = {
 			isa = PBXGroup;
 			children = (
 				4DDA7BC019E3B9CF0021DFFB /* StackOverflowQuestions */,
 				4DDA7BDA19E3B9D00021DFFB /* StackOverflowQuestionsTests */,
 				4DDA7BBF19E3B9CF0021DFFB /* Products */,
+				97C264B141CC6348FCF1CABA /* Pods */,
+				FB988D6C914EFCA97EE8B96B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,13 +106,12 @@
 		4DDA7BC019E3B9CF0021DFFB /* StackOverflowQuestions */ = {
 			isa = PBXGroup;
 			children = (
+				4DDA7BF219E406370021DFFB /* Resources */,
+				4DDA7BE919E3BEEE0021DFFB /* Views */,
+				4DDA7BE819E3BEE70021DFFB /* Controllers */,
+				4DDA7BE719E3BED00021DFFB /* Models */,
 				4DDA7BC519E3B9D00021DFFB /* AppDelegate.h */,
 				4DDA7BC619E3B9D00021DFFB /* AppDelegate.m */,
-				4DDA7BC819E3B9D00021DFFB /* ViewController.h */,
-				4DDA7BC919E3B9D00021DFFB /* ViewController.m */,
-				4DDA7BCB19E3B9D00021DFFB /* Main.storyboard */,
-				4DDA7BCE19E3B9D00021DFFB /* Images.xcassets */,
-				4DDA7BD019E3B9D00021DFFB /* LaunchScreen.xib */,
 				4DDA7BC119E3B9CF0021DFFB /* Supporting Files */,
 			);
 			path = StackOverflowQuestions;
@@ -119,6 +143,69 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		4DDA7BE719E3BED00021DFFB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4D7DC88919E6689300D9294B /* UI */,
+				4DDA7BEA19E3C44D0021DFFB /* API */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4DDA7BE819E3BEE70021DFFB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4DDA7BC819E3B9D00021DFFB /* QuestionsTableViewController.h */,
+				4DDA7BC919E3B9D00021DFFB /* QuestionsTableViewController.m */,
+				4DDA7BF419E51E4E0021DFFB /* QuestionProfileViewController.h */,
+				4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		4DDA7BE919E3BEEE0021DFFB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DDA7BCB19E3B9D00021DFFB /* Main.storyboard */,
+				4DDA7BD019E3B9D00021DFFB /* LaunchScreen.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		4DDA7BEA19E3C44D0021DFFB /* API */ = {
+			isa = PBXGroup;
+			children = (
+				4DDA7BF119E3D67F0021DFFB /* StackOverflowAPI.h */,
+				4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		4DDA7BF219E406370021DFFB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4DDA7BCE19E3B9D00021DFFB /* Images.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		97C264B141CC6348FCF1CABA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B550769617CD92B6AA96C123 /* Pods.debug.xcconfig */,
+				73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FB988D6C914EFCA97EE8B96B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F984BD706DBA301702C1C5B /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +213,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DDA7BE119E3B9D00021DFFB /* Build configuration list for PBXNativeTarget "StackOverflowQuestions" */;
 			buildPhases = (
+				D20EFA6CF0D4F1487B4D7F3A /* Check Pods Manifest.lock */,
 				4DDA7BBA19E3B9CF0021DFFB /* Sources */,
 				4DDA7BBB19E3B9CF0021DFFB /* Frameworks */,
 				4DDA7BBC19E3B9CF0021DFFB /* Resources */,
+				FDD589F176C801838BF15237 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,14 +303,50 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D20EFA6CF0D4F1487B4D7F3A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FDD589F176C801838BF15237 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4DDA7BBA19E3B9CF0021DFFB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DDA7BCA19E3B9D00021DFFB /* ViewController.m in Sources */,
+				4DDA7BCA19E3B9D00021DFFB /* QuestionsTableViewController.m in Sources */,
+				4D7DC88D19E668ED00D9294B /* CustomTableViewCell.m in Sources */,
+				4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */,
 				4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */,
 				4DDA7BC419E3B9D00021DFFB /* main.m in Sources */,
+				4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +466,7 @@
 		};
 		4DDA7BE219E3B9D00021DFFB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B550769617CD92B6AA96C123 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StackOverflowQuestions/Info.plist;
@@ -351,6 +477,7 @@
 		};
 		4DDA7BE319E3B9D00021DFFB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StackOverflowQuestions/Info.plist;
@@ -412,6 +539,7 @@
 				4DDA7BE319E3B9D00021DFFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DDA7BE419E3B9D00021DFFB /* Build configuration list for PBXNativeTarget "StackOverflowQuestionsTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +548,7 @@
 				4DDA7BE619E3B9D00021DFFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
