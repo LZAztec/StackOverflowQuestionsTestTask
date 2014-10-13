@@ -65,7 +65,8 @@ static NSString *const API_VERSION = @"2.2";
          @"order": @"desc",
          @"sort": @"creation",
          @"tagged": [self implode:tags],
-         @"site": @"stackoverflow"
+         @"site": @"stackoverflow",
+         @"filter": @"withbody"
     };
 
     [self makeResponseWithHandler:handler
@@ -75,12 +76,13 @@ static NSString *const API_VERSION = @"2.2";
     
 }
 
-- (void)getAnswersInfoByQuestionIds:(NSArray *)ids withResponseHandler:(id)handler andSelector:(SEL)selector;
+- (void)getAnswersByQuestionIds:(NSArray *)ids withResponseHandler:(id)handler andSelector:(SEL)selector;
 {
     NSDictionary *params = @{
          @"order": @"desc",
          @"sort": @"creation",
-         @"site": @"stackoverflow"
+         @"site": @"stackoverflow",
+         @"filter": @"withbody"
     };
     
     NSLog(@"answers for question ids: %@", ids);

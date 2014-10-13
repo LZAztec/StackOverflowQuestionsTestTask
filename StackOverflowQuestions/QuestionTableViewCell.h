@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomTableViewCell : UITableViewCell
+@interface QuestionTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *authorName;
 @property (strong, nonatomic) IBOutlet UILabel *modificationDate;
 @property (strong, nonatomic) IBOutlet UILabel *answerCount;
-@property (strong, nonatomic) IBOutlet UITextView *questionText;
+@property (strong, nonatomic) IBOutlet UILabel *questionText;
 
 @end

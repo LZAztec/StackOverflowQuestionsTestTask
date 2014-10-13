@@ -9,7 +9,7 @@
 #import "QuestionsTableViewController.h"
 #import "StackOverflowAPI.h"
 #import "QuestionProfileViewController.h"
-#import "CustomTableViewCell.h"
+#import "QuestionTableViewCell.h"
 #import <objc/message.h>
 
 @interface QuestionsTableViewController ()
@@ -113,19 +113,19 @@
 {
     static NSString *cellId = @"QuestionCell";
     
-    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    QuestionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     if (cell == nil) {
-        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[QuestionTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
   
     NSDictionary *question = (NSDictionary *)[self.questions objectAtIndex:indexPath.row];
 
     if (question) {
-        cell.authorName.text = [NSString stringWithFormat:@"Author: %@", (NSString *) question[@"owner"][@"display_name"]];
+        cell.authorName.text = [NSString stringWithFormat:@"%@", (NSString *) question[@"owner"][@"display_name"]];
 
         NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
-        cell.answerCount.text = [NSString stringWithFormat:@"Answers: %@", [NSString stringWithFormat:@"%@", answerCount]];
+        cell.answerCount.text = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%@", answerCount]];
 
         NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[question objectForKey:@"last_edit_date"] doubleValue]];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

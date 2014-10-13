@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "CustomTableViewCell.h"
+#import "QuestionTableViewCell.h"
 
-@implementation CustomTableViewCell
+@implementation QuestionTableViewCell
 
 @synthesize authorName;
 @synthesize modificationDate;

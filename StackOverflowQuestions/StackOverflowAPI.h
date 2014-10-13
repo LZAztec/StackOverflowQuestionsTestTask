@@ -9,6 +9,6 @@
 @interface  StackOverflowAPI: NSObject
 
 - (void)getQuestionsByTags:(NSArray *)tags withResponseHandler:(id)handler andSelector:(SEL)selector;
-- (void)getAnswersInfoByQuestionIds:(NSArray *)ids withResponseHandler:(id)handler andSelector:(SEL)selector;
+- (void)getAnswersByQuestionIds:(NSArray *)ids withResponseHandler:(id)handler andSelector:(SEL)selector;
 
 @end

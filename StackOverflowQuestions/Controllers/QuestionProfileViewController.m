@@ -8,7 +8,8 @@
 
 #import "QuestionProfileViewController.h"
 #import "StackOverflowAPI.h"
-#import "CustomTableViewCell.h"
+#import "QATableViewCell.h"
+#import "NSString+StripHtml.h"
 
 @interface QuestionProfileViewController ()
 
@@ -52,9 +53,10 @@
     NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[question objectForKey:@"last_edit_date"] doubleValue]];
     
     [self addCellDataWithOwnerName:(NSString *) question[@"owner"][@"display_name"]
-                       answerCount:answerCount
+                             score:answerCount
                       lastEditDate:modificationDate
-                             title:question[@"title"]];
+                            QAText:question[@"title"]
+                        isAnswered:NO];
     
 }
 
@@ -85,19 +87,20 @@
 {
     static NSString *cellId = @"QACell";
     
-    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    QATableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     if (cell == nil) {
-        cell = [[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[QATableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
     NSDictionary *cellData = (NSDictionary *)[tableData objectAtIndex:indexPath.row];
     
-    if (cellData){
+    if (cellData) {
         cell.authorName.text = cellData[@"owner_name"];
-        cell.answerCount.text = cellData[@"answer_count"];
+        cell.score.text = cellData[@"answer_count"];
         cell.modificationDate.text = cellData[@"last_edit_date"];
-        cell.questionText.text = cellData[@"title"];
+        cell.QAText.text = cellData[@"qa_text"];
+        cell.isAnsweredImageView.hidden = [(NSNumber *)cellData[@"is_answered"] isEqualToNumber:@0];
     }
     
     if (indexPath.row == 0){
@@ -109,33 +112,37 @@
 
 - (void)queryAnswersForQuestion
 {
-    [stackOverflowAPI getAnswersInfoByQuestionIds:@[[question valueForKey:@"question_id"]]
-                              withResponseHandler:self
-                                      andSelector:@selector(answersResponseReturned:)];
+    [stackOverflowAPI getAnswersByQuestionIds:@[[question valueForKey:@"question_id"]]
+                          withResponseHandler:self
+                                  andSelector:@selector(extractAnswerIdsForResponse:)];
     [self.tableView reloadData];
 }
 
-- (void)answersResponseReturned:(NSDictionary *)response
+- (void)extractAnswerIdsForResponse:(NSDictionary *)response
 {
 
     NSArray *items = response[@"items"];
     for (id answer in items){
         NSLog(@"Answer: %@", answer);
-        NSNumber *answerCount = (NSNumber *)answer[@"answer_count"];
         
         NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"last_activity_date"] doubleValue]];
         
         [self addCellDataWithOwnerName:answer[@"owner"][@"display_name"]
-                           answerCount:answerCount
+                                 score:(NSNumber *)answer[@"score"]
                           lastEditDate:modificationDate
-                                 title:answer[@"title"]];
+                                QAText:answer[@"body"]
+                            isAnswered:answer[@"is_answered"]];
     }
 
     NSLog(@"Table data after receiving answers %@", self.tableData);
     [self.tableView reloadData];
 }
 
-- (void)addCellDataWithOwnerName:(NSString *)name answerCount:(NSNumber *)count lastEditDate:(NSDate *)date title:(NSString *)title
+- (void)addCellDataWithOwnerName:(NSString *)name
+                           score:(NSNumber *)count
+                    lastEditDate:(NSDate *)date
+                          QAText:(NSString *)text
+                      isAnswered:(BOOL)answered
 {
     if (date == nil){
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
@@ -143,9 +150,10 @@
     
     NSDictionary *cellData = @{
                                @"owner_name": [NSString stringWithFormat:@"%@", name],
-                               @"answer_count": [NSString stringWithFormat:@"%@", count],
+                               @"score": [NSString stringWithFormat:@"%@", count],
                                @"last_edit_date": [dateFormatter stringFromDate:date],
-                               @"title": [NSString stringWithFormat:@"%@", title]
+                               @"qa_text": [text stringByStrippingHTML],
+                               @"is_answered": (answered) ? @1 : @0
                                };
     
     [self.tableData addObject:cellData];
