@@ -10,12 +10,19 @@
 
 @implementation NSString (StripHtml)
 
--(NSString *) stringByStrippingHTML {
+- (NSString *)stringByStrippingHTML {
+    return [self stringByReplacingOccurrencesOfRegex:@"<[^>]+>" withString:@""];
+}
+
+- (NSString *)stringByReplacingOccurrencesOfRegex:(NSString *)regex withString:(NSString *)replacement
+{
     NSRange r;
     NSString *s = [self copy];
-    while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
-        s = [s stringByReplacingCharactersInRange:r withString:@""];
+    while ((r = [s rangeOfString:regex options:NSRegularExpressionSearch]).location != NSNotFound){
+        s = [s stringByReplacingCharactersInRange:r withString:replacement];
+    }
     return s;
 }
+
 
 @end

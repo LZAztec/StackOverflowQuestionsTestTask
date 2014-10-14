@@ -70,7 +70,7 @@
     
     if (cellData) {
         cell.authorName.text = cellData[@"owner_name"];
-        cell.score.text = cellData[@"answer_count"];
+        cell.score.text = cellData[@"counter"];
         cell.modificationDate.text = cellData[@"last_edit_date"];
         cell.QAText.text = cellData[@"qa_text"];
         cell.isAnsweredImageView.hidden = [(NSNumber *)cellData[@"status"] isEqualToNumber:@0];
@@ -90,11 +90,11 @@
 {
     [stackOverflowAPI getAnswersByQuestionIds:@[[question valueForKey:@"question_id"]]
                           withResponseHandler:self
-                                  andSelector:@selector(extractAnswerIdsForResponse:)];
+                                  andSelector:@selector(extractAnswersFromResponse:)];
     [self.tableView reloadData];
 }
 
-- (void)extractAnswerIdsForResponse:(NSDictionary *)response
+- (void)extractAnswersFromResponse:(NSDictionary *)response
 {
 
     NSArray *items = response[@"items"];
@@ -123,10 +123,12 @@
     if (date == nil){
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
     }
+
+    text = [text stringByReplacingOccurrencesOfRegex:@"<code>" withString:@"\n"];
     
     NSDictionary *cellData = @{
                                @"owner_name": [NSString stringWithFormat:@"%@", name],
-                               @"score": [NSString stringWithFormat:@"%@", count],
+                               @"counter": [NSString stringWithFormat:@"%@", count],
                                @"last_edit_date": [dateFormatter stringFromDate:date],
                                @"qa_text": [text stringByStrippingHTML],
                                @"status": status

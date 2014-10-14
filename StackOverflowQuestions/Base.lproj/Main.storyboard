@@ -226,19 +226,19 @@
                                                 <rect key="frame" x="221" y="31" width="146" height="21"/>
                                             </variation>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bt-Cu-Yjb">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Bt-Cu-Yjb">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <variation key="widthClass=compact" fixedFrame="YES">
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <rect key="frame" x="0.0" y="61" width="321" height="77"/>
+                                                <rect key="frame" x="0.0" y="62" width="309" height="77"/>
                                             </variation>
                                         </textView>
                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coche_valid.png" translatesAutoresizingMaskIntoConstraints="NO" id="aZn-83-mSZ">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                             <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="329" y="75" width="50" height="50"/>
+                                                <rect key="frame" x="317" y="76" width="50" height="50"/>
                                             </variation>
                                         </imageView>
                                     </subviews>
@@ -278,7 +278,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tIp-bb-leO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1771.5" y="-296"/>
+            <point key="canvasLocation" x="1771.5" y="-297"/>
         </scene>
     </scenes>
     <resources>

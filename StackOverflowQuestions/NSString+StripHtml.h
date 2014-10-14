@@ -10,6 +10,7 @@
 
 @interface NSString (StripHtml)
 
--(NSString *) stringByStrippingHTML;
+- (NSString *)stringByStrippingHTML;
+- (NSString *)stringByReplacingOccurrencesOfRegex:(NSString *)regex withString:(NSString *)replacement;
 
 @end
