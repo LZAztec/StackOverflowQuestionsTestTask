@@ -106,11 +106,18 @@
 - (void)queryDataForTag:(NSString *)tag
 {
     self.title = tag;
-    
-    activityIndicatorView.hidden = NO;
+    [self showIndicator];
+
     [stackOverflowAPI getQuestionsByTags:@[tag]
                      withResponseHandler:self
                              andSelector:@selector(questionsResponseReturned:)];
+}
+
+- (void)showIndicator
+{
+    questions = nil;
+    [self.tableView reloadData];
+    activityIndicatorView.hidden = NO;
 }
 
 - (void)questionsResponseReturned:(NSDictionary *)response
