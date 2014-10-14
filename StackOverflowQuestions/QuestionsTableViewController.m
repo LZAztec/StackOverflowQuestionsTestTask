@@ -58,6 +58,7 @@
     }
 }
 
+#pragma mark -
 #pragma mark - UI Table View Methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -107,7 +108,9 @@
     self.title = tag;
     
     activityIndicatorView.hidden = NO;
-    [stackOverflowAPI getQuestionsByTags:@[tag] withResponseHandler:self andSelector:@selector(questionsResponseReturned:)];
+    [stackOverflowAPI getQuestionsByTags:@[tag]
+                     withResponseHandler:self
+                             andSelector:@selector(questionsResponseReturned:)];
 }
 
 - (void)questionsResponseReturned:(NSDictionary *)response
