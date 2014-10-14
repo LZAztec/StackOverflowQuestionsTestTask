@@ -25,26 +25,14 @@
 @synthesize stackOverflowAPI;
 @synthesize activityIndicatorView;
 
+#pragma mark -
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
-    NSString *tagTitle = @"Objective-c";
-    
     self.stackOverflowAPI = [[StackOverflowAPI alloc] init];
-
-    [self queryDataForTag: tagTitle];
-    
+    [self queryDataForTag: @"Objective-c"];
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)queryDataForTag:(NSString *)tag
-{
-    self.title = tag;
-    
-    activityIndicatorView.hidden = NO;
-    [stackOverflowAPI getQuestionsByTags:@[tag] withResponseHandler:self andSelector:@selector(questionsResponseReturned:)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,6 +41,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showQuestionProfile"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
@@ -109,7 +99,16 @@
     return cell;
 }
 
+#pragma mark -
 #pragma mark - Stack Overflow API response handling methods
+
+- (void)queryDataForTag:(NSString *)tag
+{
+    self.title = tag;
+    
+    activityIndicatorView.hidden = NO;
+    [stackOverflowAPI getQuestionsByTags:@[tag] withResponseHandler:self andSelector:@selector(questionsResponseReturned:)];
+}
 
 - (void)questionsResponseReturned:(NSDictionary *)response
 {

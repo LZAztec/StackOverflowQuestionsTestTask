@@ -56,7 +56,7 @@
                              score:answerCount
                       lastEditDate:modificationDate
                             QAText:question[@"title"]
-                        isAnswered:NO];
+                        status:@0];
     
 }
 
@@ -100,7 +100,7 @@
         cell.score.text = cellData[@"answer_count"];
         cell.modificationDate.text = cellData[@"last_edit_date"];
         cell.QAText.text = cellData[@"qa_text"];
-        cell.isAnsweredImageView.hidden = [(NSNumber *)cellData[@"is_answered"] isEqualToNumber:@0];
+        cell.isAnsweredImageView.hidden = [(NSNumber *)cellData[@"status"] isEqualToNumber:@0];
     }
     
     if (indexPath.row == 0){
@@ -131,7 +131,7 @@
                                  score:(NSNumber *)answer[@"score"]
                           lastEditDate:modificationDate
                                 QAText:answer[@"body"]
-                            isAnswered:answer[@"is_answered"]];
+                                status:(NSNumber *)answer[@"is_accepted"]];
     }
 
     NSLog(@"Table data after receiving answers %@", self.tableData);
@@ -142,7 +142,7 @@
                            score:(NSNumber *)count
                     lastEditDate:(NSDate *)date
                           QAText:(NSString *)text
-                      isAnswered:(BOOL)answered
+                      status:(NSNumber *)status
 {
     if (date == nil){
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
@@ -153,7 +153,7 @@
                                @"score": [NSString stringWithFormat:@"%@", count],
                                @"last_edit_date": [dateFormatter stringFromDate:date],
                                @"qa_text": [text stringByStrippingHTML],
-                               @"is_answered": (answered) ? @1 : @0
+                               @"status": status
                                };
     
     [self.tableData addObject:cellData];
