@@ -22,8 +22,8 @@
 @synthesize stackOverflowAPI;
 @synthesize dateFormatter;
 
-
-#pragma mark - Lifecycle
+#pragma mark -
+#pragma mark Lifecycle
 - (void)viewDidLoad {
     
     self.tableData = [[NSMutableArray alloc]init];
@@ -41,37 +41,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-
-- (void)extractQuestionDataToFirstCell
-{
-    
-    NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
-    
-    NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[question objectForKey:@"last_edit_date"] doubleValue]];
-    
-    [self addCellDataWithOwnerName:(NSString *) question[@"owner"][@"display_name"]
-                             score:answerCount
-                      lastEditDate:modificationDate
-                            QAText:question[@"title"]
-                        status:@0];
-    
-}
-
-#pragma mark - Navigation
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
- */
-
-
-#pragma mark - UI Table View Methods
-
+#pragma mark -
+#pragma mark UI Table View Methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -110,6 +83,9 @@
     return cell;
 }
 
+
+#pragma mark -
+#pragma mark Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
     [stackOverflowAPI getAnswersByQuestionIds:@[[question valueForKey:@"question_id"]]
@@ -157,6 +133,21 @@
                                };
     
     [self.tableData addObject:cellData];
+}
+
+- (void)extractQuestionDataToFirstCell
+{
+    
+    NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
+    
+    NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[question objectForKey:@"last_edit_date"] doubleValue]];
+    
+    [self addCellDataWithOwnerName:(NSString *) question[@"owner"][@"display_name"]
+                             score:answerCount
+                      lastEditDate:modificationDate
+                            QAText:question[@"title"]
+                            status:@0];
+    
 }
 
 @end
