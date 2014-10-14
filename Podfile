@@ -1,0 +1,7 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, "6.1"
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+pod 'AFNetworking', '~> 2.0'
+pod 'TDSemiModal', '~> 1.0.0'
