@@ -13,6 +13,7 @@
 		4D7DC89419EBCBDD00D9294B /* QATableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89319EBCBDD00D9294B /* QATableViewCell.m */; };
 		4D7DC89619EBCE0A00D9294B /* coche_valid.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DC89519EBCE0A00D9294B /* coche_valid.png */; };
 		4D7DC89A19EBD44700D9294B /* NSString+StripHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89919EBD44700D9294B /* NSString+StripHtml.m */; };
+		4D7DC89E19EBF68D00D9294B /* TagPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89D19EBF68D00D9294B /* TagPickerViewController.m */; };
 		4DDA7BC419E3B9D00021DFFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC319E3B9D00021DFFB /* main.m */; };
 		4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC619E3B9D00021DFFB /* AppDelegate.m */; };
 		4DDA7BCA19E3B9D00021DFFB /* QuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC919E3B9D00021DFFB /* QuestionsTableViewController.m */; };
@@ -42,6 +43,8 @@
 		4D7DC89519EBCE0A00D9294B /* coche_valid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coche_valid.png; sourceTree = "<group>"; };
 		4D7DC89819EBD44700D9294B /* NSString+StripHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StripHtml.h"; sourceTree = "<group>"; };
 		4D7DC89919EBD44700D9294B /* NSString+StripHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StripHtml.m"; sourceTree = "<group>"; };
+		4D7DC89C19EBF68D00D9294B /* TagPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagPickerViewController.h; sourceTree = "<group>"; };
+		4D7DC89D19EBF68D00D9294B /* TagPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagPickerViewController.m; sourceTree = "<group>"; };
 		4DDA7BBE19E3B9CF0021DFFB /* StackOverflowQuestions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowQuestions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDA7BC219E3B9CF0021DFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDA7BC319E3B9D00021DFFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 				4DDA7BC919E3B9D00021DFFB /* QuestionsTableViewController.m */,
 				4DDA7BF419E51E4E0021DFFB /* QuestionProfileViewController.h */,
 				4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */,
+				4D7DC89C19EBF68D00D9294B /* TagPickerViewController.h */,
+				4D7DC89D19EBF68D00D9294B /* TagPickerViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -373,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D7DC89E19EBF68D00D9294B /* TagPickerViewController.m in Sources */,
 				4DDA7BCA19E3B9D00021DFFB /* QuestionsTableViewController.m in Sources */,
 				4D7DC88D19E668ED00D9294B /* QuestionTableViewCell.m in Sources */,
 				4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */,

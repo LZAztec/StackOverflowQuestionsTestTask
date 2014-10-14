@@ -10,7 +10,8 @@
 #import "StackOverflowAPI.h"
 #import "QuestionProfileViewController.h"
 #import "QuestionTableViewCell.h"
-#import <objc/message.h>
+#import "TagPickerViewController.h"
+
 
 @interface QuestionsTableViewController ()
 
@@ -20,24 +21,16 @@
 
 @implementation QuestionsTableViewController
 
-@synthesize pickerData;
-@synthesize picker;
-@synthesize changeTagBtn;
 @synthesize questions;
 @synthesize stackOverflowAPI;
+@synthesize activityIndicatorView;
 
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
-    pickerData = @[@"iOS", @"xcode", @"Objective-c", @"cocoa-touch", @"iPhone"];
-
-    picker.hidden = YES;
+    NSString *tagTitle = @"Objective-c";
     
-    NSInteger defaultSelectedRowIndex = 2;
-    NSString *tagTitle = [pickerData objectAtIndex:defaultSelectedRowIndex];
-    
-    self.title = tagTitle;
     self.stackOverflowAPI = [[StackOverflowAPI alloc] init];
 
     [self queryDataForTag: tagTitle];
@@ -48,19 +41,10 @@
 
 - (void)queryDataForTag:(NSString *)tag
 {
+    self.title = tag;
+    
+    activityIndicatorView.hidden = NO;
     [stackOverflowAPI getQuestionsByTags:@[tag] withResponseHandler:self andSelector:@selector(questionsResponseReturned:)];
-}
-
-- (IBAction)changeTagPressed:(id)sender
-{
-    if (picker.hidden) {
-        picker.hidden = NO;
-    } else {
-        picker.hidden = YES;
-        NSInteger selectedRow = [picker selectedRowInComponent:0];
-        NSString *tag = [pickerData objectAtIndex:selectedRow];
-        [self queryDataForTag:tag];
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,25 +60,12 @@
 
         destinationVC.question = [questions objectAtIndex:indexPath.row];
         destinationVC.stackOverflowAPI = self.stackOverflowAPI;
+    } else if ([segue.identifier isEqualToString:@"chooseTagModal"]) {
+        
+        TagPickerViewController *destinationVC = segue.destinationViewController;
+        
+        destinationVC.delegate = self;
     }
-}
-
-
-#pragma mark - Picker Data Source Methods
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [pickerData count];
-}
-
-#pragma mark - Picker Delegate Methods
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return [pickerData objectAtIndex:row];
 }
 
 #pragma mark - UI Table View Methods
@@ -143,7 +114,15 @@
 - (void)questionsResponseReturned:(NSDictionary *)response
 {
     self.questions = [response valueForKey:@"items"];
+    activityIndicatorView.hidden = YES;
     [self.tableView reloadData];
+}
+
+#pragma mark -
+#pragma mark - Tag Change Actions
+- (void)tagSelected:(NSString *)tagName;
+{
+    [self queryDataForTag:tagName];
 }
 
 

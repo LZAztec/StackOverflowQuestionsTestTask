@@ -9,21 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "StackOverflowAPI.h"
 
-@interface QuestionsTableViewController : UITableViewController <UIPickerViewDelegate, UIPickerViewDataSource>{
-    UIPickerView *picker;
-    NSArray *pickerData;
-    UIBarButtonItem *changeTagBtn;
+@interface QuestionsTableViewController : UITableViewController{
     NSArray *questions;
     StackOverflowAPI *stackOverflowAPI;
+    UIActivityIndicatorView *activityIndicatorView;
+    
 }
 
-@property (nonatomic, retain) IBOutlet UIPickerView *picker;
-@property (nonatomic, retain) NSArray *pickerData;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *changeTagBtn;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) NSArray *questions;
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 
-- (IBAction)changeTagPressed:(id)sender;
+- (void)tagSelected:(NSString *)tagName;
 
 @end
 
