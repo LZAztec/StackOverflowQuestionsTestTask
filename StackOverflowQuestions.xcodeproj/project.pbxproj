@@ -64,10 +64,10 @@
 		4DDA7BF119E3D67F0021DFFB /* StackOverflowAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StackOverflowAPI.h; path = Models/API/StackOverflowAPI.h; sourceTree = "<group>"; };
 		4DDA7BF419E51E4E0021DFFB /* QuestionProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionProfileViewController.h; sourceTree = "<group>"; };
 		4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionProfileViewController.m; sourceTree = "<group>"; };
-		5901D04EE6A938402C29581E /* NSURL+PathParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+PathParameters.h"; sourceTree = "<group>"; };
-		5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+PathParameters.m"; sourceTree = "<group>"; };
-		5901D7C83AF7431036057F50 /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Merge.h"; sourceTree = "<group>"; };
-		5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Merge.m"; sourceTree = "<group>"; };
+		5901D04EE6A938402C29581E /* NSURL+PathParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+PathParameters.h"; path = "Stubs/Foundation/NSURL+PathParameters.h"; sourceTree = "<group>"; };
+		5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+PathParameters.m"; path = "Stubs/Foundation/NSURL+PathParameters.m"; sourceTree = "<group>"; };
+		5901D7C83AF7431036057F50 /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Merge.h"; path = "Stubs/Foundation/NSDictionary+Merge.h"; sourceTree = "<group>"; };
+		5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Merge.m"; path = "Stubs/Foundation/NSDictionary+Merge.m"; sourceTree = "<group>"; };
 		73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F984BD706DBA301702C1C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B550769617CD92B6AA96C123 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -117,8 +117,8 @@
 				4D7DC89819EBD44700D9294B /* NSString+Additions.h */,
 				4D7DC89919EBD44700D9294B /* NSString+Additions.m */,
 				5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */,
-				5901D04EE6A938402C29581E /* NSURL+PathParameters.h */,
 				5901D7C83AF7431036057F50 /* NSDictionary+Merge.h */,
+				5901D04EE6A938402C29581E /* NSURL+PathParameters.h */,
 				5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */,
 			);
 			name = Foundation;
