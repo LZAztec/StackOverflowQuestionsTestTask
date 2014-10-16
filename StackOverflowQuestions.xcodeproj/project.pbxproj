@@ -14,6 +14,7 @@
 		4D7DC89619EBCE0A00D9294B /* coche_valid.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DC89519EBCE0A00D9294B /* coche_valid.png */; };
 		4D7DC89A19EBD44700D9294B /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89919EBD44700D9294B /* NSString+Additions.m */; };
 		4D7DC89E19EBF68D00D9294B /* TagPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89D19EBF68D00D9294B /* TagPickerViewController.m */; };
+		4D7DC8A119EFBBAA00D9294B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7DC8A019EFBBAA00D9294B /* QuartzCore.framework */; };
 		4DDA7BC419E3B9D00021DFFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC319E3B9D00021DFFB /* main.m */; };
 		4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC619E3B9D00021DFFB /* AppDelegate.m */; };
 		4DDA7BCA19E3B9D00021DFFB /* QuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC919E3B9D00021DFFB /* QuestionsTableViewController.m */; };
@@ -47,6 +48,7 @@
 		4D7DC89919EBD44700D9294B /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "Stubs/Foundation/NSString+Additions.m"; sourceTree = "<group>"; };
 		4D7DC89C19EBF68D00D9294B /* TagPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagPickerViewController.h; sourceTree = "<group>"; };
 		4D7DC89D19EBF68D00D9294B /* TagPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagPickerViewController.m; sourceTree = "<group>"; };
+		4D7DC8A019EFBBAA00D9294B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4DDA7BBE19E3B9CF0021DFFB /* StackOverflowQuestions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowQuestions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDA7BC219E3B9CF0021DFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDA7BC319E3B9D00021DFFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D7DC8A119EFBBAA00D9294B /* QuartzCore.framework in Frameworks */,
 				205F61A30321B972285FF0E4 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,6 +249,7 @@
 		FB988D6C914EFCA97EE8B96B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D7DC8A019EFBBAA00D9294B /* QuartzCore.framework */,
 				9F984BD706DBA301702C1C5B /* libPods.a */,
 			);
 			name = Frameworks;
@@ -320,6 +324,8 @@
 			mainGroup = 4DDA7BB519E3B9CF0021DFFB;
 			productRefGroup = 4DDA7BBF19E3B9CF0021DFFB /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+			);
 			projectRoot = "";
 			targets = (
 				4DDA7BBD19E3B9CF0021DFFB /* StackOverflowQuestions */,
@@ -524,6 +530,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StackOverflowQuestions/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -535,6 +542,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = StackOverflowQuestions/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

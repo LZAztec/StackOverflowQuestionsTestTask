@@ -16,6 +16,8 @@
 
 - (void)queryDataForTag:(NSString *)tag;
 
+@property (strong, readonly) NSDateFormatter *dateFormatter;
+
 @end
 
 @implementation QuestionsTableViewController
@@ -31,6 +33,8 @@
 {
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
     [self queryDataForTag: @"Objective-c"];
+    _dateFormatter = [[NSDateFormatter alloc] init];
+    [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     [super viewDidLoad];
 }
 
@@ -81,16 +85,16 @@
   
     NSDictionary *question = (NSDictionary *) (self.questions)[(NSUInteger) indexPath.row];
 
+
     if (question) {
         cell.authorName.text = [NSString stringWithFormat:@"%@", (NSString *) question[@"owner"][@"display_name"]];
 
         NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
         cell.answerCount.text = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%@", answerCount]];
 
-        NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [question[@"last_edit_date"] doubleValue]];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-        cell.modificationDate.text = [dateFormatter stringFromDate:modificationDate];
+        NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [question[@"creation_date"] doubleValue]];
+
+        cell.modificationDate.text = [_dateFormatter stringFromDate:modificationDate];
 
         cell.questionText.text = question[@"title"];
     }
@@ -113,13 +117,13 @@
 {
     questions = nil;
     [self.tableView reloadData];
-    activityIndicatorView.hidden = NO;
+    [activityIndicatorView startAnimating];
 }
 
 - (void)questionsResponseReturned:(NSDictionary *)response
 {
     self.questions = [response valueForKey:@"items"];
-    activityIndicatorView.hidden = YES;
+    [activityIndicatorView stopAnimating];
     [self.tableView reloadData];
 }
 
