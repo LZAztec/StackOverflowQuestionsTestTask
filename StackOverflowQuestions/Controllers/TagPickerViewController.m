@@ -16,7 +16,6 @@
 
 @synthesize pickerData;
 @synthesize picker;
-@synthesize delegate;
 
 - (void)viewDidLoad
 {
@@ -41,7 +40,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [pickerData objectAtIndex:row];
+    return pickerData[(NSUInteger) row];
 }
 
 #pragma mark - 
@@ -49,7 +48,7 @@
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
     NSInteger selectedRow = [self.picker selectedRowInComponent:0];
-    NSString *tag = [self.pickerData objectAtIndex:selectedRow];
+    NSString *tag = (self.pickerData)[(NSUInteger) selectedRow];
     
     [self.delegate tagSelected:tag];
 

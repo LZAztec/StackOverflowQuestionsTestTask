@@ -10,7 +10,7 @@
 #import "QuestionsTableViewController.h"
 #import "StackOverflowAPI.h"
 
-@interface QuestionProfileViewController : UITableViewController {
+@interface QuestionProfileViewController : UITableViewController <StackOverflowAPIDelegate>{
     NSDictionary *question;
     NSMutableArray *tableData;
     StackOverflowAPI *stackOverflowAPI;

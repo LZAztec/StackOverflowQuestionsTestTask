@@ -7,9 +7,8 @@
 //
 
 #import "QuestionProfileViewController.h"
-#import "StackOverflowAPI.h"
 #import "QATableViewCell.h"
-#import "NSString+StripHtml.h"
+#import "NSString+Additions.h"
 
 @interface QuestionProfileViewController ()
 
@@ -29,6 +28,7 @@
     self.tableData = [[NSMutableArray alloc]init];
     
     self.title = [question valueForKey:@"title"];
+    self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
 
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
@@ -66,7 +66,7 @@
         cell = [[QATableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    NSDictionary *cellData = (NSDictionary *)[tableData objectAtIndex:indexPath.row];
+    NSDictionary *cellData = (NSDictionary *) tableData[(NSUInteger) indexPath.row];
     
     if (cellData) {
         cell.authorName.text = cellData[@"owner_name"];
@@ -88,10 +88,7 @@
 #pragma mark Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
-    [stackOverflowAPI getAnswersByQuestionIds:@[[question valueForKey:@"question_id"]]
-                          withResponseHandler:self
-                                  andSelector:@selector(extractAnswersFromResponse:)];
-    [self.tableView reloadData];
+    [stackOverflowAPI getAnswersByQuestionIds:@[[question valueForKey:@"question_id"]]];
 }
 
 - (void)extractAnswersFromResponse:(NSDictionary *)response
@@ -142,7 +139,7 @@
     
     NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
     
-    NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[question objectForKey:@"last_edit_date"] doubleValue]];
+    NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [question[@"last_edit_date"] doubleValue]];
     
     [self addCellDataWithOwnerName:(NSString *) question[@"owner"][@"display_name"]
                              score:answerCount
@@ -150,6 +147,16 @@
                             QAText:question[@"title"]
                             status:@0];
     
+}
+
+#pragma -
+#pragma Stack Overflow API Delegate methods
+- (void)handleAnswersByQuestionIdsResponse:(NSDictionary *)response {
+    [self extractAnswersFromResponse:response];
+}
+
+- (void)handleError:(NSError *)error {
+    NSLog(@"Error happened:%@", error);
 }
 
 @end

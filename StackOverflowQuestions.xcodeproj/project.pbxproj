@@ -12,7 +12,7 @@
 		4D7DC89219EBCBBA00D9294B /* QATableViewCell.h in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DC89119EBCBBA00D9294B /* QATableViewCell.h */; };
 		4D7DC89419EBCBDD00D9294B /* QATableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89319EBCBDD00D9294B /* QATableViewCell.m */; };
 		4D7DC89619EBCE0A00D9294B /* coche_valid.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DC89519EBCE0A00D9294B /* coche_valid.png */; };
-		4D7DC89A19EBD44700D9294B /* NSString+StripHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89919EBD44700D9294B /* NSString+StripHtml.m */; };
+		4D7DC89A19EBD44700D9294B /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89919EBD44700D9294B /* NSString+Additions.m */; };
 		4D7DC89E19EBF68D00D9294B /* TagPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89D19EBF68D00D9294B /* TagPickerViewController.m */; };
 		4DDA7BC419E3B9D00021DFFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC319E3B9D00021DFFB /* main.m */; };
 		4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC619E3B9D00021DFFB /* AppDelegate.m */; };
@@ -23,6 +23,8 @@
 		4DDA7BDE19E3B9D00021DFFB /* StackOverflowQuestionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BDD19E3B9D00021DFFB /* StackOverflowQuestionsTests.m */; };
 		4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */; };
 		4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */; };
+		5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */; };
+		5901DC4921C126E1B945D2BA /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +43,8 @@
 		4D7DC89119EBCBBA00D9294B /* QATableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QATableViewCell.h; path = Models/UI/QATableViewCell.h; sourceTree = "<group>"; };
 		4D7DC89319EBCBDD00D9294B /* QATableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QATableViewCell.m; path = Models/UI/QATableViewCell.m; sourceTree = "<group>"; };
 		4D7DC89519EBCE0A00D9294B /* coche_valid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coche_valid.png; sourceTree = "<group>"; };
-		4D7DC89819EBD44700D9294B /* NSString+StripHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+StripHtml.h"; path = "Stubs/Foundation/NSString+StripHtml.h"; sourceTree = "<group>"; };
-		4D7DC89919EBD44700D9294B /* NSString+StripHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+StripHtml.m"; path = "Stubs/Foundation/NSString+StripHtml.m"; sourceTree = "<group>"; };
+		4D7DC89819EBD44700D9294B /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Additions.h"; path = "Stubs/Foundation/NSString+Additions.h"; sourceTree = "<group>"; };
+		4D7DC89919EBD44700D9294B /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "Stubs/Foundation/NSString+Additions.m"; sourceTree = "<group>"; };
 		4D7DC89C19EBF68D00D9294B /* TagPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagPickerViewController.h; sourceTree = "<group>"; };
 		4D7DC89D19EBF68D00D9294B /* TagPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagPickerViewController.m; sourceTree = "<group>"; };
 		4DDA7BBE19E3B9CF0021DFFB /* StackOverflowQuestions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowQuestions.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +64,10 @@
 		4DDA7BF119E3D67F0021DFFB /* StackOverflowAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StackOverflowAPI.h; path = Models/API/StackOverflowAPI.h; sourceTree = "<group>"; };
 		4DDA7BF419E51E4E0021DFFB /* QuestionProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionProfileViewController.h; sourceTree = "<group>"; };
 		4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionProfileViewController.m; sourceTree = "<group>"; };
+		5901D04EE6A938402C29581E /* NSURL+PathParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+PathParameters.h"; sourceTree = "<group>"; };
+		5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+PathParameters.m"; sourceTree = "<group>"; };
+		5901D7C83AF7431036057F50 /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Merge.h"; sourceTree = "<group>"; };
+		5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Merge.m"; sourceTree = "<group>"; };
 		73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F984BD706DBA301702C1C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B550769617CD92B6AA96C123 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,8 +114,12 @@
 		4D7DC89B19EBD62D00D9294B /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				4D7DC89819EBD44700D9294B /* NSString+StripHtml.h */,
-				4D7DC89919EBD44700D9294B /* NSString+StripHtml.m */,
+				4D7DC89819EBD44700D9294B /* NSString+Additions.h */,
+				4D7DC89919EBD44700D9294B /* NSString+Additions.m */,
+				5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */,
+				5901D04EE6A938402C29581E /* NSURL+PathParameters.h */,
+				5901D7C83AF7431036057F50 /* NSDictionary+Merge.h */,
+				5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */,
 			);
 			name = Foundation;
 			sourceTree = "<group>";
@@ -384,9 +394,11 @@
 				4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */,
 				4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */,
 				4DDA7BC419E3B9D00021DFFB /* main.m in Sources */,
-				4D7DC89A19EBD44700D9294B /* NSString+StripHtml.m in Sources */,
+				4D7DC89A19EBD44700D9294B /* NSString+Additions.m in Sources */,
 				4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */,
 				4D7DC89419EBCBDD00D9294B /* QATableViewCell.m in Sources */,
+				5901DC4921C126E1B945D2BA /* NSDictionary+Merge.m in Sources */,
+				5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,12 +13,11 @@
 {
     UIPickerView *picker;
     NSArray *pickerData;
-    QuestionsTableViewController *delegate;
 }
 
 @property (nonatomic, retain) IBOutlet UIPickerView *picker;
 @property (nonatomic, retain) NSArray *pickerData;
-@property (strong, nonatomic) QuestionsTableViewController *delegate;
+@property (weak, nonatomic) QuestionsTableViewController *delegate;
 
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;

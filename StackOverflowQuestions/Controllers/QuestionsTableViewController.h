@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "StackOverflowAPI.h"
 
-@interface QuestionsTableViewController : UITableViewController{
+@interface QuestionsTableViewController : UITableViewController <StackOverflowAPIDelegate>{
     NSArray *questions;
     StackOverflowAPI *stackOverflowAPI;
     UIActivityIndicatorView *activityIndicatorView;

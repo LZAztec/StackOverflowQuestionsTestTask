@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "NSString+StripHtml.h"
+#import "NSString+Additions.h"
 
-@implementation NSString (StripHtml)
+@implementation NSString (Additions)
 
 - (NSString *)stringByStrippingHTML {
     return [self stringByReplacingOccurrencesOfRegex:@"<[^>]+>" withString:@""];

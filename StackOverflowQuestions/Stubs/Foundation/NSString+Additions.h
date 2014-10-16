@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (StripHtml)
+@interface NSString (Additions)
 
 - (NSString *)stringByStrippingHTML;
 - (NSString *)stringByReplacingOccurrencesOfRegex:(NSString *)regex withString:(NSString *)replacement;

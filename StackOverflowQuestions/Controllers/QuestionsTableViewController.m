@@ -7,7 +7,6 @@
 //
 
 #import "QuestionsTableViewController.h"
-#import "StackOverflowAPI.h"
 #import "QuestionProfileViewController.h"
 #import "QuestionTableViewCell.h"
 #import "TagPickerViewController.h"
@@ -30,7 +29,7 @@
 
 - (void)viewDidLoad
 {
-    self.stackOverflowAPI = [[StackOverflowAPI alloc] init];
+    self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
     [self queryDataForTag: @"Objective-c"];
     [super viewDidLoad];
 }
@@ -48,8 +47,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         QuestionProfileViewController *destinationVC = segue.destinationViewController;
 
-        destinationVC.question = [questions objectAtIndex:indexPath.row];
-        destinationVC.stackOverflowAPI = self.stackOverflowAPI;
+        destinationVC.question = questions[(NSUInteger) indexPath.row];
     } else if ([segue.identifier isEqualToString:@"chooseTagModal"]) {
         
         TagPickerViewController *destinationVC = segue.destinationViewController;
@@ -81,7 +79,7 @@
         cell = [[QuestionTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
   
-    NSDictionary *question = (NSDictionary *)[self.questions objectAtIndex:indexPath.row];
+    NSDictionary *question = (NSDictionary *) (self.questions)[(NSUInteger) indexPath.row];
 
     if (question) {
         cell.authorName.text = [NSString stringWithFormat:@"%@", (NSString *) question[@"owner"][@"display_name"]];
@@ -89,7 +87,7 @@
         NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
         cell.answerCount.text = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%@", answerCount]];
 
-        NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[question objectForKey:@"last_edit_date"] doubleValue]];
+        NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [question[@"last_edit_date"] doubleValue]];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         cell.modificationDate.text = [dateFormatter stringFromDate:modificationDate];
@@ -108,9 +106,7 @@
     self.title = tag;
     [self showIndicator];
 
-    [stackOverflowAPI getQuestionsByTags:@[tag]
-                     withResponseHandler:self
-                             andSelector:@selector(questionsResponseReturned:)];
+    [stackOverflowAPI getQuestionsByTags:@[tag]];
 }
 
 - (void)showIndicator
@@ -134,5 +130,14 @@
     [self queryDataForTag:tagName];
 }
 
+#pragma -
+#pragma Stack Overflow API Delegate methods
+- (void)handleQuestionsByTagsResponse:(NSDictionary *)response {
+    [self questionsResponseReturned:response];
+}
+
+- (void)handleError:(NSError *)error {
+    NSLog(@"Error happened:%@", error);
+}
 
 @end
