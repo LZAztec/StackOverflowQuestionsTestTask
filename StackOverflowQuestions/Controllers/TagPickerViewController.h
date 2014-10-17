@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QuestionsTableViewController.h"
+#import "UIViewController+MHSemiModal.h"
+
+@protocol TagPickerViewControllerDelegate;
 
 @interface TagPickerViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 {
@@ -17,10 +19,17 @@
 
 @property (nonatomic, retain) IBOutlet UIPickerView *picker;
 @property (nonatomic, retain) NSArray *pickerData;
-@property (weak, nonatomic) QuestionsTableViewController *delegate;
+@property (weak) id<TagPickerViewControllerDelegate> delegate;
 
 
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue;
+- (IBAction)doneButtonPressed:(id)sender;
+- (IBAction)cancelButtonPressed:(id)sender;
 
+@end
+
+@protocol TagPickerViewControllerDelegate <NSObject>
+
+- (void) tagPickerDoneButtonPressed:(TagPickerViewController *)sender;
+- (void) tagPickerCancelButtonPressed:(TagPickerViewController *)sender;
 
 @end

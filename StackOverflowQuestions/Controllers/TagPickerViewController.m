@@ -19,10 +19,13 @@
 
 - (void)viewDidLoad
 {
-    pickerData = @[@"iOS", @"xcode", @"Objective-c", @"cocoa-touch", @"iPhone"];
-    
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    // we need to set the subview dimensions or it will not always render correctly
+    // http://stackoverflow.com/questions/1088163
+    for (UIView* subview in self.picker.subviews) {
+        subview.frame = self.picker.bounds;
+    }
 }
 
 #pragma mark - Picker Data Source Methods
@@ -44,15 +47,21 @@
 }
 
 #pragma mark - 
-#pragma mark - Navigation
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue
-{
-    NSInteger selectedRow = [self.picker selectedRowInComponent:0];
-    NSString *tag = (self.pickerData)[(NSUInteger) selectedRow];
-    
-    [self.delegate tagSelected:tag];
+#pragma mark - Button actions methods
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)doneButtonPressed:(id)sender;
+{
+    if([self.delegate respondsToSelector:@selector(tagPickerDoneButtonPressed:)]) {
+        [self.delegate tagPickerDoneButtonPressed:self];
+    }
 }
+
+- (IBAction)cancelButtonPressed:(id)sender;
+{
+    if([self.delegate respondsToSelector:@selector(tagPickerCancelButtonPressed:)]) {
+        [self.delegate tagPickerCancelButtonPressed:self];
+    }
+}
+
 
 @end

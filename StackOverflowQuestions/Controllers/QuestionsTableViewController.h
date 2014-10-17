@@ -8,19 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "StackOverflowAPI.h"
+#import "TagPickerViewController.h"
 
-@interface QuestionsTableViewController : UITableViewController <StackOverflowAPIDelegate>{
+@interface QuestionsTableViewController : UITableViewController <StackOverflowAPIDelegate, TagPickerViewControllerDelegate>{
     NSArray *questions;
     StackOverflowAPI *stackOverflowAPI;
     UIActivityIndicatorView *activityIndicatorView;
-    
+    TagPickerViewController *tagPickerViewController;
 }
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *changeTagButton;
 @property (strong, nonatomic) NSArray *questions;
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 
-- (void)tagSelected:(NSString *)tagName;
+- (IBAction) changeTagPressed:(id)sender;
 
 @end
 

@@ -4,4 +4,3 @@ platform :ios, "6.1"
 source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'AFNetworking', '~> 2.0'
-pod 'KNSemiModalViewController', '~> 0.3'

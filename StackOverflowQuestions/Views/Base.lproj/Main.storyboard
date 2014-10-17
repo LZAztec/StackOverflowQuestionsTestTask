@@ -18,7 +18,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQZ-nw-PO7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="84" y="-296"/>
+            <point key="canvasLocation" x="-201" y="-296"/>
         </scene>
         <!--Questions Table View Controller-->
         <scene sceneID="hj3-Ug-IVz">
@@ -110,80 +110,19 @@
                     <navigationItem key="navigationItem" id="Xmq-VV-f9J">
                         <barButtonItem key="leftBarButtonItem" title="Change tag" id="8nl-F4-3qm">
                             <connections>
-                                <segue destination="x4z-JF-lK8" kind="presentation" identifier="chooseTagModal" id="0FS-3W-jik"/>
+                                <action selector="changeTagPressed:" destination="C9u-tQ-k8p" id="OWA-xs-Rju"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorView" destination="s8T-BO-MuE" id="imS-Mm-qsd"/>
+                        <outlet property="changeTagButton" destination="8nl-F4-3qm" id="dIg-ay-C4Y"/>
                         <outlet property="view" destination="37q-wW-u54" id="eNQ-gB-jEp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r1O-iT-VRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="925.5" y="-297"/>
-        </scene>
-        <!--Choose a tag-->
-        <scene sceneID="3pC-h3-FE8">
-            <objects>
-                <viewController id="x4z-JF-lK8" customClass="TagPickerViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gIT-gO-GPC"/>
-                        <viewControllerLayoutGuide type="bottom" id="HhF-9V-axe"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="vMA-HI-0Ka">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <pickerView clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="sRw-5r-1Xt">
-                                <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="438" width="400" height="162"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="dataSource" destination="x4z-JF-lK8" id="3cY-RB-nl4"/>
-                                    <outlet property="delegate" destination="x4z-JF-lK8" id="LE8-l4-rS9"/>
-                                </connections>
-                            </pickerView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LDQ-Av-T2Y">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem title="Done" systemItem="done" id="caR-ZT-RYW">
-                                        <connections>
-                                            <action selector="unwindToList:" destination="x4z-JF-lK8" id="eZg-do-QvH"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="394" width="400" height="44"/>
-                                </variation>
-                            </toolbar>
-                        </subviews>
-                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="sRw-5r-1Xt"/>
-                                <exclude reference="LDQ-Av-T2Y"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="sRw-5r-1Xt"/>
-                                <include reference="LDQ-Av-T2Y"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <navigationItem key="navigationItem" title="Choose a tag" id="gGh-MB-V0M">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="1XM-3f-nvB"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="bOE-V1-9ZC"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="picker" destination="sRw-5r-1Xt" id="0PQ-ok-gvi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4T1-I1-nzb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="925.5" y="454"/>
+            <point key="canvasLocation" x="611" y="-296"/>
         </scene>
         <!--Question Profile View Controller-->
         <scene sceneID="3k3-FZ-PMG">
@@ -278,7 +217,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tIp-bb-leO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1771.5" y="-297"/>
+            <point key="canvasLocation" x="1362" y="-296"/>
         </scene>
     </scenes>
     <resources>

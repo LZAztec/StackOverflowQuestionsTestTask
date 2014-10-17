@@ -9,8 +9,7 @@
 #import "QuestionsTableViewController.h"
 #import "QuestionProfileViewController.h"
 #import "QuestionTableViewCell.h"
-#import "TagPickerViewController.h"
-
+#import "UIViewController+MHSemiModal.h"
 
 @interface QuestionsTableViewController ()
 
@@ -35,6 +34,10 @@
     [self queryDataForTag: @"Objective-c"];
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+
+    tagPickerViewController = [[TagPickerViewController alloc]initWithNibName:@"TagPickerViewController" bundle:nil];
+    tagPickerViewController.delegate = self;
+
     [super viewDidLoad];
 }
 
@@ -52,11 +55,6 @@
         QuestionProfileViewController *destinationVC = segue.destinationViewController;
 
         destinationVC.question = questions[(NSUInteger) indexPath.row];
-    } else if ([segue.identifier isEqualToString:@"chooseTagModal"]) {
-        
-        TagPickerViewController *destinationVC = segue.destinationViewController;
-        
-        destinationVC.delegate = self;
     }
 }
 
@@ -128,20 +126,42 @@
 }
 
 #pragma mark -
-#pragma mark - Tag Change Actions
-- (void)tagSelected:(NSString *)tagName;
+#pragma mark - Tag Picker View Controller Delegate methods
+- (void) tagPickerDoneButtonPressed:(TagPickerViewController *)sender;
 {
-    [self queryDataForTag:tagName];
+    NSInteger selectedRow = [sender.picker selectedRowInComponent:0];
+    NSString *tag = (sender.pickerData)[(NSUInteger) selectedRow];
+
+    [self queryDataForTag:tag];
+    [self mh_dismissSemiModalViewController:sender animated:YES];
+    self.changeTagButton.enabled = YES;
+}
+
+- (void) tagPickerCancelButtonPressed:(TagPickerViewController *)sender;
+{
+    [self mh_dismissSemiModalViewController:sender animated:YES];
+    self.changeTagButton.enabled = YES;
 }
 
 #pragma -
 #pragma Stack Overflow API Delegate methods
-- (void)handleQuestionsByTagsResponse:(NSDictionary *)response {
+- (void)handleQuestionsByTagsResponse:(NSDictionary *)response
+{
     [self questionsResponseReturned:response];
 }
 
-- (void)handleError:(NSError *)error {
+- (void)handleError:(NSError *)error
+{
     NSLog(@"Error happened:%@", error);
+}
+
+#pragma -
+#pragma Change tag button methods
+
+- (IBAction) changeTagPressed:(id)sender;
+{
+    self.changeTagButton.enabled = NO;
+    [self mh_presentSemiModalViewController:tagPickerViewController animated:YES];
 }
 
 @end
