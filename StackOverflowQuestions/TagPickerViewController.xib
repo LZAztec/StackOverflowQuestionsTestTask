@@ -19,9 +19,6 @@
                 <pickerView contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="glS-ZQ-fo5">
                     <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                     <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="0.0" y="438" width="400" height="162"/>
-                    </variation>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="lb5-JI-xgs"/>
                         <outlet property="delegate" destination="-1" id="wZ7-Ay-3PP"/>
@@ -42,12 +39,20 @@
                             </connections>
                         </barButtonItem>
                     </items>
-                    <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="0.0" y="394" width="400" height="44"/>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="0.0" y="393" width="400" height="45"/>
                     </variation>
                 </toolbar>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="glS-ZQ-fo5" secondAttribute="trailing" id="9qq-5p-SHf"/>
+                <constraint firstAttribute="trailing" secondItem="K8L-8l-ink" secondAttribute="trailing" id="Nac-cA-q0n"/>
+                <constraint firstAttribute="bottom" secondItem="glS-ZQ-fo5" secondAttribute="bottom" id="Xkn-m5-Dqf"/>
+                <constraint firstItem="K8L-8l-ink" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dbd-AV-hjk"/>
+                <constraint firstItem="glS-ZQ-fo5" firstAttribute="top" secondItem="K8L-8l-ink" secondAttribute="bottom" id="n2M-dK-Xmf"/>
+                <constraint firstItem="glS-ZQ-fo5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zNa-tG-myl"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
@@ -55,11 +60,27 @@
                     <exclude reference="glS-ZQ-fo5"/>
                     <exclude reference="K8L-8l-ink"/>
                 </mask>
+                <mask key="constraints">
+                    <exclude reference="Nac-cA-q0n"/>
+                    <exclude reference="dbd-AV-hjk"/>
+                    <exclude reference="9qq-5p-SHf"/>
+                    <exclude reference="Xkn-m5-Dqf"/>
+                    <exclude reference="n2M-dK-Xmf"/>
+                    <exclude reference="zNa-tG-myl"/>
+                </mask>
             </variation>
             <variation key="widthClass=compact">
                 <mask key="subviews">
                     <include reference="glS-ZQ-fo5"/>
                     <include reference="K8L-8l-ink"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="Nac-cA-q0n"/>
+                    <include reference="dbd-AV-hjk"/>
+                    <include reference="9qq-5p-SHf"/>
+                    <include reference="Xkn-m5-Dqf"/>
+                    <include reference="n2M-dK-Xmf"/>
+                    <include reference="zNa-tG-myl"/>
                 </mask>
             </variation>
         </view>

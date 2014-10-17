@@ -134,13 +134,13 @@
 
     [self queryDataForTag:tag];
     [self mh_dismissSemiModalViewController:sender animated:YES];
-    self.changeTagButton.enabled = YES;
+    [self toggleControlsToState:YES];
 }
 
 - (void) tagPickerCancelButtonPressed:(TagPickerViewController *)sender;
 {
     [self mh_dismissSemiModalViewController:sender animated:YES];
-    self.changeTagButton.enabled = YES;
+    [self toggleControlsToState:YES];
 }
 
 #pragma -
@@ -158,10 +158,17 @@
 #pragma -
 #pragma Change tag button methods
 
-- (IBAction) changeTagPressed:(id)sender;
+- (IBAction)changeTagPressed:(id)sender;
 {
-    self.changeTagButton.enabled = NO;
+    [self toggleControlsToState:NO];
     [self mh_presentSemiModalViewController:tagPickerViewController animated:YES];
+}
+
+
+- (void)toggleControlsToState:(BOOL)state
+{
+    self.changeTagButton.enabled = state;
+    self.tableView.scrollEnabled = state;
 }
 
 @end

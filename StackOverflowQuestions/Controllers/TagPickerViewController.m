@@ -19,13 +19,10 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    pickerData = @[@"iOS", @"xcode", @"Objective-c", @"cocoa-touch", @"iPhone"];
     
-    // we need to set the subview dimensions or it will not always render correctly
-    // http://stackoverflow.com/questions/1088163
-    for (UIView* subview in self.picker.subviews) {
-        subview.frame = self.picker.bounds;
-    }
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
 }
 
 #pragma mark - Picker Data Source Methods
