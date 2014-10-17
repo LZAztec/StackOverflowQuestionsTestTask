@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *changeTagButton;
-@property (strong, nonatomic) NSArray *questions;
+@property (copy, nonatomic) NSArray *questions;
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 
 - (IBAction) changeTagPressed:(id)sender;

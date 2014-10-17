@@ -33,7 +33,7 @@
 {
     if (data) {
         self.authorName.text = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
-        self.answerCount.text = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%@", (NSNumber *) data[@"answer_count"]]];
+        self.answerCount.text = [(NSNumber *) data[@"answer_count"] stringValue];
         
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
         

@@ -17,7 +17,7 @@
     NSDateFormatter *dateFormatter;
 }
 
-@property (strong, nonatomic) NSDictionary *question;
+@property (copy, nonatomic) NSDictionary *question;
 @property (strong, nonatomic) NSMutableArray *tableData;
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
