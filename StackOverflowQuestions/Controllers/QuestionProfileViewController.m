@@ -9,6 +9,7 @@
 #import "QuestionProfileViewController.h"
 #import "QATableViewCell.h"
 #import "NSString+Additions.h"
+#import "FormatterFactory.h"
 
 @interface QuestionProfileViewController ()
 
@@ -30,8 +31,7 @@
     self.title = [question valueForKey:@"title"];
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
 
-    dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    dateFormatter = [FormatterFactory getDefaultDateTimeFormatter];
     
     [self extractQuestionDataToFirstCell];
     [self queryAnswersForQuestion];
@@ -66,15 +66,7 @@
         cell = [[QATableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    NSDictionary *cellData = (NSDictionary *) tableData[(NSUInteger) indexPath.row];
-    
-    if (cellData) {
-        cell.authorName.text = cellData[@"owner_name"];
-        cell.score.text = cellData[@"counter"];
-        cell.modificationDate.text = cellData[@"last_edit_date"];
-        cell.QAText.text = cellData[@"qa_text"];
-        cell.isAnsweredImageView.hidden = [(NSNumber *)cellData[@"status"] isEqualToNumber:@0];
-    }
+    [cell setData:(NSDictionary *) tableData[(NSUInteger) indexPath.row]];
     
     if (indexPath.row == 0){
         cell.viewForBaselineLayout.backgroundColor = [UIColor colorWithRed:0.85 green:0.92 blue:0.79 alpha:1.0];

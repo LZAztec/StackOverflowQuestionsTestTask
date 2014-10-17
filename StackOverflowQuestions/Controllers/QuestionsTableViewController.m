@@ -10,6 +10,7 @@
 #import "QuestionProfileViewController.h"
 #import "QuestionTableViewCell.h"
 #import "UIViewController+MHSemiModal.h"
+#import "NSString+HTML.h"
 
 @interface QuestionsTableViewController ()
 
@@ -32,8 +33,6 @@
 {
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
     [self queryDataForTag: @"Objective-c"];
-    _dateFormatter = [[NSDateFormatter alloc] init];
-    [_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 
     tagPickerViewController = [[TagPickerViewController alloc]initWithNibName:@"TagPickerViewController" bundle:nil];
     tagPickerViewController.delegate = self;
@@ -80,22 +79,8 @@
     if (cell == nil) {
         cell = [[QuestionTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-  
-    NSDictionary *question = (NSDictionary *) (self.questions)[(NSUInteger) indexPath.row];
-
-
-    if (question) {
-        cell.authorName.text = [NSString stringWithFormat:@"%@", (NSString *) question[@"owner"][@"display_name"]];
-
-        NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
-        cell.answerCount.text = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%@", answerCount]];
-
-        NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [question[@"creation_date"] doubleValue]];
-
-        cell.modificationDate.text = [_dateFormatter stringFromDate:modificationDate];
-
-        cell.questionText.text = question[@"title"];
-    }
+    
+    [cell setData:(NSDictionary *) (self.questions)[(NSUInteger) indexPath.row]];
     
     return cell;
 }

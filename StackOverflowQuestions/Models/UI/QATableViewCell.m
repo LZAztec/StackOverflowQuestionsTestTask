@@ -7,6 +7,7 @@
 //
 
 #import "QATableViewCell.h"
+#import "NSString+HTML.h"
 
 @implementation QATableViewCell
 
@@ -16,14 +17,27 @@
 @synthesize QAText;
 @synthesize isAnsweredImageView;
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setData:(NSDictionary *)data
+{
+    if (data) {
+        self.authorName.text = [(NSString *) data[@"owner_name"] stringByDecodingHTMLEntities];
+        self.score.text = data[@"counter"];
+        self.modificationDate.text = data[@"last_edit_date"];
+        self.QAText.text = [(NSString *) data[@"qa_text"] stringByDecodingHTMLEntities];
+        self.isAnsweredImageView.hidden = [(NSNumber *)data[@"status"] isEqualToNumber:@0];
+    }
 }
 
 @end

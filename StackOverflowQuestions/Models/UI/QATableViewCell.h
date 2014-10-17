@@ -16,4 +16,6 @@
 @property (strong, nonatomic) IBOutlet UITextView *QAText;
 @property (strong, nonatomic) IBOutlet UIImageView *isAnsweredImageView;
 
+- (void)setData:(NSDictionary *)data;
+
 @end

@@ -14,5 +14,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *modificationDate;
 @property (strong, nonatomic) IBOutlet UILabel *answerCount;
 @property (strong, nonatomic) IBOutlet UILabel *questionText;
+@property (strong, readonly) NSDateFormatter *dateFormatter;
+
+- (void)setData:(NSDictionary *)data;
 
 @end

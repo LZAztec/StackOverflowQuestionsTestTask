@@ -7,6 +7,8 @@
 //
 
 #import "QuestionTableViewCell.h"
+#import "NSString+HTML.h"
+#import "FormatterFactory.h"
 
 @implementation QuestionTableViewCell
 
@@ -15,14 +17,29 @@
 @synthesize answerCount;
 @synthesize questionText;
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setData:(NSDictionary *)data;
+{
+    if (data) {
+        self.authorName.text = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
+        self.answerCount.text = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%@", (NSNumber *) data[@"answer_count"]]];
+        
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
+        
+        self.modificationDate.text = [[FormatterFactory getDefaultDateTimeFormatter] stringFromDate:date];
+        self.questionText.text = [(NSString *)data[@"title"] stringByDecodingHTMLEntities];
+    }
 }
 
 @end
