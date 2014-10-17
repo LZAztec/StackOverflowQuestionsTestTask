@@ -18,10 +18,10 @@
 		4D7DC8AF19F0FE9D00D9294B /* UIViewController+MHSemiModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC8AE19F0FE9D00D9294B /* UIViewController+MHSemiModal.m */; };
 		4D7DC8B119F1055500D9294B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7DC8B019F1055500D9294B /* UIKit.framework */; };
 		4D7DC8B319F1056A00D9294B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7DC8B219F1056A00D9294B /* CoreGraphics.framework */; };
-		4D7DC8B719F1087C00D9294B /* TagPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DC8B619F1087C00D9294B /* TagPickerViewController.xib */; };
 		4DB9BE5C19F138CA00862674 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB9BE5B19F138CA00862674 /* NSString+HTML.m */; };
 		4DB9BE5E19F139C100862674 /* GTMNString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB9BE5D19F139C100862674 /* GTMNString+HTML.m */; };
 		4DB9BE6219F1418F00862674 /* FormatterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB9BE6119F1418F00862674 /* FormatterFactory.m */; };
+		4DB9BE6719F14A4F00862674 /* TagPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DB9BE6619F14A4F00862674 /* TagPickerViewController.xib */; };
 		4DDA7BC419E3B9D00021DFFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC319E3B9D00021DFFB /* main.m */; };
 		4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC619E3B9D00021DFFB /* AppDelegate.m */; };
 		4DDA7BCA19E3B9D00021DFFB /* QuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BC919E3B9D00021DFFB /* QuestionsTableViewController.m */; };
@@ -60,13 +60,13 @@
 		4D7DC8AE19F0FE9D00D9294B /* UIViewController+MHSemiModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MHSemiModal.m"; sourceTree = "<group>"; };
 		4D7DC8B019F1055500D9294B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4D7DC8B219F1056A00D9294B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4D7DC8B619F1087C00D9294B /* TagPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagPickerViewController.xib; sourceTree = "<group>"; };
 		4DB9BE5619F125A700862674 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GTMNSString+HTML.h"; path = "Stubs/Foundation/GTMNSString+HTML.h"; sourceTree = "<group>"; };
-		4DB9BE5A19F138CA00862674 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
-		4DB9BE5B19F138CA00862674 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		4DB9BE5A19F138CA00862674 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HTML.h"; path = "Stubs/Foundation/NSString+HTML.h"; sourceTree = "<group>"; };
+		4DB9BE5B19F138CA00862674 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "Stubs/Foundation/NSString+HTML.m"; sourceTree = "<group>"; };
 		4DB9BE5D19F139C100862674 /* GTMNString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GTMNString+HTML.m"; path = "Stubs/Foundation/GTMNString+HTML.m"; sourceTree = "<group>"; };
-		4DB9BE6019F1418F00862674 /* FormatterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FormatterFactory.h; path = Formatter/FormatterFactory.h; sourceTree = "<group>"; };
-		4DB9BE6119F1418F00862674 /* FormatterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FormatterFactory.m; path = Formatter/FormatterFactory.m; sourceTree = "<group>"; };
+		4DB9BE6019F1418F00862674 /* FormatterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatterFactory.h; sourceTree = "<group>"; };
+		4DB9BE6119F1418F00862674 /* FormatterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatterFactory.m; sourceTree = "<group>"; };
+		4DB9BE6619F14A4F00862674 /* TagPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagPickerViewController.xib; sourceTree = "<group>"; };
 		4DDA7BBE19E3B9CF0021DFFB /* StackOverflowQuestions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowQuestions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDA7BC219E3B9CF0021DFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDA7BC319E3B9D00021DFFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -154,9 +154,9 @@
 		4D7DC8A819EFE8F000D9294B /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				4DB9BE6619F14A4F00862674 /* TagPickerViewController.xib */,
 				4DDA7BCB19E3B9D00021DFFB /* Main.storyboard */,
 				4DDA7BD019E3B9D00021DFFB /* LaunchScreen.xib */,
-				4D7DC8B619F1087C00D9294B /* TagPickerViewController.xib */,
 			);
 			name = Interfaces;
 			sourceTree = "<group>";
@@ -185,6 +185,7 @@
 				4DB9BE6119F1418F00862674 /* FormatterFactory.m */,
 			);
 			name = Formatter;
+			path = Models/Formatter;
 			sourceTree = "<group>";
 		};
 		4DB9BE6319F142D400862674 /* Questions */ = {
@@ -429,7 +430,7 @@
 				4D7DC89619EBCE0A00D9294B /* coche_valid.png in Resources */,
 				4DDA7BD219E3B9D00021DFFB /* LaunchScreen.xib in Resources */,
 				4DDA7BCF19E3B9D00021DFFB /* Images.xcassets in Resources */,
-				4D7DC8B719F1087C00D9294B /* TagPickerViewController.xib in Resources */,
+				4DB9BE6719F14A4F00862674 /* TagPickerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
