@@ -70,6 +70,7 @@
     
     if (indexPath.row == 0){
         cell.viewForBaselineLayout.backgroundColor = [UIColor colorWithRed:0.85 green:0.92 blue:0.79 alpha:1.0];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;
