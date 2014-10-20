@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -61,12 +60,12 @@
                     <exclude reference="K8L-8l-ink"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="Nac-cA-q0n"/>
-                    <exclude reference="dbd-AV-hjk"/>
                     <exclude reference="9qq-5p-SHf"/>
                     <exclude reference="Xkn-m5-Dqf"/>
                     <exclude reference="n2M-dK-Xmf"/>
                     <exclude reference="zNa-tG-myl"/>
+                    <exclude reference="Nac-cA-q0n"/>
+                    <exclude reference="dbd-AV-hjk"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -75,12 +74,12 @@
                     <include reference="K8L-8l-ink"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="Nac-cA-q0n"/>
-                    <include reference="dbd-AV-hjk"/>
                     <include reference="9qq-5p-SHf"/>
                     <include reference="Xkn-m5-Dqf"/>
                     <include reference="n2M-dK-Xmf"/>
                     <include reference="zNa-tG-myl"/>
+                    <include reference="Nac-cA-q0n"/>
+                    <include reference="dbd-AV-hjk"/>
                 </mask>
             </variation>
         </view>
