@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  QuestionsTableViewController.m
 //  StackOverflowQuestions
 //
 //  Created by Aztec on 07.10.14.
@@ -11,6 +11,8 @@
 #import "QuestionTableViewCell.h"
 #import "UIViewController+MHSemiModal.h"
 #import "NSString+HTML.h"
+
+static NSString *const kErrorText = @"Cannot get the data. Please check your connection.";
 
 @interface QuestionsTableViewController ()
 
@@ -81,6 +83,11 @@
     }
     
     [cell setData:(NSDictionary *) (self.questions)[(NSUInteger) indexPath.row]];
+
+    if ([cell.questionText.text isEqualToString:kErrorText]){
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
     return cell;
 }
@@ -138,6 +145,13 @@
 - (void)handleError:(NSError *)error
 {
     NSLog(@"Error happened:%@", error);
+    
+    NSArray *errorCellData = @[@{
+                                    @"title": kErrorText
+                            }];
+    self.questions = errorCellData;
+    [activityIndicatorView stopAnimating];
+    [self.tableView reloadData];
 }
 
 #pragma -
