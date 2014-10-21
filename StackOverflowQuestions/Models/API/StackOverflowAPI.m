@@ -9,6 +9,7 @@
 #import "AFNetworking.h"
 #import "StackOverflowAPI.h"
 #import "NSURL+PathParameters.h"
+#import "NSCachedURLResponse+Expiration.h"
 
 static NSString *const kAPIHost = @"https://api.stackexchange.com";
 static NSString *const kAPIVersion = @"2.2";
@@ -72,8 +73,13 @@ static NSString *const kAPIVersion = @"2.2";
 {
     NSURL *methodURL = [NSURL URLWithString:urlString];
 
-    // Create the request.
-    NSURLRequest *request = [NSURLRequest requestWithURL:[methodURL URLByAppendingParameters:params]];
+    // Set response timeout
+    NSTimeInterval timeout = 15;
+
+    // Create the request
+    NSURLRequest *request = [NSURLRequest requestWithURL:[methodURL URLByAppendingParameters:params]
+                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                         timeoutInterval:timeout];
 
     // Create url connection and fire request
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -82,7 +88,8 @@ static NSString *const kAPIVersion = @"2.2";
 
 #pragma mark -
 #pragma mark Response processing methods
-- (NSRegularExpression *)makeRegexForPattern:(NSString *)pattern {
+- (NSRegularExpression *)makeRegexForPattern:(NSString *)pattern
+{
     // Create a regular expression
     NSError *error = NULL;
     NSRegularExpressionOptions regexOptions = NSRegularExpressionCaseInsensitive;
@@ -105,15 +112,12 @@ static NSString *const kAPIVersion = @"2.2";
     return [matches count] > 0;
 }
 
-- (NSDictionary *)makeAPIResponseWithErrorHandling:(NSError **)error {
-    NSLog(@"Response NSData: %@", _responseData);
-
+- (NSDictionary *)makeAPIResponseWithErrorHandling:(NSError **)error
+{
     NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:_responseData
                                                                  options:NSJSONReadingAllowFragments
                                                                    error:error];
     _responseData = nil;
-
-    NSLog(@"responseDict=%@",responseDict);
 
     return responseDict;
 }
@@ -139,8 +143,8 @@ static NSString *const kAPIVersion = @"2.2";
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
                   willCacheResponse:(NSCachedURLResponse*)cachedResponse
 {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
+    // Set time to live in cache to 5 minutes
+    return [cachedResponse responseWithExpirationDuration:(60*5)];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection

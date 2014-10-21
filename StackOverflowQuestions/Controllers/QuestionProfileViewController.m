@@ -89,8 +89,6 @@
 
     NSArray *items = response[@"items"];
     for (id answer in items){
-        NSLog(@"Answer: %@", answer);
-        
         NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"last_activity_date"] doubleValue]];
         
         [self addCellDataWithOwnerName:answer[@"owner"][@"display_name"]
@@ -100,7 +98,6 @@
                                 status:(NSNumber *)answer[@"is_accepted"]];
     }
 
-    NSLog(@"Table data after receiving answers %@", self.tableData);
     [self.tableView reloadData];
 }
 
