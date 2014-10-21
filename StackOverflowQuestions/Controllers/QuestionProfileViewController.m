@@ -68,7 +68,7 @@
     
     [cell setData:(NSDictionary *) tableData[(NSUInteger) indexPath.row]];
     
-    if (indexPath.row == 0){
+    if (indexPath.row == 0) {
         cell.viewForBaselineLayout.backgroundColor = [UIColor colorWithRed:0.85 green:0.92 blue:0.79 alpha:1.0];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
@@ -113,8 +113,6 @@
     if (date == nil){
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
     }
-
-    text = [text stringByReplacingOccurrencesOfRegex:@"<code>" withString:@"\n"];
     
     NSDictionary *cellData = @{
                                @"owner_name": [NSString stringWithFormat:@"%@", name],
