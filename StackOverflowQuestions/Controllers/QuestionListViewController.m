@@ -123,8 +123,7 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
                                                      creationDate:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]]
                                                  lastModification:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]]
                                                            status:(NSNumber *) data[@"is_answered"]
-                                                             text:[(NSString *) data[@"title"]
-                                                                     stringByDecodingHTMLEntities]
+                                                             text:[(NSString *) data[@"title"] stringByDecodingHTMLEntities]
                                                                id:(NSString *) data[@"question_id"]
                                                              type:kCellDataQuestionType];
         [self.questions addObject:cellData];
