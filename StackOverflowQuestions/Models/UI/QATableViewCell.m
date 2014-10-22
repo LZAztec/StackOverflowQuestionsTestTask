@@ -10,6 +10,7 @@
 #import "NSString+HTML.h"
 #import "NSString+Additions.h"
 #import "UITextView+Additions.h"
+#import "FormatHelper.h"
 
 @implementation QATableViewCell
 
@@ -36,7 +37,7 @@
     if (data) {
         self.authorName.text = [(NSString *) data[@"owner_name"] stringByDecodingHTMLEntities];
         self.score.text = data[@"counter"];
-        self.modificationDate.text = data[@"last_edit_date"];
+        self.modificationDate.text = [FormatHelper formatDateFuzzy:data[@"last_edit_date"]];
         [self setQATextData:(NSString *) data[@"qa_text"]];
         self.isAnsweredImageView.hidden = [(NSNumber *)data[@"status"] isEqualToNumber:@0];
     }

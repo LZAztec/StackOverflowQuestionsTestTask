@@ -90,22 +90,22 @@
     NSArray *items = response[@"items"];
     for (id answer in items){
         NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"last_activity_date"] doubleValue]];
-        
-        [self addCellDataWithOwnerName:answer[@"owner"][@"display_name"]
-                                 score:(NSNumber *)answer[@"score"]
-                          lastEditDate:modificationDate
-                                QAText:answer[@"body"]
-                                status:(NSNumber *)answer[@"is_accepted"]];
+
+        [self addCellDataWithAuthorName:answer[@"owner"][@"display_name"]
+                                  score:(NSNumber *) answer[@"score"]
+                           lastEditDate:modificationDate
+                                 QAText:answer[@"body"]
+                                 status:(NSNumber *) answer[@"is_accepted"]];
     }
 
     [self.tableView reloadData];
 }
 
-- (void)addCellDataWithOwnerName:(NSString *)name
-                           score:(NSNumber *)count
-                    lastEditDate:(NSDate *)date
-                          QAText:(NSString *)text
-                      status:(NSNumber *)status
+- (void)addCellDataWithAuthorName:(NSString *)name
+                            score:(NSNumber *)count
+                     lastEditDate:(NSDate *)date
+                           QAText:(NSString *)text
+                           status:(NSNumber *)status
 {
     if (date == nil){
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
@@ -114,7 +114,7 @@
     NSDictionary *cellData = @{
                                @"owner_name": [NSString stringWithFormat:@"%@", name],
                                @"counter": [NSString stringWithFormat:@"%@", count],
-                               @"last_edit_date": [dateFormatter stringFromDate:date],
+                               @"last_edit_date": date,
                                @"qa_text": [text stringByStrippingHTML],
                                @"status": status
                                };
@@ -128,12 +128,12 @@
     NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
     
     NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [question[@"last_edit_date"] doubleValue]];
-    
-    [self addCellDataWithOwnerName:(NSString *) question[@"owner"][@"display_name"]
-                             score:answerCount
-                      lastEditDate:modificationDate
-                            QAText:question[@"title"]
-                            status:@0];
+
+    [self addCellDataWithAuthorName:(NSString *) question[@"owner"][@"display_name"]
+                              score:answerCount
+                       lastEditDate:modificationDate
+                             QAText:question[@"title"]
+                             status:@0];
     
 }
 

@@ -9,6 +9,7 @@
 #import "QuestionTableViewCell.h"
 #import "NSString+HTML.h"
 #import "FormatterFactory.h"
+#import "FormatHelper.h"
 
 @implementation QuestionTableViewCell
 
@@ -34,10 +35,10 @@
     if (data) {
         self.authorName.text = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
         self.answerCount.text = [(NSNumber *) data[@"answer_count"] stringValue];
-        
+
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
-        
-        self.modificationDate.text = [[FormatterFactory getDefaultDateTimeFormatter] stringFromDate:date];
+
+        self.modificationDate.text = [FormatHelper formatDateFuzzy:date];
         self.questionText.text = [(NSString *)data[@"title"] stringByDecodingHTMLEntities];
     }
 }

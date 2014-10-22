@@ -34,6 +34,7 @@
 		4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */; };
 		4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */; };
 		5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */; };
+		5901DA1F5908A3A55C57C22A /* FormatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D5BAF1C48244DA528468 /* FormatHelper.m */; };
 		5901DC4921C126E1B945D2BA /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +93,8 @@
 		4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionProfileViewController.m; sourceTree = "<group>"; };
 		5901D04EE6A938402C29581E /* NSURL+PathParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+PathParameters.h"; path = "Stubs/Foundation/NSURL+PathParameters.h"; sourceTree = "<group>"; };
 		5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+PathParameters.m"; path = "Stubs/Foundation/NSURL+PathParameters.m"; sourceTree = "<group>"; };
+		5901D47DBDF37245CC1AFF8B /* FormatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatHelper.h; sourceTree = "<group>"; };
+		5901D5BAF1C48244DA528468 /* FormatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatHelper.m; sourceTree = "<group>"; };
 		5901D7C83AF7431036057F50 /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Merge.h"; path = "Stubs/Foundation/NSDictionary+Merge.h"; sourceTree = "<group>"; };
 		5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Merge.m"; path = "Stubs/Foundation/NSDictionary+Merge.m"; sourceTree = "<group>"; };
 		73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -300,6 +303,7 @@
 			children = (
 				4DB9BE5F19F1414000862674 /* Formatter */,
 				4DDA7BEA19E3C44D0021DFFB /* API */,
+				5901DBBFAE90DAEB6E58F52F /* Helper */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -339,6 +343,15 @@
 				4DDA7BCE19E3B9D00021DFFB /* Images.xcassets */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		5901DBBFAE90DAEB6E58F52F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				5901D5BAF1C48244DA528468 /* FormatHelper.m */,
+				5901D47DBDF37245CC1AFF8B /* FormatHelper.h */,
+			);
+			name = Helper;
 			sourceTree = "<group>";
 		};
 		97C264B141CC6348FCF1CABA /* Pods */ = {
@@ -516,6 +529,7 @@
 				4D7DC8AF19F0FE9D00D9294B /* UIViewController+MHSemiModal.m in Sources */,
 				5901DC4921C126E1B945D2BA /* NSDictionary+Merge.m in Sources */,
 				5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */,
+				5901DA1F5908A3A55C57C22A /* FormatHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
