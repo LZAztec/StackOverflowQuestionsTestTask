@@ -1,20 +1,20 @@
 //
-//  QuestionsTableViewController.m
+//  QuestionListViewController.m
 //  StackOverflowQuestions
 //
 //  Created by Aztec on 07.10.14.
 //  Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "QuestionsTableViewController.h"
+#import "QuestionListViewController.h"
 #import "QuestionProfileViewController.h"
-#import "QuestionTableViewCell.h"
-#import "UIViewController+MHSemiModal.h"
+#import "QuestionListViewCell.h"
+#import "CellData.h"
 #import "NSString+HTML.h"
 
 static NSString *const kErrorText = @"Cannot get the data. Please check your connection.";
 
-@interface QuestionsTableViewController ()
+@interface QuestionListViewController ()
 
 - (void)queryDataForTag:(NSString *)tag;
 
@@ -22,7 +22,7 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 
 @end
 
-@implementation QuestionsTableViewController
+@implementation QuestionListViewController
 
 @synthesize questions;
 @synthesize stackOverflowAPI;
@@ -38,6 +38,7 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 
     tagPickerViewController = [[TagPickerViewController alloc]initWithNibName:@"TagPickerViewController" bundle:nil];
     tagPickerViewController.delegate = self;
+    questions = [[NSMutableArray alloc] init];
 
     [super viewDidLoad];
 }
@@ -55,6 +56,8 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         QuestionProfileViewController *destinationVC = segue.destinationViewController;
 
+        CellData *data = questions[(NSUInteger) indexPath.row];
+        NSLog(@"Question: %@", data);
         destinationVC.question = questions[(NSUInteger) indexPath.row];
     }
 }
@@ -76,13 +79,13 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 {
     static NSString *cellId = @"QuestionCell";
     
-    QuestionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    QuestionListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     if (cell == nil) {
-        cell = [[QuestionTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[QuestionListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    [cell setData:(NSDictionary *) (self.questions)[(NSUInteger) indexPath.row]];
+    [cell setCellData:(CellData *)questions[(NSUInteger) indexPath.row]];
 
     if ([cell.questionText.text isEqualToString:kErrorText]){
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -98,21 +101,35 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 - (void)queryDataForTag:(NSString *)tag
 {
     self.title = tag;
-    [self showIndicator];
+    [self clearTableAndShowIndicator];
 
     [stackOverflowAPI getQuestionsByTags:@[tag]];
 }
 
-- (void)showIndicator
+- (void)clearTableAndShowIndicator
 {
-    questions = nil;
+    [questions removeAllObjects];
     [self.tableView reloadData];
     [activityIndicatorView startAnimating];
 }
 
 - (void)questionsResponseReturned:(NSDictionary *)response
 {
-    self.questions = [response valueForKey:@"items"];
+    NSArray *items = [response valueForKey:@"items"];
+
+    for (NSDictionary *data in items) {
+        CellData *cellData = [[CellData alloc] initWithAuthorName:[(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities]
+                                                          counter:(NSNumber *) data[@"answer_count"]
+                                                     creationDate:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]]
+                                                 lastModification:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]]
+                                                           status:(NSNumber *) data[@"is_answered"]
+                                                             text:[(NSString *) data[@"title"]
+                                                                     stringByDecodingHTMLEntities]
+                                                               id:(NSString *) data[@"question_id"]
+                                                             type:kCellDataQuestionType];
+        [self.questions addObject:cellData];
+    }
+
     [activityIndicatorView stopAnimating];
     [self.tableView reloadData];
 }
@@ -146,10 +163,12 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 {
     NSLog(@"Error happened:%@", error);
     
-    NSArray *errorCellData = @[@{
-                                    @"title": kErrorText
-                            }];
-    self.questions = errorCellData;
+    CellData *errorCellData = [[CellData alloc] init];
+    errorCellData.text = kErrorText;
+
+    [questions removeAllObjects];
+    [questions addObject:errorCellData];
+
     [activityIndicatorView stopAnimating];
     [self.tableView reloadData];
 }

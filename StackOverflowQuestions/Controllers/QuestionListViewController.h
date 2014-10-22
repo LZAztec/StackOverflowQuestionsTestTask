@@ -10,8 +10,8 @@
 #import "StackOverflowAPI.h"
 #import "TagPickerViewController.h"
 
-@interface QuestionsTableViewController : UITableViewController <StackOverflowAPIDelegate, TagPickerViewControllerDelegate>{
-    NSArray *questions;
+@interface QuestionListViewController : UITableViewController <StackOverflowAPIDelegate, TagPickerViewControllerDelegate>{
+    NSMutableArray *questions;
     StackOverflowAPI *stackOverflowAPI;
     UIActivityIndicatorView *activityIndicatorView;
     TagPickerViewController *tagPickerViewController;
@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *changeTagButton;
-@property (copy, nonatomic) NSArray *questions;
+@property (copy, nonatomic) NSMutableArray *questions;
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 
 - (IBAction) changeTagPressed:(id)sender;

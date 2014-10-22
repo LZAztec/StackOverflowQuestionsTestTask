@@ -6,11 +6,11 @@
 #import <Foundation/Foundation.h>
 
 //Constants
-#define SECOND 1
-#define MINUTE (60 * SECOND)
-#define HOUR (60 * MINUTE)
-#define DAY (24 * HOUR)
-#define MONTH (30 * DAY)
+#define kFormatHelperSecond 1
+#define kFormatHelperMinute (60 * kFormatHelperSecond)
+#define kFormatHelperHour (60 * kFormatHelperMinute)
+#define kFormatHelperDay (24 * kFormatHelperHour)
+#define kFormatHelperMonth (30 * kFormatHelperDay)
 
 @interface FormatHelper : NSObject
 

@@ -1,18 +1,16 @@
 //
-//  QuestionTableViewCell.m
+//  QuestionListViewCell.m
 //  StackOverflowQuestions
 //
 //  Created by Aztec on 09.10.14.
 //  Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "QATableViewCell.h"
+#import "QuestionProfileTableViewCell.h"
 #import "NSString+HTML.h"
-#import "NSString+Additions.h"
-#import "UITextView+Additions.h"
 #import "FormatHelper.h"
 
-@implementation QATableViewCell
+@implementation QuestionProfileTableViewCell
 
 @synthesize authorName;
 @synthesize modificationDate;
@@ -32,14 +30,21 @@
     // Configure the view for the selected state
 }
 
-- (void)setData:(NSDictionary *)data
+- (void)setCellData:(CellData *)data
 {
-    if (data) {
-        self.authorName.text = [(NSString *) data[@"owner_name"] stringByDecodingHTMLEntities];
-        self.score.text = data[@"counter"];
-        self.modificationDate.text = [FormatHelper formatDateFuzzy:data[@"last_edit_date"]];
-        [self setQATextData:(NSString *) data[@"qa_text"]];
-        self.isAnsweredImageView.hidden = [(NSNumber *)data[@"status"] isEqualToNumber:@0];
+    self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
+    self.score.text = [data.counter stringValue];
+    self.modificationDate.text = [FormatHelper formatDateFuzzy:data.lastModification];
+    [self setQATextData:data.text];
+    self.isAnsweredImageView.hidden = [data.status isEqualToNumber:@0];
+
+    if (data.type == kCellDataQuestionType)
+    {
+        self.viewForBaselineLayout.backgroundColor = [UIColor colorWithRed:0.85 green:0.92 blue:0.79 alpha:1.0];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.isAnsweredImageView.hidden = YES;
+        self.modificationDate.text = [FormatHelper formatDateFuzzy:data.creationDate];
+        self.score.hidden = YES;
     }
 }
 

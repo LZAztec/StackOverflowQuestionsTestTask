@@ -1,5 +1,5 @@
 //
-//  QuestionTableViewCell.h
+//  QuestionListViewCell.h
 //  StackOverflowQuestions
 //
 //  Created by Aztec on 09.10.14.
@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CellData.h"
 
-@interface QuestionTableViewCell : UITableViewCell
+@interface QuestionListViewCell : UITableViewCell <CellDataContainer>
 
 @property (strong, nonatomic) IBOutlet UILabel *authorName;
 @property (strong, nonatomic) IBOutlet UILabel *modificationDate;
 @property (strong, nonatomic) IBOutlet UILabel *answerCount;
 @property (strong, nonatomic) IBOutlet UILabel *questionText;
-@property (strong, readonly) NSDateFormatter *dateFormatter;
-
-- (void)setData:(NSDictionary *)data;
 
 @end

@@ -7,9 +7,11 @@
 //
 
 #import "QuestionProfileViewController.h"
-#import "QATableViewCell.h"
-#import "NSString+Additions.h"
+#import "QuestionProfileTableViewCell.h"
 #import "FormatterFactory.h"
+#import "NSString+HTML.h"
+#import "CellData.h"
+
 
 @interface QuestionProfileViewController ()
 
@@ -28,7 +30,7 @@
     
     self.tableData = [[NSMutableArray alloc]init];
     
-    self.title = [question valueForKey:@"title"];
+    self.title = question.text;
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
 
     dateFormatter = [FormatterFactory getDefaultDateTimeFormatter];
@@ -60,18 +62,13 @@
 {
     static NSString *cellId = @"QACell";
     
-    QATableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    QuestionProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     if (cell == nil) {
-        cell = [[QATableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    [cell setData:(NSDictionary *) tableData[(NSUInteger) indexPath.row]];
-    
-    if (indexPath.row == 0) {
-        cell.viewForBaselineLayout.backgroundColor = [UIColor colorWithRed:0.85 green:0.92 blue:0.79 alpha:1.0];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
+    [cell setCellData:(CellData *)tableData[(NSUInteger) indexPath.row]];
     
     return cell;
 }
@@ -81,7 +78,7 @@
 #pragma mark Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
-    [stackOverflowAPI getAnswersByQuestionIds:@[[question valueForKey:@"question_id"]]];
+    [stackOverflowAPI getAnswersByQuestionIds:@[question.id]];
 }
 
 - (void)extractAnswersFromResponse:(NSDictionary *)response
@@ -90,12 +87,15 @@
     NSArray *items = response[@"items"];
     for (id answer in items){
         NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"last_activity_date"] doubleValue]];
+        NSDate *creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"creation_date"] doubleValue]];
 
         [self addCellDataWithAuthorName:answer[@"owner"][@"display_name"]
                                   score:(NSNumber *) answer[@"score"]
                            lastEditDate:modificationDate
                                  QAText:answer[@"body"]
-                                 status:(NSNumber *) answer[@"is_accepted"]];
+                                 status:(NSNumber *) answer[@"is_accepted"]
+                                     id:answer[@"answer_id"]
+                           creationDate:creationDate];
     }
 
     [self.tableView reloadData];
@@ -106,35 +106,28 @@
                      lastEditDate:(NSDate *)date
                            QAText:(NSString *)text
                            status:(NSNumber *)status
+                               id:(NSString *)id
+                     creationDate:(NSDate *)creationDate
 {
-    if (date == nil){
+    if (date == nil) {
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
     }
-    
-    NSDictionary *cellData = @{
-                               @"owner_name": [NSString stringWithFormat:@"%@", name],
-                               @"counter": [NSString stringWithFormat:@"%@", count],
-                               @"last_edit_date": date,
-                               @"qa_text": [text stringByStrippingHTML],
-                               @"status": status
-                               };
-    
+
+    CellData *cellData = [[CellData alloc] initWithAuthorName:name
+                                                      counter:count
+                                                 creationDate:creationDate
+                                             lastModification:date
+                                                       status:status
+                                                         text:[text stringByDecodingHTMLEntities]
+                                                           id:id
+                                                         type:kCellDataAnswerType];
+
     [self.tableData addObject:cellData];
 }
 
 - (void)extractQuestionDataToFirstCell
 {
-    
-    NSNumber *answerCount = (NSNumber *) question[@"answer_count"];
-    
-    NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [question[@"last_edit_date"] doubleValue]];
-
-    [self addCellDataWithAuthorName:(NSString *) question[@"owner"][@"display_name"]
-                              score:answerCount
-                       lastEditDate:modificationDate
-                             QAText:question[@"title"]
-                             status:@0];
-    
+    [self.tableData addObject:question];
 }
 
 #pragma -
