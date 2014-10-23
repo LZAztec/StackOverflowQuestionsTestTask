@@ -33,6 +33,7 @@ static NSString *const kAPIVersion = @"2.2";
     }
 
     _delegate = delegate;
+    _processingQuery = NO;
 
     return self;
 }
@@ -56,12 +57,19 @@ static NSString *const kAPIVersion = @"2.2";
 
     NSString *methodURLString = [NSString stringWithFormat:@"%@/%@/questions", kAPIHost, kAPIVersion];
 
-    [self executeQueryForUrlString:methodURLString andParams:params];
+    if (self.simulateQueries) {
+        [self.delegate handleQuestionsByTagsResponse:[self makeQuestionsStubResponse]];
+    } else {
+        [self executeQueryForUrlString:methodURLString andParams:params];
+    }
+
 }
 
-- (void)getAnswersByQuestionIds:(NSArray *)ids
+- (void)getAnswersByQuestionIds:(NSArray *)ids page:(NSNumber *)page limit:(NSNumber *)limit
 {
     NSDictionary *params = @{
+            @"page" : page,
+            @"pagesize" : limit,
             @"order": @"desc",
             @"sort": @"creation",
             @"site": @"stackoverflow",
@@ -71,26 +79,35 @@ static NSString *const kAPIVersion = @"2.2";
 
     NSString *methodURLString = [NSString stringWithFormat:@"%@/%@/questions/%@/answers", kAPIHost, kAPIVersion, [self implode:ids]];
 
-    [self executeQueryForUrlString:methodURLString andParams:params];
+    if (self.simulateQueries) {
+        [self.delegate handleAnswersByQuestionIdsResponse:[self makeAnswersByQuestionStubResponse]];
+    } else {
+        [self executeQueryForUrlString:methodURLString andParams:params];
+    }
 }
 
 - (void)executeQueryForUrlString:(NSString *)urlString andParams:(NSDictionary *)params
 {
-    [_responseData setLength:0];
+    if (!_processingQuery) {
+        _processingQuery = YES;
+        [_responseData setLength:0];
 
-    NSURL *methodURL = [NSURL URLWithString:urlString];
+        NSURL *methodURL = [NSURL URLWithString:urlString];
 
-    // Set response timeout
-    NSTimeInterval timeout = 15;
+        // Set response timeout
+        NSTimeInterval timeout = 15;
 
-    // Create the request
-    NSURLRequest *request = [NSURLRequest requestWithURL:[methodURL URLByAppendingParameters:params]
-                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                         timeoutInterval:timeout];
+        // Create the request
+        NSURLRequest *request = [NSURLRequest requestWithURL:[methodURL URLByAppendingParameters:params]
+                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                             timeoutInterval:timeout];
 
-    // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    [conn start];
+        // Create url connection and fire request
+        NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        [conn start];
+    } else {
+        NSLog(@"Query is already in process! Try later");
+    }
 }
 
 #pragma mark -
@@ -155,6 +172,8 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    _processingQuery = NO;
+
     // The request is complete and data has been received
     NSError *error = nil;
     NSDictionary *response = [self makeAPIResponseWithErrorHandling:&error];
@@ -188,5 +207,88 @@ static NSString *const kAPIVersion = @"2.2";
     [self.delegate handleError:error];
 }
 
+
+#pragma mark - Stubs: Responses
+- (NSDictionary *)makeQuestionsStubResponse
+{
+    return @{
+            @"items" : @[
+                    @{
+                            @"tags" : @[
+                                    @"ios",
+                                    @"uiview",
+                                    @"interpolation",
+                                    @"cglayer"
+                            ],
+                            @"owner" : @{
+                                    @"reputation" : @1476,
+                                    @"user_id" : @1408546,
+                                    @"user_type" : @"registered",
+                                    @"accept_rate" : @89,
+                                    @"profile_image" : @"https://www.gravatar.com/avatar/17ecfb60676a98e576ecc54ada8db67b?s=128&d=identicon&r=PG",
+                                    @"display_name" : @"Mrwolfy",
+                                    @"link" : @"http://stackoverflow.com/users/1408546/mrwolfy"
+                            },
+                            @"is_answered" : @0,
+                            @"view_count" : @129,
+                            @"answer_count" : @2,
+                            @"score" : @1,
+                            @"last_activity_date" : @1414070722,
+                            @"creation_date" : @1366887889,
+                            @"question_id" : @16213079,
+                            @"link" : @"http://stackoverflow.com/questions/16213079/interpolation-issue-after-renderincontextuigraphicsgetcurrentcontext-ios",
+                            @"title" : @"Interpolation issue after renderInContext:UIGraphicsGetCurrentContext(), iOS"
+                    }
+            ],
+            @"has_more" : @1,
+            @"quota_max" : @10000,
+            @"quota_remaining" : @9698
+    };
+}
+
+- (NSDictionary *)makeAnswersByQuestionStubResponse
+{
+    return @{
+            @"items" : @[
+                    @{
+                            @"owner" : @{
+                                    @"reputation" : @467,
+                                    @"user_id" : @673363,
+                                    @"user_type" : @"registered",
+                                    @"profile_image" : @"https://www.gravatar.com/avatar/c42be5b468abc88ec114a92ad037c596?s=128&d=identicon&r=PG",
+                                    @"display_name" : @"Rasmus Taulborg Hummelmose",
+                                    @"link" : @"http://stackoverflow.com/users/673363/rasmus-taulborg-hummelmose"
+                            },
+                            @"is_accepted" : @0,
+                            @"score" : @0,
+                            @"last_activity_date" : @1414070722,
+                            @"creation_date" : @1414070722,
+                            @"answer_id" : @26529146,
+                            @"question_id" : @16213079,
+                            @"body": @"<html><body>Bla &quot;bla&quot; bla. That isn't an answer <code>Some code here...</code></body></html>"
+                    },
+                    @{
+                            @"owner" : @{
+                            @"reputation" : @467,
+                            @"user_id" : @673363,
+                            @"user_type" : @"registered",
+                            @"profile_image" : @"https://www.gravatar.com/avatar/c42be5b468abc88ec114a92ad037c596?s=128&d=identicon&r=PG",
+                            @"display_name" : @"Rasmus Taulborg Hummelmose",
+                            @"link" : @"http://stackoverflow.com/users/673363/rasmus-taulborg-hummelmose"
+                    },
+                            @"is_accepted" : @1,
+                            @"score" : @5,
+                            @"last_activity_date" : @1414070722,
+                            @"creation_date" : @1414070722,
+                            @"answer_id" : @26529146,
+                            @"question_id" : @16213079,
+                            @"body": @"<html><body>Bla &quot;bla&quot; bla. That is an <code>NSLog(@\"Answer: %@\", answer)</code></body></html>"
+                    }
+            ],
+            @"has_more" : @0,
+            @"quota_max" : @10000,
+            @"quota_remaining" : @9689
+    };
+}
 
 @end

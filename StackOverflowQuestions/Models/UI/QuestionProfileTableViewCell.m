@@ -53,35 +53,37 @@
     // Replace tags (<code> & </code>) with non html compliant analog (%code% & %/code%)
     text = [text stringByReplacingOccurrencesOfString:@"<code>" withString:@"%code%"];
     text = [text stringByReplacingOccurrencesOfString:@"</code>" withString:@"%/code%"];
-    
-    NSMutableAttributedString *newText = [[NSMutableAttributedString alloc] initWithString:[text stringByConvertingHTMLToPlainText]];
-    
-    NSRegularExpression *regex = [self makeRegexForPattern:@"%code%.*%/code%"];
-    
-    // Find matches
-    NSArray *matches = [regex matchesInString:newText.string
-                                      options:NSMatchingReportProgress
-                                        range:NSMakeRange(0, newText.length)];
-    
-    // Iterate through the matches and highlight them
-    for (NSTextCheckingResult *match in matches)
-    {
-        NSRange matchRange = match.range;
-        // Decrease range to exlude tags (non html compliant analog) from highlight
-        matchRange.location += 6;
-        matchRange.length -= 7;
-        
-        [newText addAttribute:NSBackgroundColorAttributeName
-                        value:[UIColor brownColor]
-                        range:matchRange];
-        [newText addAttribute:NSForegroundColorAttributeName
-                        value:[UIColor whiteColor]
-                        range:matchRange];
+    if (text.length > 0){
+        NSMutableAttributedString *newText = [[NSMutableAttributedString alloc] initWithString:[text stringByConvertingHTMLToPlainText]];
+
+        NSRegularExpression *regex = [self makeRegexForPattern:@"%code%.*%/code%"];
+
+        // Find matches
+        NSArray *matches = [regex matchesInString:newText.string
+                                          options:NSMatchingReportProgress
+                                            range:NSMakeRange(0, newText.length)];
+
+        // Iterate through the matches and highlight them
+        for (NSTextCheckingResult *match in matches)
+        {
+            NSRange matchRange = match.range;
+            // Decrease range to exlude tags (non html compliant analog) from highlight
+            matchRange.location += 6;
+            matchRange.length -= 7;
+
+            [newText addAttribute:NSBackgroundColorAttributeName
+                            value:[UIColor brownColor]
+                            range:matchRange];
+            [newText addAttribute:NSForegroundColorAttributeName
+                            value:[UIColor whiteColor]
+                            range:matchRange];
+        }
+
+        self.QAText.attributedText = [self mutableAttributedStringByReplacingPattern:@"%/{0,1}code%"
+                                                                         replacement:@"\n"
+                                                             mutableAttributedString:newText];
     }
-    
-    self.QAText.attributedText = [self mutableAttributedStringByReplacingPattern:@"%/{0,1}code%"
-                                                              replacement:@"\n"
-                                                  mutableAttributedString:newText];
+
 }
 
 - (NSMutableAttributedString *)mutableAttributedStringByReplacingPattern:(NSString *)pattern

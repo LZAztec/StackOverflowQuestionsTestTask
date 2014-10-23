@@ -8,10 +8,9 @@
 
 #import "QuestionProfileViewController.h"
 #import "QuestionProfileTableViewCell.h"
-#import "FormatterFactory.h"
 #import "NSString+HTML.h"
-#import "QACellData.h"
 
+static const int kLoadingCellTag = 1273;
 
 @interface QuestionProfileViewController ()
 
@@ -22,26 +21,53 @@
 @synthesize question;
 @synthesize tableData;
 @synthesize stackOverflowAPI;
-@synthesize dateFormatter;
 
 #pragma mark -
 #pragma mark Lifecycle
-- (void)viewDidLoad {
-    
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
     self.tableData = [[NSMutableArray alloc]init];
     
     self.title = question.text;
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
+    self.stackOverflowAPI.simulateQueries = YES;
 
-    dateFormatter = [FormatterFactory getDefaultDateTimeFormatter];
-    
+    _page = 0;
+    _hasMore = YES;
     [self extractQuestionDataToFirstCell];
-    [self queryAnswersForQuestion];
-    
-    [super viewDidLoad];
+    [self addRefreshControl];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)addRefreshControl
+{
+    self.refreshControl = [[UIRefreshControl alloc]init];
+
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self
+                            action:@selector(refreshFirstPage)
+                  forControlEvents:UIControlEventValueChanged];
+
+}
+
+- (void)refreshFirstPage
+{
+    [self clearFirstPageData];
+    [self queryAnswersForQuestion];
+}
+
+- (void)clearFirstPageData
+{
+    _page = 1;
+    _hasMore = YES;
+    [self.tableData removeAllObjects];
+    [self extractQuestionDataToFirstCell];
+    [self.tableView reloadData];
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
@@ -54,22 +80,66 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tableData count];
+    if (_page == 0) {
+        return 2;
+    }
+
+    if (_hasMore) {
+        return self.tableData.count + 1;
+    }
+    return self.tableData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row < self.tableData.count) {
+        return [self questionProfileCellForIndexPath:indexPath];
+    } else {
+        return [self loadingCell];
+    }
+}
+
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (cell.tag == kLoadingCellTag && _hasMore) {
+
+        _page++;
+
+        [self queryAnswersForQuestion];
+    }
+}
+
+- (UITableViewCell *)loadingCell
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+
+    activityIndicator.center = cell.center;
+    [cell addSubview:activityIndicator];
+
+    [activityIndicator startAnimating];
+
+    cell.tag = kLoadingCellTag;
+
+    return cell;
+}
+
+- (UITableViewCell *)questionProfileCellForIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *cellId = @"QACell";
-    
-    QuestionProfileTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    
+
+    QuestionProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellId];
+
     if (cell == nil) {
         cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    
+
     [cell setCellData:(QACellData *)tableData[(NSUInteger) indexPath.row]];
-    
+
     return cell;
 }
 
@@ -78,12 +148,12 @@
 #pragma mark Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
-    [stackOverflowAPI getAnswersByQuestionIds:@[question.id]];
+    NSLog(@"Querying data for page: %d, questionId: %@, hasMore: %@", _page, question.id, (_hasMore) ? @"YES" : @"NO");
+    [stackOverflowAPI getAnswersByQuestionIds:@[question.id] page:@(_page) limit:@50];
 }
 
-- (void)extractAnswersFromResponse:(NSDictionary *)response
+- (void)extractData:(NSDictionary *)response
 {
-
     NSArray *items = response[@"items"];
     for (id answer in items){
         NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"last_activity_date"] doubleValue]];
@@ -98,7 +168,10 @@
                            creationDate:creationDate];
     }
 
+    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
+
     [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 - (void)addCellDataWithAuthorName:(NSString *)name
@@ -122,22 +195,30 @@
                                                            id:id
                                                          type:kCellDataAnswerType];
 
-    [self.tableData addObject:cellData];
+    if (![self.tableData containsObject:cellData] ) {
+        [self.tableData addObject:cellData];
+    }
 }
 
 - (void)extractQuestionDataToFirstCell
 {
-    [self.tableData addObject:question];
+    if (![self.tableData containsObject:question] ){
+        [self.tableData addObject:question];
+        [self.tableView reloadData];
+    }
 }
 
 #pragma -
 #pragma Stack Overflow API Delegate methods
-- (void)handleAnswersByQuestionIdsResponse:(NSDictionary *)response {
-    [self extractAnswersFromResponse:response];
+- (void)handleAnswersByQuestionIdsResponse:(NSDictionary *)response
+{
+    [self extractData:response];
 }
 
-- (void)handleError:(NSError *)error {
+- (void)handleError:(NSError *)error
+{
     NSLog(@"Error happened:%@", error);
+    [self.refreshControl endRefreshing];
 }
 
 @end

@@ -9,11 +9,10 @@
 #import "QuestionListViewController.h"
 #import "QuestionProfileViewController.h"
 #import "QuestionListViewCell.h"
-#import "QACellData.h"
 #import "NSString+HTML.h"
 
 static NSString *const kErrorText = @"Cannot get the data. Please check your connection and try later!";
-const int kLoadingCellTag = 1273;
+static const int kLoadingCellTag = 1273;
 
 @interface QuestionListViewController ()
 
@@ -32,8 +31,10 @@ const int kLoadingCellTag = 1273;
 
 - (void)viewDidLoad
 {
-    self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
+    [super viewDidLoad];
 
+    self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
+    self.stackOverflowAPI.simulateQueries = YES;
     _page = 0;
     _selectedTag = @"Objective-c";
     _hasMore = YES;
@@ -43,13 +44,30 @@ const int kLoadingCellTag = 1273;
     tagPickerViewController.delegate = self;
     questions = [[NSMutableArray alloc] init];
 
-    [super viewDidLoad];
+    [self addRefreshControl];
+}
+
+- (void)addRefreshControl
+{
+    self.refreshControl = [[UIRefreshControl alloc]init];
+
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self
+                            action:@selector(refreshFirstPage)
+                  forControlEvents:UIControlEventValueChanged];
+
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)refreshFirstPage
+{
+    [self clearTableDataAndResetAPIData];
+    [self queryData];
 }
 
 #pragma mark - 
@@ -177,10 +195,11 @@ const int kLoadingCellTag = 1273;
             [self.questions addObject:cellData];
         }
     }
-
-    _hasMore = (BOOL)response[@"has_more"];
+    NSLog(@"questions: %@", self.questions);
+    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
     [activityIndicatorView stopAnimating];
     [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 #pragma mark -
@@ -220,6 +239,7 @@ const int kLoadingCellTag = 1273;
                                delegate:nil
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
+    [self.refreshControl endRefreshing];
 }
 
 #pragma -

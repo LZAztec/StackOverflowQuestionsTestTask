@@ -51,6 +51,6 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"{ id: %@, type: %@, AuthorName: %@, counter: %@, CrearionDate: %@, ModificationDate: %@, status: %@, text: %@ }", self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModification, self.status, self.text];
+    return [NSString stringWithFormat:@"{ id: %@, type: %@, AuthorName: %@, counter: %@, CreationDate: %@, ModificationDate: %@, status: %@, text: %@ }", self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModification, self.status, self.text];
 }
 @end
