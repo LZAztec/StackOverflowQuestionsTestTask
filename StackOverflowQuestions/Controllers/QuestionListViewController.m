@@ -148,7 +148,7 @@ const int kLoadingCellTag = 1273;
 
 - (void)queryData
 {
-    NSLog(@"Page: %d, tag: %@, hasMore: %@", _page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
+    NSLog(@"Querying data for page: %d, tag: %@, hasMore: %@", _page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getQuestionsByTags:@[_selectedTag] page:@(_page) limit:@10];
 }
 
