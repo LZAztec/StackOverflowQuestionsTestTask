@@ -25,10 +25,14 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (instancetype)initWithDelegate:(id <StackOverflowAPIDelegate>)delegate;
 {
-    if (self = [super init])
+    self = [super init];
+
+    if (!self)
     {
-        _delegate = delegate;
+        return nil;
     }
+
+    _delegate = delegate;
 
     return self;
 }
@@ -38,10 +42,11 @@ static NSString *const kAPIVersion = @"2.2";
     return [[array valueForKey:@"description"] componentsJoinedByString:@";"];
 }
 
-- (void)getQuestionsByTags:(NSArray *)tags {
+- (void)getQuestionsByTags:(NSArray *)tags page:(NSNumber *)page limit:(NSNumber *)limit
+{
     NSDictionary *params = @{
-            @"page" : @1,
-            @"pagesize" : @50,
+            @"page" : page,
+            @"pagesize" : limit,
             @"order" : @"desc",
             @"sort" : @"creation",
             @"tagged" : [self implode:tags],
@@ -71,6 +76,8 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)executeQueryForUrlString:(NSString *)urlString andParams:(NSDictionary *)params
 {
+    [_responseData setLength:0];
+
     NSURL *methodURL = [NSURL URLWithString:urlString];
 
     // Set response timeout
@@ -117,7 +124,6 @@ static NSString *const kAPIVersion = @"2.2";
     NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:_responseData
                                                                  options:NSJSONReadingAllowFragments
                                                                    error:error];
-    _responseData = nil;
 
     return responseDict;
 }
@@ -153,7 +159,14 @@ static NSString *const kAPIVersion = @"2.2";
     NSError *error = nil;
     NSDictionary *response = [self makeAPIResponseWithErrorHandling:&error];
 
-    if (response == nil && [self.delegate respondsToSelector:@selector(handleError:)]) {
+    if (error != nil && response == nil && [self.delegate respondsToSelector:@selector(handleError:)]) {
+        const unsigned char *ptr = [_responseData bytes];
+
+        for(int i=0; i<[_responseData length]; ++i) {
+            unsigned char c = *ptr++;
+            NSLog(@"Unprintable character exists! char=%c hex=%x", c, c);
+        }
+
         [self.delegate handleError:error];
         return;
     }

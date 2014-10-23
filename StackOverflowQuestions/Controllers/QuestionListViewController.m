@@ -9,16 +9,15 @@
 #import "QuestionListViewController.h"
 #import "QuestionProfileViewController.h"
 #import "QuestionListViewCell.h"
-#import "CellData.h"
+#import "QACellData.h"
 #import "NSString+HTML.h"
 
-static NSString *const kErrorText = @"Cannot get the data. Please check your connection.";
+static NSString *const kErrorText = @"Cannot get the data. Please check your connection and try later!";
+const int kLoadingCellTag = 1273;
 
 @interface QuestionListViewController ()
 
-- (void)queryDataForTag:(NSString *)tag;
-
-@property (strong, readonly) NSDateFormatter *dateFormatter;
+- (void)queryData;
 
 @end
 
@@ -34,7 +33,11 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 - (void)viewDidLoad
 {
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
-    [self queryDataForTag: @"Objective-c"];
+
+    _page = 0;
+    _selectedTag = @"Objective-c";
+    _hasMore = YES;
+    self.title = _selectedTag;
 
     tagPickerViewController = [[TagPickerViewController alloc]initWithNibName:@"TagPickerViewController" bundle:nil];
     tagPickerViewController.delegate = self;
@@ -51,12 +54,13 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 
 #pragma mark - 
 #pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:@"showQuestionProfile"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         QuestionProfileViewController *destinationVC = segue.destinationViewController;
 
-        CellData *data = questions[(NSUInteger) indexPath.row];
+        QACellData *data = questions[(NSUInteger) indexPath.row];
         NSLog(@"Question: %@", data);
         destinationVC.question = questions[(NSUInteger) indexPath.row];
     }
@@ -71,46 +75,89 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [questions count];
+    if (_page == 0) {
+        return 1;
+    }
+
+    if (_hasMore) {
+        return self.questions.count + 1;
+    }
+    return self.questions.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row < self.questions.count) {
+        return [self questionCellForIndexPath:indexPath];
+    } else {
+        return [self loadingCell];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (cell.tag == kLoadingCellTag && _hasMore) {
+
+        _page++;
+
+        [self queryData];
+    }
+}
+
+- (QuestionListViewCell *)questionCellForIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *cellId = @"QuestionCell";
-    
-    QuestionListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    
+
+    QuestionListViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellId];
+
     if (cell == nil) {
         cell = [[QuestionListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
-    
-    [cell setCellData:(CellData *)questions[(NSUInteger) indexPath.row]];
+
+    [cell setCellData:(QACellData *)questions[(NSUInteger) indexPath.row]];
 
     if ([cell.questionText.text isEqualToString:kErrorText]){
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    
+
+    return cell;
+}
+
+
+- (UITableViewCell *)loadingCell
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+
+    activityIndicator.center = cell.center;
+    [cell addSubview:activityIndicator];
+
+    [activityIndicator startAnimating];
+
+    cell.tag = kLoadingCellTag;
+
     return cell;
 }
 
 #pragma mark -
 #pragma mark - Stack Overflow API response handling methods
 
-- (void)queryDataForTag:(NSString *)tag
+- (void)queryData
 {
-    self.title = tag;
-    [self clearTableAndShowIndicator];
-
-    [stackOverflowAPI getQuestionsByTags:@[tag]];
+    NSLog(@"Page: %d, tag: %@, hasMore: %@", _page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
+    [stackOverflowAPI getQuestionsByTags:@[_selectedTag] page:@(_page) limit:@10];
 }
 
-- (void)clearTableAndShowIndicator
+- (void)clearTableDataAndResetAPIData
 {
+    _page = 1;
+    _hasMore = YES;
     [questions removeAllObjects];
     [self.tableView reloadData];
-    [activityIndicatorView startAnimating];
 }
 
 - (void)questionsResponseReturned:(NSDictionary *)response
@@ -118,7 +165,7 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
     NSArray *items = [response valueForKey:@"items"];
 
     for (NSDictionary *data in items) {
-        CellData *cellData = [[CellData alloc] initWithAuthorName:[(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities]
+        QACellData *cellData = [[QACellData alloc] initWithAuthorName:[(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities]
                                                           counter:(NSNumber *) data[@"answer_count"]
                                                      creationDate:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]]
                                                  lastModification:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]]
@@ -126,9 +173,12 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
                                                              text:[(NSString *) data[@"title"] stringByDecodingHTMLEntities]
                                                                id:(NSString *) data[@"question_id"]
                                                              type:kCellDataQuestionType];
-        [self.questions addObject:cellData];
+        if (![self.questions containsObject:cellData]) {
+            [self.questions addObject:cellData];
+        }
     }
 
+    _hasMore = (BOOL)response[@"has_more"];
     [activityIndicatorView stopAnimating];
     [self.tableView reloadData];
 }
@@ -138,9 +188,12 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 - (void) tagPickerDoneButtonPressed:(TagPickerViewController *)sender;
 {
     NSInteger selectedRow = [sender.picker selectedRowInComponent:0];
-    NSString *tag = (sender.pickerData)[(NSUInteger) selectedRow];
+    _selectedTag = (sender.pickerData)[(NSUInteger) selectedRow];
 
-    [self queryDataForTag:tag];
+    self.title = _selectedTag;
+    [self clearTableDataAndResetAPIData];
+
+    [self queryData];
     [self mh_dismissSemiModalViewController:sender animated:YES];
     [self toggleControlsToState:YES];
 }
@@ -162,14 +215,11 @@ static NSString *const kErrorText = @"Cannot get the data. Please check your con
 {
     NSLog(@"Error happened:%@", error);
     
-    CellData *errorCellData = [[CellData alloc] init];
-    errorCellData.text = kErrorText;
-
-    [questions removeAllObjects];
-    [questions addObject:errorCellData];
-
-    [activityIndicatorView stopAnimating];
-    [self.tableView reloadData];
+    [[[UIAlertView alloc] initWithTitle:@"Oooops!"
+                                message:kErrorText
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
 }
 
 #pragma -

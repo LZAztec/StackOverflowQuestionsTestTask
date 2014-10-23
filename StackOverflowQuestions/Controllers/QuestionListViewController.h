@@ -15,6 +15,10 @@
     StackOverflowAPI *stackOverflowAPI;
     UIActivityIndicatorView *activityIndicatorView;
     TagPickerViewController *tagPickerViewController;
+
+    NSInteger _page;
+    BOOL _hasMore;
+    NSString *_selectedTag;
 }
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;

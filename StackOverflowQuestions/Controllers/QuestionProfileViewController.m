@@ -10,7 +10,7 @@
 #import "QuestionProfileTableViewCell.h"
 #import "FormatterFactory.h"
 #import "NSString+HTML.h"
-#import "CellData.h"
+#import "QACellData.h"
 
 
 @interface QuestionProfileViewController ()
@@ -68,7 +68,7 @@
         cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    [cell setCellData:(CellData *)tableData[(NSUInteger) indexPath.row]];
+    [cell setCellData:(QACellData *)tableData[(NSUInteger) indexPath.row]];
     
     return cell;
 }
@@ -113,7 +113,7 @@
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
     }
 
-    CellData *cellData = [[CellData alloc] initWithAuthorName:name
+    QACellData *cellData = [[QACellData alloc] initWithAuthorName:name
                                                       counter:count
                                                  creationDate:creationDate
                                              lastModification:date

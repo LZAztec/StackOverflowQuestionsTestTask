@@ -30,7 +30,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setCellData:(CellData *)data
+- (void)setCellData:(QACellData *)data
 {
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.answerCount.text = [data.counter stringValue];

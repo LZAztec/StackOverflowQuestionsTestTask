@@ -8,7 +8,7 @@
 static NSString *const kCellDataQuestionType = @"question";
 static NSString *const kCellDataAnswerType = @"answer";
 
-@interface CellData : NSObject <NSCopying>
+@interface QACellData : NSObject <NSCopying>
 
 @property (strong, nonatomic) NSString *id;
 @property (strong, nonatomic) NSString *authorName;
@@ -30,9 +30,9 @@ static NSString *const kCellDataAnswerType = @"answer";
 
 @end
 
-@class CellData;
+@class QACellData;
 
 @protocol CellDataContainer
 @required
-- (void)setCellData:(CellData *)data;
+- (void)setCellData:(QACellData *)data;
 @end

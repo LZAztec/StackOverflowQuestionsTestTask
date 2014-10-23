@@ -10,16 +10,16 @@
 #import "QuestionListViewController.h"
 #import "StackOverflowAPI.h"
 
-@class CellData;
+@class QACellData;
 
 @interface QuestionProfileViewController : UITableViewController <StackOverflowAPIDelegate>{
-    CellData *question;
+    QACellData *question;
     NSMutableArray *tableData;
     StackOverflowAPI *stackOverflowAPI;
     NSDateFormatter *dateFormatter;
 }
 
-@property (strong, nonatomic) CellData *question;
+@property (strong, nonatomic) QACellData *question;
 @property (strong, nonatomic) NSMutableArray *tableData;
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;

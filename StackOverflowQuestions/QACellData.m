@@ -3,9 +3,9 @@
 // Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "CellData.h"
+#import "QACellData.h"
 
-@implementation CellData
+@implementation QACellData
 
 - (instancetype)initWithAuthorName:(NSString *)authorName
                            counter:(NSNumber *)counter
@@ -35,7 +35,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    CellData *cellDataCopy = [CellData new];
+    QACellData *cellDataCopy = [QACellData new];
 
     cellDataCopy.authorName = self.authorName;
     cellDataCopy.counter = self.counter;
@@ -51,6 +51,6 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"id: %@, type: %@, AuthorName: %@, counter: %@, CrearionDate: %@, ModificationDate: %@, status: %@, text: %@", self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModification, self.status, self.text];
+    return [NSString stringWithFormat:@"{ id: %@, type: %@, AuthorName: %@, counter: %@, CrearionDate: %@, ModificationDate: %@, status: %@, text: %@ }", self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModification, self.status, self.text];
 }
 @end

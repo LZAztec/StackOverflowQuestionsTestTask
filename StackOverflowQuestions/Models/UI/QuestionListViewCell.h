@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CellData.h"
+#import "QACellData.h"
 
 @interface QuestionListViewCell : UITableViewCell <CellDataContainer>
 

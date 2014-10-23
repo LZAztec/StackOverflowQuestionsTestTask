@@ -24,7 +24,7 @@
 
 - (instancetype)initWithDelegate:(id <StackOverflowAPIDelegate>)delegate;
 
-- (void)getQuestionsByTags:(NSArray *)tags;
+- (void)getQuestionsByTags:(NSArray *)tags page:(NSNumber *)page limit:(NSNumber *)limit;
 - (void)getAnswersByQuestionIds:(NSArray *)ids;
 
 @end
