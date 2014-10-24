@@ -178,7 +178,7 @@ static NSString *const kAPIVersion = @"2.2";
     NSError *error = nil;
     NSDictionary *response = [self makeAPIResponseWithErrorHandling:&error];
 
-    if (error != nil && response == nil && [self.delegate respondsToSelector:@selector(handleError:)]) {
+    if (response == nil && [self.delegate respondsToSelector:@selector(handleError:)]) {
         const unsigned char *ptr = [_responseData bytes];
 
         for(int i=0; i<[_responseData length]; ++i) {
