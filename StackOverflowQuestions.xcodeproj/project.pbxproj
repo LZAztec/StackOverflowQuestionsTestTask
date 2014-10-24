@@ -38,7 +38,6 @@
 		5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */; };
 		5901D7AC844A9FBCB38BC543 /* QACellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D3A0D3F55A09F8F6CB44 /* QACellData.m */; };
 		5901DA1F5908A3A55C57C22A /* FormatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D5BAF1C48244DA528468 /* FormatHelper.m */; };
-		5901DC3EABCE2B69FE9E1EF6 /* BaseTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DAFA7468522834C3FF50 /* BaseTableController.m */; };
 		5901DC4921C126E1B945D2BA /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */; };
 /* End PBXBuildFile section */
 
@@ -104,10 +103,8 @@
 		5901D3A0D3F55A09F8F6CB44 /* QACellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QACellData.m; sourceTree = "<group>"; };
 		5901D47DBDF37245CC1AFF8B /* FormatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatHelper.h; sourceTree = "<group>"; };
 		5901D5BAF1C48244DA528468 /* FormatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatHelper.m; sourceTree = "<group>"; };
-		5901D62EF396B45D86840F61 /* BaseTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableController.h; sourceTree = "<group>"; };
 		5901D6E1108F907056FA4721 /* QACellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QACellData.h; sourceTree = "<group>"; };
 		5901D7C83AF7431036057F50 /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Merge.h"; path = "Stubs/Foundation/NSDictionary+Merge.h"; sourceTree = "<group>"; };
-		5901DAFA7468522834C3FF50 /* BaseTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableController.m; sourceTree = "<group>"; };
 		5901DB30E02DC7D74A432063 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Merge.m"; path = "Stubs/Foundation/NSDictionary+Merge.m"; sourceTree = "<group>"; };
 		73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F984BD706DBA301702C1C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -347,8 +344,6 @@
 				4DB9BE6319F142D400862674 /* Questions */,
 				4DB9BE6419F1430000862674 /* QuestionProfile */,
 				4DB9BE6519F1431000862674 /* Modal */,
-				5901D62EF396B45D86840F61 /* BaseTableController.h */,
-				5901DAFA7468522834C3FF50 /* BaseTableController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -577,7 +572,6 @@
 				5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */,
 				5901DA1F5908A3A55C57C22A /* FormatHelper.m in Sources */,
 				5901D7AC844A9FBCB38BC543 /* QACellData.m in Sources */,
-				5901DC3EABCE2B69FE9E1EF6 /* BaseTableController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
