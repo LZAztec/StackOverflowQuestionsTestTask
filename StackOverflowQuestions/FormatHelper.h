@@ -16,5 +16,10 @@
 
 + (NSString *)formatDateFuzzy:(NSDate *)date;
 + (NSString *)formatTimestampDefault:(NSNumber *)timestamp;
++ (NSMutableAttributedString *)formatText:(NSString *)text withCodeTagBackgroundColor:(UIColor *)bgColor textColor:(UIColor *)textColor;
++ (NSMutableAttributedString *)mutableAttributedStringByReplacingPattern:(NSString *)pattern
+                                                             replacement:(NSString *)replacement
+                                                 mutableAttributedString:(NSMutableAttributedString *)attributedString;
++ (NSRegularExpression *)makeRegexForPattern:(NSString *)pattern;
 
 @end

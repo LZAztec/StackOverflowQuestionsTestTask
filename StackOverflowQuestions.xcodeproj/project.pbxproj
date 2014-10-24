@@ -289,7 +289,7 @@
 				4D7DC8AB19F0FE7700D9294B /* Libraries */,
 				4D7DC89719EBD30000D9294B /* Stubs */,
 				4DDA7BF219E406370021DFFB /* Resources */,
-				4DDA7BE919E3BEEE0021DFFB /* Views */,
+				4DDA7BE919E3BEEE0021DFFB /* ViewModels */,
 				4DDA7BE819E3BEE70021DFFB /* Controllers */,
 				4DDA7BE719E3BED00021DFFB /* Models */,
 				4DDA7BC519E3B9D00021DFFB /* AppDelegate.h */,
@@ -348,12 +348,12 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		4DDA7BE919E3BEEE0021DFFB /* Views */ = {
+		4DDA7BE919E3BEEE0021DFFB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				4D7DC88919E6689300D9294B /* UI */,
 			);
-			name = Views;
+			name = ViewModels;
 			sourceTree = "<group>";
 		};
 		4DDA7BEA19E3C44D0021DFFB /* API */ = {

@@ -3,8 +3,10 @@
 // Copyright (c) 2014 Aztec. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "FormatHelper.h"
 #import "FormatterFactory.h"
+#import "NSString+HTML.h"
 
 
 @implementation FormatHelper
@@ -55,6 +57,78 @@
 {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [timestamp doubleValue]];
     return [[FormatterFactory getDefaultDateTimeFormatter] stringFromDate:date];
+}
+
++ (NSMutableAttributedString *)formatText:(NSString *)text withCodeTagBackgroundColor:(UIColor *)bgColor textColor:(UIColor *)textColor
+{
+    // Replace tags (<code> & </code>) with non html compliant analog (%code% & %/code%)
+    text = [text stringByReplacingOccurrencesOfString:@"<code>" withString:@"%code%"];
+    text = [text stringByReplacingOccurrencesOfString:@"</code>" withString:@"%/code%"];
+
+    if (text.length == 0) {
+        return [[NSMutableAttributedString alloc] initWithString:text];
+    }
+
+    NSMutableAttributedString *newText = [[NSMutableAttributedString alloc] initWithString:[text stringByConvertingHTMLToPlainText]];
+
+    NSRegularExpression *regex = [self makeRegexForPattern:@"%code%.*%/code%"];
+
+    // Find matches
+    NSArray *matches = [regex matchesInString:newText.string
+                                      options:NSMatchingReportProgress
+                                        range:NSMakeRange(0, newText.length)];
+
+    // Iterate through the matches and highlight them
+    for (NSTextCheckingResult *match in matches)
+    {
+        NSRange matchRange = match.range;
+        // Decrease range to exlude tags (non html compliant analog) from highlight
+        matchRange.location += 6;
+        matchRange.length -= 7;
+
+        [newText addAttribute:NSBackgroundColorAttributeName
+                        value:bgColor
+                        range:matchRange];
+        [newText addAttribute:NSForegroundColorAttributeName
+                        value:textColor
+                        range:matchRange];
+    }
+
+    return [FormatHelper mutableAttributedStringByReplacingPattern:@"%/{0,1}code%"
+                                                       replacement:@"\n"
+                                           mutableAttributedString:newText];
+}
+
++ (NSMutableAttributedString *)mutableAttributedStringByReplacingPattern:(NSString *)pattern
+                                                             replacement:(NSString *)replacement
+                                                 mutableAttributedString:(NSMutableAttributedString *)attributedString
+{
+    NSRegularExpression *regex = [FormatHelper makeRegexForPattern:@"%/{0,1}code%"];
+
+    NSArray *matches = [regex matchesInString:attributedString.string
+                                      options:NSMatchingReportProgress
+                                        range:NSMakeRange(0, attributedString.length)];
+
+    if (matches.count > 0) {
+        NSTextCheckingResult *matchCode = matches[0];
+        [attributedString replaceCharactersInRange:matchCode.range withString:replacement];
+        attributedString = [self mutableAttributedStringByReplacingPattern:pattern replacement:replacement mutableAttributedString:attributedString];
+    }
+
+    return attributedString;
+}
+
+// Create a regular expression with given pattern
++ (NSRegularExpression *)makeRegexForPattern:(NSString *)pattern
+{
+    // Create a regular expression
+    NSError *error = NULL;
+    NSRegularExpressionOptions regexOptions = NSRegularExpressionCaseInsensitive;
+
+
+    return [NSRegularExpression regularExpressionWithPattern:pattern
+                                                     options:regexOptions
+                                                       error:&error];
 }
 
 @end
