@@ -24,7 +24,6 @@ static const int kLoadingCellTag = 1273;
 
 @synthesize questions;
 @synthesize stackOverflowAPI;
-@synthesize activityIndicatorView;
 
 #pragma mark -
 #pragma mark - Lifecycle
@@ -199,7 +198,7 @@ static const int kLoadingCellTag = 1273;
     }
     NSLog(@"questions: %@", self.questions);
     _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
-    [activityIndicatorView stopAnimating];
+
     [self.tableView reloadData];
     [self.refreshControl endRefreshing];
 }

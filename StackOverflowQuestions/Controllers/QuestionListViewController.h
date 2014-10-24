@@ -13,7 +13,6 @@
 @interface QuestionListViewController : UITableViewController <StackOverflowAPIDelegate, TagPickerViewControllerDelegate, UIAlertViewDelegate>{
     NSMutableArray *questions;
     StackOverflowAPI *stackOverflowAPI;
-    UIActivityIndicatorView *activityIndicatorView;
     TagPickerViewController *tagPickerViewController;
 
     NSInteger _page;
@@ -21,7 +20,6 @@
     NSString *_selectedTag;
 }
 
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *changeTagButton;
 @property (copy, nonatomic) NSMutableArray *questions;
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
