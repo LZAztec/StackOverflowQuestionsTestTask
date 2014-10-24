@@ -72,6 +72,11 @@ static const int kLoadingCellTag = 1273;
     [super didReceiveMemoryWarning];
 }
 
+- (void)controlsEnabled:(BOOL)state
+{
+    self.tableView.scrollEnabled = state;
+}
+
 #pragma mark -
 #pragma mark UI Table View Methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -154,28 +159,6 @@ static const int kLoadingCellTag = 1273;
     [stackOverflowAPI getAnswersByQuestionIds:@[question.id] page:@(_page) limit:@50];
 }
 
-- (void)extractData:(NSDictionary *)response
-{
-    NSArray *items = response[@"items"];
-    for (id answer in items){
-        NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"last_activity_date"] doubleValue]];
-        NSDate *creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"creation_date"] doubleValue]];
-
-        [self addCellDataWithAuthorName:answer[@"owner"][@"display_name"]
-                                  score:(NSNumber *) answer[@"score"]
-                           lastEditDate:modificationDate
-                                 QAText:answer[@"body"]
-                                 status:(NSNumber *) answer[@"is_accepted"]
-                                     id:answer[@"answer_id"]
-                           creationDate:creationDate];
-    }
-
-    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
-
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
-}
-
 - (void)addCellDataWithAuthorName:(NSString *)name
                             score:(NSNumber *)count
                      lastEditDate:(NSDate *)date
@@ -212,15 +195,52 @@ static const int kLoadingCellTag = 1273;
 
 #pragma -
 #pragma Stack Overflow API Delegate methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self controlsEnabled:YES];
+    }
+}
+
 - (void)handleAnswersByQuestionIdsResponse:(NSDictionary *)response
 {
-    [self extractData:response];
+    NSArray *items = response[@"items"];
+    for (id answer in items){
+        NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"last_activity_date"] doubleValue]];
+        NSDate *creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"creation_date"] doubleValue]];
+
+        [self addCellDataWithAuthorName:answer[@"owner"][@"display_name"]
+                                  score:(NSNumber *) answer[@"score"]
+                           lastEditDate:modificationDate
+                                 QAText:answer[@"body"]
+                                 status:(NSNumber *) answer[@"is_accepted"]
+                                     id:answer[@"answer_id"]
+                           creationDate:creationDate];
+    }
+
+    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
+
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
 }
 
 - (void)handleError:(NSError *)error
 {
     NSLog(@"Error happened:%@", error);
+    _hasMore = NO;
+
+    NSString *message = (error.domain != nil) ? error.domain : @"Unknon error! Please try again later!";
+    [self controlsEnabled:NO];
+
+    [[[UIAlertView alloc] initWithTitle:@"Oooops!"
+                                message:message
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+
     [self.refreshControl endRefreshing];
+    [self.tableView reloadData];
 }
 
 @end

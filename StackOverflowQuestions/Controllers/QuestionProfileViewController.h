@@ -12,7 +12,7 @@
 
 @class QACellData;
 
-@interface QuestionProfileViewController : UITableViewController <StackOverflowAPIDelegate>{
+@interface QuestionProfileViewController : UITableViewController <StackOverflowAPIDelegate, UIAlertViewDelegate>{
     QACellData *question;
     NSMutableArray *tableData;
     StackOverflowAPI *stackOverflowAPI;
