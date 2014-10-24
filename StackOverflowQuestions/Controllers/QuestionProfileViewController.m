@@ -9,6 +9,7 @@
 #import "QuestionProfileViewController.h"
 #import "QuestionProfileTableViewCell.h"
 #import "NSString+HTML.h"
+#import "UserSettings.h"
 
 static const int kLoadingCellTag = 1273;
 
@@ -31,9 +32,8 @@ static const int kLoadingCellTag = 1273;
     self.tableData = [[NSMutableArray alloc]init];
     self.title = question.text;
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
-    self.stackOverflowAPI.simulateQueries = [defaults boolForKey:@"SimulateQueries"];
 
     _page = 0;
     _hasMore = YES;
@@ -149,7 +149,8 @@ static const int kLoadingCellTag = 1273;
 #pragma mark Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
-    NSLog(@"Querying data for page: %d, questionId: %@, hasMore: %@", _page, question.id, (_hasMore) ? @"YES" : @"NO");
+    self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] getSimulateQueriesState];
+    NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getAnswersByQuestionIds:@[question.id] page:@(_page) limit:@50];
 }
 

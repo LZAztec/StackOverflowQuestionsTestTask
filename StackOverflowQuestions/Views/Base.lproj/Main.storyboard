@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KFL-Vx-Lum">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VPG-oI-ERR">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -21,6 +20,63 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQZ-nw-PO7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="385" y="-159"/>
+        </scene>
+        <!--Settings Controller-->
+        <scene sceneID="KSw-V0-zMR">
+            <objects>
+                <viewController id="QiK-gS-AAF" customClass="SettingsController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BOU-WD-gAT"/>
+                        <viewControllerLayoutGuide type="bottom" id="FtJ-sR-bbi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fR2-3R-rVZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulate API queries" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1j-1d-nTM">
+                                <rect key="frame" x="16" y="33" width="160" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="UXf-zm-7SG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-Sa-sMX">
+                                <rect key="frame" x="493" y="28" width="51" height="31"/>
+                                <connections>
+                                    <action selector="simulateQueriesChanged:" destination="QiK-gS-AAF" eventType="valueChanged" id="bMe-vE-15H"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="b1j-1d-nTM" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="13" id="1GC-3x-oqn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="d2b-Sa-sMX" secondAttribute="trailing" constant="42" id="6gE-ek-3yr"/>
+                            <constraint firstItem="b1j-1d-nTM" firstAttribute="leading" secondItem="fR2-3R-rVZ" secondAttribute="leadingMargin" id="ed1-0v-s14"/>
+                            <constraint firstItem="d2b-Sa-sMX" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="8" id="huJ-g0-JP9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="simulateQueriesSwitch" destination="d2b-Sa-sMX" id="kBq-fY-KdA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g7c-ZV-CHy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="385" y="666"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="E8s-lF-x0e">
+            <objects>
+                <splitViewController id="VPG-oI-ERR" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="QiK-gS-AAF" kind="relationship" relationship="detailViewController" id="u6s-MQ-koo"/>
+                        <segue destination="KFL-Vx-Lum" kind="relationship" relationship="masterViewController" id="vUr-aK-jGR"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f9Z-tM-fb1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-466" y="266"/>
         </scene>
         <!--Question List View Controller-->
         <scene sceneID="hj3-Ug-IVz">
@@ -119,7 +175,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Xmq-VV-f9J">
-                        <barButtonItem key="leftBarButtonItem" title="Change tag" id="8nl-F4-3qm">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="iHs-th-SkI">
+                            <connections>
+                                <segue destination="QiK-gS-AAF" kind="showDetail" id="he1-7S-E85"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Change tag" id="8nl-F4-3qm">
                             <connections>
                                 <action selector="changeTagPressed:" destination="C9u-tQ-k8p" id="OWA-xs-Rju"/>
                             </connections>
@@ -263,4 +324,7 @@
     <resources>
         <image name="coche_valid.png" width="200" height="200"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="he1-7S-E85"/>
+    </inferredMetricsTieBreakers>
 </document>

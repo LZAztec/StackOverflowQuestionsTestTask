@@ -25,6 +25,7 @@
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 
 - (IBAction) changeTagPressed:(id)sender;
+- (void)refreshFirstPage;
 
 @end
 

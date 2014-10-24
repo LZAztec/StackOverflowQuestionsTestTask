@@ -10,6 +10,7 @@
 #import "QuestionProfileViewController.h"
 #import "QuestionListViewCell.h"
 #import "NSString+HTML.h"
+#import "UserSettings.h"
 
 static NSString *const kErrorText = @"Cannot get the data. Please check your connection and try later!";
 static const int kLoadingCellTag = 1273;
@@ -32,9 +33,7 @@ static const int kLoadingCellTag = 1273;
 {
     [super viewDidLoad];
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
-    self.stackOverflowAPI.simulateQueries = [defaults boolForKey:@"SimulateQueries"];
 
     _page = 0;
     _selectedTag = @"Objective-c";
@@ -167,7 +166,8 @@ static const int kLoadingCellTag = 1273;
 
 - (void)queryData
 {
-    NSLog(@"Querying data for page: %d, tag: %@, hasMore: %@", _page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
+    self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] getSimulateQueriesState];
+    NSLog(@"Querying data for page: %ld, tag: %@, hasMore: %@", (long)_page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getQuestionsByTags:@[_selectedTag] page:@(_page) limit:@10];
 }
 

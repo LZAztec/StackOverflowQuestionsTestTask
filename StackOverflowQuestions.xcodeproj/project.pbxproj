@@ -10,6 +10,8 @@
 		205F61A30321B972285FF0E4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F984BD706DBA301702C1C5B /* libPods.a */; };
 		4D670EA619F51851004E54CE /* UITextView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EA519F51851004E54CE /* UITextView+Additions.m */; };
 		4D670EAC19F68053004E54CE /* NSCachedURLResponse+Expiration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EAB19F68053004E54CE /* NSCachedURLResponse+Expiration.m */; };
+		4D670EB019FA355A004E54CE /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EAF19FA355A004E54CE /* SettingsController.m */; };
+		4D670EB419FA3C94004E54CE /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EB319FA3C94004E54CE /* UserSettings.m */; };
 		4D7DC88D19E668ED00D9294B /* QuestionListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC88B19E668ED00D9294B /* QuestionListViewCell.m */; };
 		4D7DC89219EBCBBA00D9294B /* QuestionProfileTableViewCell.h in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DC89119EBCBBA00D9294B /* QuestionProfileTableViewCell.h */; };
 		4D7DC89419EBCBDD00D9294B /* QuestionProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89319EBCBDD00D9294B /* QuestionProfileTableViewCell.m */; };
@@ -55,6 +57,10 @@
 		4D670EA519F51851004E54CE /* UITextView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Additions.m"; sourceTree = "<group>"; };
 		4D670EAA19F68053004E54CE /* NSCachedURLResponse+Expiration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCachedURLResponse+Expiration.h"; sourceTree = "<group>"; };
 		4D670EAB19F68053004E54CE /* NSCachedURLResponse+Expiration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCachedURLResponse+Expiration.m"; sourceTree = "<group>"; };
+		4D670EAE19FA355A004E54CE /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		4D670EAF19FA355A004E54CE /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		4D670EB219FA3C94004E54CE /* UserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettings.h; path = Models/Settings/UserSettings.h; sourceTree = "<group>"; };
+		4D670EB319FA3C94004E54CE /* UserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettings.m; path = Models/Settings/UserSettings.m; sourceTree = "<group>"; };
 		4D7DC88A19E668ED00D9294B /* QuestionListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionListViewCell.h; path = Models/UI/QuestionListViewCell.h; sourceTree = "<group>"; };
 		4D7DC88B19E668ED00D9294B /* QuestionListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionListViewCell.m; path = Models/UI/QuestionListViewCell.m; sourceTree = "<group>"; };
 		4D7DC89119EBCBBA00D9294B /* QuestionProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionProfileTableViewCell.h; path = Models/UI/QuestionProfileTableViewCell.h; sourceTree = "<group>"; };
@@ -137,6 +143,24 @@
 				4D670EA519F51851004E54CE /* UITextView+Additions.m */,
 			);
 			name = UIKit;
+			sourceTree = "<group>";
+		};
+		4D670EAD19FA3509004E54CE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4D670EAE19FA355A004E54CE /* SettingsController.h */,
+				4D670EAF19FA355A004E54CE /* SettingsController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		4D670EB119FA3742004E54CE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4D670EB219FA3C94004E54CE /* UserSettings.h */,
+				4D670EB319FA3C94004E54CE /* UserSettings.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		4D7DC88919E6689300D9294B /* UI */ = {
@@ -307,6 +331,7 @@
 		4DDA7BE719E3BED00021DFFB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D670EB119FA3742004E54CE /* Settings */,
 				4DB9BE5F19F1414000862674 /* Formatter */,
 				4DDA7BEA19E3C44D0021DFFB /* API */,
 				5901DBBFAE90DAEB6E58F52F /* Helper */,
@@ -318,6 +343,7 @@
 		4DDA7BE819E3BEE70021DFFB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4D670EAD19FA3509004E54CE /* Settings */,
 				4DB9BE6319F142D400862674 /* Questions */,
 				4DB9BE6419F1430000862674 /* QuestionProfile */,
 				4DB9BE6519F1431000862674 /* Modal */,
@@ -539,11 +565,13 @@
 				4DB9BE5C19F138CA00862674 /* NSString+HTML.m in Sources */,
 				4DDA7BC419E3B9D00021DFFB /* main.m in Sources */,
 				4DB9BE5E19F139C100862674 /* GTMNString+HTML.m in Sources */,
+				4D670EB019FA355A004E54CE /* SettingsController.m in Sources */,
 				4D670EA619F51851004E54CE /* UITextView+Additions.m in Sources */,
 				4D670EAC19F68053004E54CE /* NSCachedURLResponse+Expiration.m in Sources */,
 				4D7DC89A19EBD44700D9294B /* NSString+Additions.m in Sources */,
 				4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */,
 				4D7DC89419EBCBDD00D9294B /* QuestionProfileTableViewCell.m in Sources */,
+				4D670EB419FA3C94004E54CE /* UserSettings.m in Sources */,
 				4D7DC8AF19F0FE9D00D9294B /* UIViewController+MHSemiModal.m in Sources */,
 				5901DC4921C126E1B945D2BA /* NSDictionary+Merge.m in Sources */,
 				5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */,
