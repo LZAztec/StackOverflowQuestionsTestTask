@@ -27,13 +27,11 @@ static NSString *const kAPIVersion = @"2.2";
 {
     self = [super init];
 
-    if (!self)
-    {
+    if (!self) {
         return nil;
     }
 
     _delegate = delegate;
-    _processingQuery = NO;
 
     return self;
 }
@@ -88,26 +86,21 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)executeQueryForUrlString:(NSString *)urlString andParams:(NSDictionary *)params
 {
-    if (!_processingQuery) {
-        _processingQuery = YES;
-        [_responseData setLength:0];
+    [_responseData setLength:0];
 
-        NSURL *methodURL = [NSURL URLWithString:urlString];
+    NSURL *methodURL = [NSURL URLWithString:urlString];
 
-        // Set response timeout
-        NSTimeInterval timeout = 15;
+    // Set response timeout
+    NSTimeInterval timeout = 15;
 
-        // Create the request
-        NSURLRequest *request = [NSURLRequest requestWithURL:[methodURL URLByAppendingParameters:params]
-                                                 cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                             timeoutInterval:timeout];
+    // Create the request
+    NSURLRequest *request = [NSURLRequest requestWithURL:[methodURL URLByAppendingParameters:params]
+                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                         timeoutInterval:timeout];
 
-        // Create url connection and fire request
-        NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        [conn start];
-    } else {
-        NSLog(@"Query is already in process! Try later");
-    }
+    // Create url connection and fire request
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [conn start];
 }
 
 #pragma mark -
@@ -172,23 +165,24 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    _processingQuery = NO;
-
     // The request is complete and data has been received
     NSError *error = nil;
     NSDictionary *response = [self makeAPIResponseWithErrorHandling:&error];
 
-    if (response == nil && [self.delegate respondsToSelector:@selector(handleError:)]) {
-        const unsigned char *ptr = [_responseData bytes];
+    if ([response valueForKey:@"error_id"] != nil) {
+        error = [NSError errorWithDomain:response[@"error_message"] code:[(NSString *)response[@"error_id"] integerValue] userInfo:response];
+    }
 
-        for(int i=0; i<[_responseData length]; ++i) {
-            unsigned char c = *ptr++;
-            NSLog(@"Unprintable character exists! char=%c hex=%x", c, c);
+    if (error != nil || response == nil) {
+        if ([self.delegate respondsToSelector:@selector(handleError:)]) {
+            [self.delegate handleError:error];
+        } else {
+            NSLog(@"Error occurred: %@", error);
         }
 
-        [self.delegate handleError:error];
         return;
     }
+
 
     if ([self url:connection.originalRequest.URL matchesPattern:@"^.*/questions(/){0,1}\?"] &&
             [self.delegate respondsToSelector:@selector(handleQuestionsByTagsResponse:)]) {

@@ -33,8 +33,10 @@ static const int kLoadingCellTag = 1273;
 {
     [super viewDidLoad];
 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
-    self.stackOverflowAPI.simulateQueries = YES;
+    self.stackOverflowAPI.simulateQueries = [defaults boolForKey:@"SimulateQueries"];
+
     _page = 0;
     _selectedTag = @"Objective-c";
     _hasMore = YES;
@@ -214,13 +216,13 @@ static const int kLoadingCellTag = 1273;
 
     [self queryData];
     [self mh_dismissSemiModalViewController:sender animated:YES];
-    [self toggleControlsToState:YES];
+    [self controlsEnabled:YES];
 }
 
 - (void) tagPickerCancelButtonPressed:(TagPickerViewController *)sender;
 {
     [self mh_dismissSemiModalViewController:sender animated:YES];
-    [self toggleControlsToState:YES];
+    [self controlsEnabled:YES];
 }
 
 #pragma -
@@ -230,16 +232,30 @@ static const int kLoadingCellTag = 1273;
     [self questionsResponseReturned:response];
 }
 
+#pragma mark - Error handling
 - (void)handleError:(NSError *)error
 {
     NSLog(@"Error happened:%@", error);
+    _hasMore = NO;
+
+    NSString *message = (error.domain != nil) ? error.domain : kErrorText;
+    [self controlsEnabled:NO];
     
     [[[UIAlertView alloc] initWithTitle:@"Oooops!"
-                                message:kErrorText
-                               delegate:nil
+                                message:message
+                               delegate:self
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil] show];
+
     [self.refreshControl endRefreshing];
+    [self.tableView reloadData];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self controlsEnabled:YES];
+    }
 }
 
 #pragma -
@@ -247,12 +263,12 @@ static const int kLoadingCellTag = 1273;
 
 - (IBAction)changeTagPressed:(id)sender;
 {
-    [self toggleControlsToState:NO];
+    [self controlsEnabled:NO];
     [self mh_presentSemiModalViewController:tagPickerViewController animated:YES];
 }
 
 
-- (void)toggleControlsToState:(BOOL)state
+- (void)controlsEnabled:(BOOL)state
 {
     self.changeTagButton.enabled = state;
     self.tableView.scrollEnabled = state;

@@ -10,7 +10,7 @@
 #import "StackOverflowAPI.h"
 #import "TagPickerViewController.h"
 
-@interface QuestionListViewController : UITableViewController <StackOverflowAPIDelegate, TagPickerViewControllerDelegate>{
+@interface QuestionListViewController : UITableViewController <StackOverflowAPIDelegate, TagPickerViewControllerDelegate, UIAlertViewDelegate>{
     NSMutableArray *questions;
     StackOverflowAPI *stackOverflowAPI;
     UIActivityIndicatorView *activityIndicatorView;

@@ -29,10 +29,11 @@ static const int kLoadingCellTag = 1273;
     [super viewDidLoad];
 
     self.tableData = [[NSMutableArray alloc]init];
-    
     self.title = question.text;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
-    self.stackOverflowAPI.simulateQueries = YES;
+    self.stackOverflowAPI.simulateQueries = [defaults boolForKey:@"SimulateQueries"];
 
     _page = 0;
     _hasMore = YES;

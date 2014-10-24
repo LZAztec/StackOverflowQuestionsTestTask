@@ -18,7 +18,6 @@
 @interface StackOverflowAPI: NSObject <NSURLConnectionDelegate>
 {
     NSMutableData *_responseData;
-    BOOL _processingQuery;
 }
 
 @property (weak) id <StackOverflowAPIDelegate> delegate;

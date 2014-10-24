@@ -21,6 +21,9 @@
                                                          diskCapacity:20 * 1024 * 1024
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
+
+    NSMutableDictionary *defaultValues = [@{@"SimulateQueries" : @NO} mutableCopy];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
     
     return YES;
 }
