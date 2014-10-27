@@ -171,13 +171,13 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
-		4D7DC89719EBD30000D9294B /* Stubs */ = {
+		4D7DC89719EBD30000D9294B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				4D670EA319F51806004E54CE /* UIKit */,
 				4D7DC89B19EBD62D00D9294B /* Foundation */,
 			);
-			name = Stubs;
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		4D7DC89B19EBD62D00D9294B /* Foundation */ = {
@@ -287,7 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				4D7DC8AB19F0FE7700D9294B /* Libraries */,
-				4D7DC89719EBD30000D9294B /* Stubs */,
+				4D7DC89719EBD30000D9294B /* Extensions */,
 				4DDA7BF219E406370021DFFB /* Resources */,
 				4DDA7BE919E3BEEE0021DFFB /* ViewModels */,
 				4DDA7BE819E3BEE70021DFFB /* Controllers */,

@@ -11,10 +11,10 @@
 
 @interface QuestionProfileTableViewCell : UITableViewCell <CellDataContainer>
 
-@property (strong, nonatomic) IBOutlet UILabel *authorName;
-@property (strong, nonatomic) IBOutlet UILabel *modificationDate;
-@property (strong, nonatomic) IBOutlet UILabel *score;
-@property (strong, nonatomic) IBOutlet UITextView *QAText;
-@property (strong, nonatomic) IBOutlet UIImageView *isAnsweredImageView;
+@property (weak, nonatomic) IBOutlet UILabel *authorName;
+@property (weak, nonatomic) IBOutlet UILabel *modificationDate;
+@property (weak, nonatomic) IBOutlet UILabel *score;
+@property (weak, nonatomic) IBOutlet UITextView *QAText;
+@property (weak, nonatomic) IBOutlet UIImageView *isAnsweredImageView;
 
 @end

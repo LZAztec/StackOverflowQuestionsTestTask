@@ -11,9 +11,9 @@
 
 @interface QuestionListViewCell : UITableViewCell <CellDataContainer>
 
-@property (strong, nonatomic) IBOutlet UILabel *authorName;
-@property (strong, nonatomic) IBOutlet UILabel *modificationDate;
-@property (strong, nonatomic) IBOutlet UILabel *answerCount;
-@property (strong, nonatomic) IBOutlet UILabel *questionText;
+@property (weak, nonatomic) IBOutlet UILabel *authorName;
+@property (weak, nonatomic) IBOutlet UILabel *modificationDate;
+@property (weak, nonatomic) IBOutlet UILabel *answerCount;
+@property (weak, nonatomic) IBOutlet UILabel *questionText;
 
 @end
