@@ -7,14 +7,7 @@
 
 @implementation QACellData
 
-- (instancetype)initWithAuthorName:(NSString *)authorName
-                           counter:(NSNumber *)counter
-                      creationDate:(NSDate *)creationDate
-                  lastModification:(NSDate *)lastModification
-                            status:(NSNumber *)status
-                              text:(NSString *)text
-                                id:(NSString *)id
-                              type:(NSString *)type
+- (instancetype)initWithAuthorName:(NSString *)authorName counter:(NSNumber *)counter creationDate:(NSDate *)creationDate lastModification:(NSDate *)lastModification status:(NSNumber *)status text:(NSString *)text id:(NSString *)id type:(NSString *)type link:(NSURL *)link
 {
     self = [super init];
     if (!self) {
@@ -29,6 +22,7 @@
     self.text = text;
     self.id = id;
     self.type = type;
+    self.link = link;
 
     return self;
 }
@@ -45,12 +39,14 @@
     cellDataCopy.text = self.text;
     cellDataCopy.id = self.id;
     cellDataCopy.type = self.type;
+    cellDataCopy.link = self.link;
 
     return cellDataCopy;
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"{ id: %@, type: %@, AuthorName: %@, counter: %@, CreationDate: %@, ModificationDate: %@, status: %@, text: %@ }", self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModification, self.status, self.text];
+    return [NSString stringWithFormat:@"{ id: %@, type: %@, AuthorName: %@, counter: %@, CreationDate: %@, ModificationDate: %@, status: %@, text: \"%@\", link: %@ }", self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModification, self.status, self.text, self.link];
 }
+
 @end

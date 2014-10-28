@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		205F61A30321B972285FF0E4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F984BD706DBA301702C1C5B /* libPods.a */; };
+		4D66F20919FF73AC00E9F86A /* VKActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66F20819FF73AC00E9F86A /* VKActivity.m */; };
 		4D670EA619F51851004E54CE /* UITextView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EA519F51851004E54CE /* UITextView+Additions.m */; };
 		4D670EAC19F68053004E54CE /* NSCachedURLResponse+Expiration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EAB19F68053004E54CE /* NSCachedURLResponse+Expiration.m */; };
 		4D670EB019FA355A004E54CE /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EAF19FA355A004E54CE /* SettingsController.m */; };
@@ -52,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D66F20719FF73AC00E9F86A /* VKActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKActivity.h; path = Models/Sharing/VKActivity.h; sourceTree = "<group>"; };
+		4D66F20819FF73AC00E9F86A /* VKActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKActivity.m; path = Models/Sharing/VKActivity.m; sourceTree = "<group>"; };
 		4D670EA419F51851004E54CE /* UITextView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Additions.h"; sourceTree = "<group>"; };
 		4D670EA519F51851004E54CE /* UITextView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Additions.m"; sourceTree = "<group>"; };
 		4D670EAA19F68053004E54CE /* NSCachedURLResponse+Expiration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCachedURLResponse+Expiration.h"; sourceTree = "<group>"; };
@@ -133,6 +136,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D66F20619FF721800E9F86A /* Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				4D66F20719FF73AC00E9F86A /* VKActivity.h */,
+				4D66F20819FF73AC00E9F86A /* VKActivity.m */,
+			);
+			name = Sharing;
+			sourceTree = "<group>";
+		};
 		4D670EA319F51806004E54CE /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +340,7 @@
 		4DDA7BE719E3BED00021DFFB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D66F20619FF721800E9F86A /* Sharing */,
 				4D670EB119FA3742004E54CE /* Settings */,
 				4DB9BE5F19F1414000862674 /* Formatter */,
 				4DDA7BEA19E3C44D0021DFFB /* API */,
@@ -378,8 +391,8 @@
 		5901DB0505C58AF50495ED85 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				5901D3A0D3F55A09F8F6CB44 /* QACellData.m */,
 				5901D6E1108F907056FA4721 /* QACellData.h */,
+				5901D3A0D3F55A09F8F6CB44 /* QACellData.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -562,6 +575,7 @@
 				4DB9BE5E19F139C100862674 /* GTMNString+HTML.m in Sources */,
 				4D670EB019FA355A004E54CE /* SettingsController.m in Sources */,
 				4D670EA619F51851004E54CE /* UITextView+Additions.m in Sources */,
+				4D66F20919FF73AC00E9F86A /* VKActivity.m in Sources */,
 				4D670EAC19F68053004E54CE /* NSCachedURLResponse+Expiration.m in Sources */,
 				4D7DC89A19EBD44700D9294B /* NSString+Additions.m in Sources */,
 				4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */,

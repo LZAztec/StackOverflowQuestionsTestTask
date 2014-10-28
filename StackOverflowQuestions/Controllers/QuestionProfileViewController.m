@@ -15,6 +15,8 @@ static const int kLoadingCellTag = 1273;
 
 @interface QuestionProfileViewController ()
 
+- (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
+
 @end
 
 @implementation QuestionProfileViewController
@@ -75,6 +77,25 @@ static const int kLoadingCellTag = 1273;
 - (void)controlsEnabled:(BOOL)state
 {
     self.tableView.scrollEnabled = state;
+}
+
+- (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self showSharingControl];
+    }
+}
+
+- (void)showSharingControl
+{
+    NSArray *items = @[self.question.text, self.question.link];
+    
+    UIActivityViewController *activity = [[UIActivityViewController alloc]
+                                          initWithActivityItems:items
+                                          applicationActivities:nil];
+    
+    [self presentViewController:activity animated:YES completion:nil];
+
 }
 
 #pragma mark -
@@ -149,6 +170,10 @@ static const int kLoadingCellTag = 1273;
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showSharingControl];
+}
 
 #pragma mark -
 #pragma mark Stack Overflow data processing
@@ -172,13 +197,14 @@ static const int kLoadingCellTag = 1273;
     }
 
     QACellData *cellData = [[QACellData alloc] initWithAuthorName:name
-                                                      counter:count
-                                                 creationDate:creationDate
-                                             lastModification:date
-                                                       status:status
-                                                         text:[text stringByDecodingHTMLEntities]
-                                                           id:id
-                                                         type:kCellDataAnswerType];
+                                                          counter:count
+                                                     creationDate:creationDate
+                                                 lastModification:date
+                                                           status:status
+                                                             text:[text stringByDecodingHTMLEntities]
+                                                               id:id
+                                                             type:kCellDataAnswerType
+                                                             link:nil];
 
     if (![self.tableData containsObject:cellData] ) {
         [self.tableData addObject:cellData];
@@ -242,5 +268,4 @@ static const int kLoadingCellTag = 1273;
     [self.refreshControl endRefreshing];
     [self.tableView reloadData];
 }
-
 @end

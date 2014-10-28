@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VPG-oI-ERR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VPG-oI-ERR">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -301,12 +302,14 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="QAText" destination="8Bt-Cu-Yjb" id="BhR-7Y-sae"/>
                                     <outlet property="authorName" destination="8Ma-fO-c6I" id="Uz4-TU-JbH"/>
                                     <outlet property="isAnsweredImageView" destination="aZn-83-mSZ" id="8G8-zQ-dLu"/>
                                     <outlet property="modificationDate" destination="6yT-UX-0Cs" id="LIJ-tx-zGi"/>
                                     <outlet property="score" destination="Jd8-u4-fbs" id="wBK-x9-5ax"/>
+                                    <outletCollection property="gestureRecognizers" destination="lAJ-HQ-5rm" appends="YES" id="WTb-cD-dpU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -317,6 +320,11 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tIp-bb-leO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="lAJ-HQ-5rm">
+                    <connections>
+                        <action selector="cellLongPressed:" destination="LHq-rk-LG7" id="NN1-nz-SNZ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1794" y="-159"/>
         </scene>

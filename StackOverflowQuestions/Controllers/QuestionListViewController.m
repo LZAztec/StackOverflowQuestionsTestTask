@@ -185,13 +185,14 @@ static const int kLoadingCellTag = 1273;
 
     for (NSDictionary *data in items) {
         QACellData *cellData = [[QACellData alloc] initWithAuthorName:[(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities]
-                                                          counter:(NSNumber *) data[@"answer_count"]
-                                                     creationDate:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]]
-                                                 lastModification:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]]
-                                                           status:(NSNumber *) data[@"is_answered"]
-                                                             text:[(NSString *) data[@"title"] stringByDecodingHTMLEntities]
-                                                               id:(NSString *) data[@"question_id"]
-                                                             type:kCellDataQuestionType];
+                                                              counter:(NSNumber *) data[@"answer_count"]
+                                                         creationDate:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]]
+                                                     lastModification:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]]
+                                                               status:(NSNumber *) data[@"is_answered"]
+                                                                 text:[(NSString *) data[@"title"] stringByDecodingHTMLEntities]
+                                                                   id:(NSString *) data[@"question_id"]
+                                                                 type:kCellDataQuestionType
+                                                                 link:[NSURL URLWithString:data[@"link"]]];
         if (![self.questions containsObject:cellData]) {
             [self.questions addObject:cellData];
         }
