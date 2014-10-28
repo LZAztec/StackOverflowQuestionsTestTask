@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		205F61A30321B972285FF0E4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F984BD706DBA301702C1C5B /* libPods.a */; };
-		4D66F20919FF73AC00E9F86A /* VKActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66F20819FF73AC00E9F86A /* VKActivity.m */; };
+		4D66F20919FF73AC00E9F86A /* VKontakteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66F20819FF73AC00E9F86A /* VKontakteActivity.m */; };
+		4D66F21019FF80E700E9F86A /* vk_activity_ios8.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D66F20C19FF80E700E9F86A /* vk_activity_ios8.png */; };
+		4D66F21119FF80E700E9F86A /* vk_activity_ios8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D66F20D19FF80E700E9F86A /* vk_activity_ios8@2x.png */; };
+		4D66F21219FF80E700E9F86A /* vk_activity.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D66F20E19FF80E700E9F86A /* vk_activity.png */; };
+		4D66F21319FF80E700E9F86A /* vk_activity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D66F20F19FF80E700E9F86A /* vk_activity@2x.png */; };
 		4D670EA619F51851004E54CE /* UITextView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EA519F51851004E54CE /* UITextView+Additions.m */; };
 		4D670EAC19F68053004E54CE /* NSCachedURLResponse+Expiration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EAB19F68053004E54CE /* NSCachedURLResponse+Expiration.m */; };
 		4D670EB019FA355A004E54CE /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EAF19FA355A004E54CE /* SettingsController.m */; };
@@ -53,8 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4D66F20719FF73AC00E9F86A /* VKActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKActivity.h; path = Models/Sharing/VKActivity.h; sourceTree = "<group>"; };
-		4D66F20819FF73AC00E9F86A /* VKActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKActivity.m; path = Models/Sharing/VKActivity.m; sourceTree = "<group>"; };
+		4D66F20719FF73AC00E9F86A /* VKontakteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKontakteActivity.h; path = Models/Sharing/VKontakteActivity.h; sourceTree = "<group>"; };
+		4D66F20819FF73AC00E9F86A /* VKontakteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKontakteActivity.m; path = Models/Sharing/VKontakteActivity.m; sourceTree = "<group>"; };
+		4D66F20C19FF80E700E9F86A /* vk_activity_ios8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_activity_ios8.png; path = ../../VKActivity/VKSDKTestApplication/VKSDKTestApplication/vk_activity_ios8.png; sourceTree = "<group>"; };
+		4D66F20D19FF80E700E9F86A /* vk_activity_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_activity_ios8@2x.png"; path = "../../VKActivity/VKSDKTestApplication/VKSDKTestApplication/vk_activity_ios8@2x.png"; sourceTree = "<group>"; };
+		4D66F20E19FF80E700E9F86A /* vk_activity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_activity.png; path = ../../VKActivity/VKSDKTestApplication/VKSDKTestApplication/vk_activity.png; sourceTree = "<group>"; };
+		4D66F20F19FF80E700E9F86A /* vk_activity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_activity@2x.png"; path = "../../VKActivity/VKSDKTestApplication/VKSDKTestApplication/vk_activity@2x.png"; sourceTree = "<group>"; };
 		4D670EA419F51851004E54CE /* UITextView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Additions.h"; sourceTree = "<group>"; };
 		4D670EA519F51851004E54CE /* UITextView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Additions.m"; sourceTree = "<group>"; };
 		4D670EAA19F68053004E54CE /* NSCachedURLResponse+Expiration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCachedURLResponse+Expiration.h"; sourceTree = "<group>"; };
@@ -139,8 +147,8 @@
 		4D66F20619FF721800E9F86A /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
-				4D66F20719FF73AC00E9F86A /* VKActivity.h */,
-				4D66F20819FF73AC00E9F86A /* VKActivity.m */,
+				4D66F20719FF73AC00E9F86A /* VKontakteActivity.h */,
+				4D66F20819FF73AC00E9F86A /* VKontakteActivity.m */,
 			);
 			name = Sharing;
 			sourceTree = "<group>";
@@ -381,6 +389,10 @@
 		4DDA7BF219E406370021DFFB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4D66F20C19FF80E700E9F86A /* vk_activity_ios8.png */,
+				4D66F20D19FF80E700E9F86A /* vk_activity_ios8@2x.png */,
+				4D66F20E19FF80E700E9F86A /* vk_activity.png */,
+				4D66F20F19FF80E700E9F86A /* vk_activity@2x.png */,
 				4D7DC8A819EFE8F000D9294B /* Interfaces */,
 				4D7DC89519EBCE0A00D9294B /* coche_valid.png */,
 				4DDA7BCE19E3B9D00021DFFB /* Images.xcassets */,
@@ -508,10 +520,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D66F21319FF80E700E9F86A /* vk_activity@2x.png in Resources */,
 				4D7DC89219EBCBBA00D9294B /* QuestionProfileTableViewCell.h in Resources */,
 				4DDA7BCD19E3B9D00021DFFB /* Main.storyboard in Resources */,
 				4D7DC89619EBCE0A00D9294B /* coche_valid.png in Resources */,
+				4D66F21119FF80E700E9F86A /* vk_activity_ios8@2x.png in Resources */,
+				4D66F21219FF80E700E9F86A /* vk_activity.png in Resources */,
 				4DDA7BD219E3B9D00021DFFB /* LaunchScreen.xib in Resources */,
+				4D66F21019FF80E700E9F86A /* vk_activity_ios8.png in Resources */,
 				4DDA7BCF19E3B9D00021DFFB /* Images.xcassets in Resources */,
 				4DB9BE6719F14A4F00862674 /* TagPickerViewController.xib in Resources */,
 			);
@@ -575,7 +591,7 @@
 				4DB9BE5E19F139C100862674 /* GTMNString+HTML.m in Sources */,
 				4D670EB019FA355A004E54CE /* SettingsController.m in Sources */,
 				4D670EA619F51851004E54CE /* UITextView+Additions.m in Sources */,
-				4D66F20919FF73AC00E9F86A /* VKActivity.m in Sources */,
+				4D66F20919FF73AC00E9F86A /* VKontakteActivity.m in Sources */,
 				4D670EAC19F68053004E54CE /* NSCachedURLResponse+Expiration.m in Sources */,
 				4D7DC89A19EBD44700D9294B /* NSString+Additions.m in Sources */,
 				4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */,
@@ -714,6 +730,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Debug;
 		};
@@ -726,6 +743,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 			};
 			name = Release;
 		};

@@ -10,6 +10,7 @@
 #import "QuestionProfileTableViewCell.h"
 #import "NSString+HTML.h"
 #import "UserSettings.h"
+#import "VKontakteActivity.h"
 
 static const int kLoadingCellTag = 1273;
 
@@ -89,12 +90,13 @@ static const int kLoadingCellTag = 1273;
 - (void)showSharingControl
 {
     NSArray *items = @[self.question.text, self.question.link];
+    VKontakteActivity *vkontakteActivity = [[VKontakteActivity alloc] initWithParent:self];
     
-    UIActivityViewController *activity = [[UIActivityViewController alloc]
-                                          initWithActivityItems:items
-                                          applicationActivities:nil];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
+                                                        initWithActivityItems:items
+                                                        applicationActivities:@[vkontakteActivity]];
     
-    [self presentViewController:activity animated:YES completion:nil];
+    [self presentViewController:activityViewController animated:YES completion:nil];
 
 }
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "AFNetworking.h"
+#import <UIKit/UIKit.h>
 #import "StackOverflowAPI.h"
 #import "NSURL+PathParameters.h"
 #import "NSCachedURLResponse+Expiration.h"
