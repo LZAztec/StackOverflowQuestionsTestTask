@@ -13,10 +13,13 @@
 #import "VKontakteActivity.h"
 
 static const int kLoadingCellTag = 1273;
+static const int kQuestionCellTag = 123123;
 
 @interface QuestionProfileViewController ()
 
 - (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
+
+@property (strong, nonatomic) NSMutableDictionary *textViews;
 
 @end
 
@@ -26,17 +29,15 @@ static const int kLoadingCellTag = 1273;
 @synthesize tableData;
 @synthesize stackOverflowAPI;
 
-#pragma mark -
-#pragma mark Lifecycle
+#pragma mark - Lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     self.tableData = [[NSMutableArray alloc]init];
     self.title = question.text;
-
-
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
+    self.textViews = [[NSMutableDictionary alloc] init];
 
     _page = 0;
     _hasMore = YES;
@@ -122,11 +123,32 @@ static const int kLoadingCellTag = 1273;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"tableView:cellForRowAtIndexPath: %ld", indexPath.row);
+    
+    static NSString *cellId = @"QACell";
+
+    UITableViewCell *cell = nil;
+    
     if (indexPath.row < self.tableData.count) {
-        return [self questionProfileCellForIndexPath:indexPath];
+        QuestionProfileTableViewCell *questionProfileCell = [self questionProfileCellForIndexPath:indexPath reuseIdentifier:cellId];
+        [self.textViews setObject:questionProfileCell.QAText forKey:indexPath];
+        
+        if (indexPath.row == 0) {
+            questionProfileCell.tag = kQuestionCellTag;
+            questionProfileCell.viewForBaselineLayout.backgroundColor = [UIColor colorWithRed:0.85 green:0.92 blue:0.79 alpha:1.0];
+            questionProfileCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            questionProfileCell.isAnsweredImageView.hidden = YES;
+            questionProfileCell.score.hidden = YES;
+        }
+        
+        cell = questionProfileCell;
+        
     } else {
-        return [self loadingCell];
+        cell = [self loadingCell];
     }
+    
+    
+    return cell;
 }
 
 
@@ -157,14 +179,13 @@ static const int kLoadingCellTag = 1273;
     return cell;
 }
 
-- (UITableViewCell *)questionProfileCellForIndexPath:(NSIndexPath *)indexPath
+- (QuestionProfileTableViewCell *)questionProfileCellForIndexPath:(NSIndexPath *)indexPath reuseIdentifier:(NSString *)reuseIdentifier
 {
-    static NSString *cellId = @"QACell";
 
-    QuestionProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellId];
+    QuestionProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 
     if (cell == nil) {
-        cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
 
     [cell setCellData:(QACellData *)tableData[(NSUInteger) indexPath.row]];
@@ -176,6 +197,25 @@ static const int kLoadingCellTag = 1273;
 {
     [self showSharingControl];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // check here, if it is one of the cells, that needs to be resized
+    // to the size of the contained UITextView
+
+    
+    CGFloat height = [self textViewHeightForRowAtIndexPath:indexPath] + 81.0f;
+    return height;
+}
+
+- (CGFloat)textViewHeightForRowAtIndexPath: (NSIndexPath*)indexPath
+{
+    UITextView *calculationView = [self.textViews objectForKey: indexPath];
+    CGFloat textViewWidth = CGRectGetWidth(calculationView.frame);
+    CGSize size = [calculationView sizeThatFits:CGSizeMake(textViewWidth, FLT_MAX)];
+    return size.height;
+}
+
 
 #pragma mark -
 #pragma mark Stack Overflow data processing
@@ -217,7 +257,7 @@ static const int kLoadingCellTag = 1273;
 {
     if (![self.tableData containsObject:question] ){
         [self.tableData addObject:question];
-        [self.tableView reloadData];
+//        [self.tableView reloadData];
     }
 }
 

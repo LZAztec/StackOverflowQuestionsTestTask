@@ -56,7 +56,7 @@ static NSString * kDefaultAppID= @"4574538";
 
 - (UIImage *)activityImage
 {
-    return [UIImage imageNamed:@"vk_activity"];
+    return [UIImage imageNamed:(iOS8) ? @"vk_activity_ios8" : @"vk_activity"];
 }
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
@@ -103,7 +103,7 @@ static NSString * kDefaultAppID= @"4574538";
     [VKSdk initializeWithDelegate:self andAppId:self.appID];
     if ([VKSdk wakeUpSession])
     {
-        [self postToWall];
+        [self startComposeViewController];
     }
     else{
         [VKSdk authorize:@[VK_PER_WALL, VK_PER_PHOTOS]];

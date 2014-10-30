@@ -101,7 +101,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                            <variation key="widthClass=compact" misplaced="YES">
                                                 <rect key="frame" x="8" y="8" width="105" height="14"/>
                                             </variation>
                                         </label>
@@ -219,9 +219,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="8" y="20" width="185" height="21"/>
-                                            </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yT-UX-0Cs">
                                             <rect key="frame" x="444" y="8" width="148" height="20"/>
@@ -232,9 +229,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="221" y="9" width="146" height="21"/>
-                                            </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jd8-u4-fbs">
                                             <rect key="frame" x="444" y="36" width="148" height="20"/>
@@ -245,9 +239,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="221" y="31" width="146" height="21"/>
-                                            </variation>
                                         </label>
                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coche_valid.png" translatesAutoresizingMaskIntoConstraints="NO" id="aZn-83-mSZ">
                                             <rect key="frame" x="542" y="87" width="50" height="50"/>
@@ -255,25 +246,12 @@
                                                 <constraint firstAttribute="width" constant="50" id="C8F-P5-6ob"/>
                                                 <constraint firstAttribute="height" constant="50" id="YMx-Im-G6E"/>
                                             </constraints>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
-                                                <rect key="frame" x="317" y="76" width="50" height="50"/>
-                                            </variation>
                                         </imageView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Bt-Cu-Yjb">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" text="QA Text" translatesAutoresizingMaskIntoConstraints="NO" id="8Bt-Cu-Yjb">
                                             <rect key="frame" x="8" y="73" width="526" height="64"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="64" id="vfJ-qP-kKt"/>
-                                            </constraints>
-                                            <attributedString key="attributedText">
-                                                <fragment content="QA Text">
-                                                    <attributes>
-                                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                            <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <rect key="frame" x="0.0" y="62" width="309" height="77"/>
                                             </variation>
@@ -281,6 +259,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="leading" secondItem="elm-a7-Dgd" secondAttribute="leadingMargin" id="0dI-zp-vHF"/>
+                                        <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="top" secondItem="elm-a7-Dgd" secondAttribute="topMargin" constant="65" id="DHf-Ih-KBD"/>
                                         <constraint firstItem="8Ma-fO-c6I" firstAttribute="top" secondItem="elm-a7-Dgd" secondAttribute="topMargin" id="M8y-dT-Gcd"/>
                                         <constraint firstItem="6yT-UX-0Cs" firstAttribute="top" secondItem="elm-a7-Dgd" secondAttribute="topMargin" id="Qsi-yZ-O49"/>
                                         <constraint firstItem="6yT-UX-0Cs" firstAttribute="trailing" secondItem="elm-a7-Dgd" secondAttribute="trailingMargin" id="gyH-Kj-0FN"/>
@@ -302,6 +281,7 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1000"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="QAText" destination="8Bt-Cu-Yjb" id="BhR-7Y-sae"/>
