@@ -36,7 +36,21 @@
     self.score.text = [data.counter stringValue];
     self.modificationDate.text = [FormatHelper formatDateFuzzy:data.lastModification];
     self.QAText.attributedText = [self attributedFormattedStringFromString:data.text];
+    
     self.isAnsweredImageView.hidden = [data.status isEqualToNumber:@0];
+
+    if (data.type == kCellDataQuestionType) {
+        self.viewForBaselineLayout.backgroundColor = [UIColor colorWithRed:0.85 green:0.92 blue:0.79 alpha:1.0];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.isAnsweredImageView.hidden = YES;
+        self.score.hidden = YES;
+    } else {
+        self.viewForBaselineLayout.backgroundColor = [UIColor whiteColor];
+        self.selectionStyle = UITableViewCellSelectionStyleDefault;
+        self.isAnsweredImageView.hidden = NO;
+        self.score.hidden = NO;
+    }
+    
 }
 
 - (NSMutableAttributedString *)attributedFormattedStringFromString:(NSString *)string

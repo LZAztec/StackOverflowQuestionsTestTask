@@ -14,6 +14,7 @@
 
 static const int kLoadingCellTag = 1273;
 static const int kQuestionCellTag = 123123;
+static const int kAnswerCellTag = 123124;
 
 @interface QuestionProfileViewController ()
 
@@ -135,10 +136,8 @@ static const int kQuestionCellTag = 123123;
         
         if (indexPath.row == 0) {
             questionProfileCell.tag = kQuestionCellTag;
-            questionProfileCell.viewForBaselineLayout.backgroundColor = [UIColor colorWithRed:0.85 green:0.92 blue:0.79 alpha:1.0];
-            questionProfileCell.selectionStyle = UITableViewCellSelectionStyleNone;
-            questionProfileCell.isAnsweredImageView.hidden = YES;
-            questionProfileCell.score.hidden = YES;
+        } else {
+            questionProfileCell.tag = kAnswerCellTag;
         }
         
         cell = questionProfileCell;

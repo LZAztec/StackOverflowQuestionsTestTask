@@ -252,7 +252,6 @@
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <rect key="frame" x="0.0" y="62" width="309" height="77"/>
                                             </variation>
                                         </textView>

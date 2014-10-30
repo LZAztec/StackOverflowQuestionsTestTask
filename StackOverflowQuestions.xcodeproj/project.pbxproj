@@ -59,10 +59,10 @@
 /* Begin PBXFileReference section */
 		4D66F20719FF73AC00E9F86A /* VKontakteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKontakteActivity.h; path = Models/Sharing/VKontakteActivity.h; sourceTree = "<group>"; };
 		4D66F20819FF73AC00E9F86A /* VKontakteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKontakteActivity.m; path = Models/Sharing/VKontakteActivity.m; sourceTree = "<group>"; };
-		4D66F20C19FF80E700E9F86A /* vk_activity_ios8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_activity_ios8.png; path = ../../VKActivity/VKSDKTestApplication/VKSDKTestApplication/vk_activity_ios8.png; sourceTree = "<group>"; };
-		4D66F20D19FF80E700E9F86A /* vk_activity_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_activity_ios8@2x.png"; path = "../../VKActivity/VKSDKTestApplication/VKSDKTestApplication/vk_activity_ios8@2x.png"; sourceTree = "<group>"; };
-		4D66F20E19FF80E700E9F86A /* vk_activity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_activity.png; path = ../../VKActivity/VKSDKTestApplication/VKSDKTestApplication/vk_activity.png; sourceTree = "<group>"; };
-		4D66F20F19FF80E700E9F86A /* vk_activity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_activity@2x.png"; path = "../../VKActivity/VKSDKTestApplication/VKSDKTestApplication/vk_activity@2x.png"; sourceTree = "<group>"; };
+		4D66F20C19FF80E700E9F86A /* vk_activity_ios8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_activity_ios8.png; path = Resources/vk_activity_ios8.png; sourceTree = "<group>"; };
+		4D66F20D19FF80E700E9F86A /* vk_activity_ios8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_activity_ios8@2x.png"; path = "Resources/vk_activity_ios8@2x.png"; sourceTree = "<group>"; };
+		4D66F20E19FF80E700E9F86A /* vk_activity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vk_activity.png; path = Resources/vk_activity.png; sourceTree = "<group>"; };
+		4D66F20F19FF80E700E9F86A /* vk_activity@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vk_activity@2x.png"; path = "Resources/vk_activity@2x.png"; sourceTree = "<group>"; };
 		4D670EA419F51851004E54CE /* UITextView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Additions.h"; sourceTree = "<group>"; };
 		4D670EA519F51851004E54CE /* UITextView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Additions.m"; sourceTree = "<group>"; };
 		4D670EAA19F68053004E54CE /* NSCachedURLResponse+Expiration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCachedURLResponse+Expiration.h"; sourceTree = "<group>"; };
