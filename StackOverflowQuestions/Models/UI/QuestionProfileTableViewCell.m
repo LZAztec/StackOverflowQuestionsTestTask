@@ -47,7 +47,6 @@
     } else {
         self.viewForBaselineLayout.backgroundColor = [UIColor whiteColor];
         self.selectionStyle = UITableViewCellSelectionStyleDefault;
-        self.isAnsweredImageView.hidden = NO;
         self.score.hidden = NO;
     }
     
@@ -62,7 +61,9 @@
     // Set font, notice the range is for the whole string
     UIFont *font = [UIFont fontWithName:@"Helvetica Neue" size:14];
     
-    [QATextAttributedString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [QATextAttributedString length])];
+    [QATextAttributedString addAttribute:NSFontAttributeName
+                                   value:font
+                                   range:NSMakeRange(0, [QATextAttributedString length])];
 
     return QATextAttributedString;
 }

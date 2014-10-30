@@ -256,7 +256,6 @@ static const int kAnswerCellTag = 123124;
 {
     if (![self.tableData containsObject:question] ){
         [self.tableData addObject:question];
-//        [self.tableView reloadData];
     }
 }
 
