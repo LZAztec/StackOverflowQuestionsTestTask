@@ -25,7 +25,7 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (instancetype)init
 {
-    NSAssert(false, @"You cannot init this class directly. Instead, use initWithParent");
+    NSAssert(false, @"You cannot init this class directly. Instead, use initWithDelegate:");
     return nil;
 }
 
