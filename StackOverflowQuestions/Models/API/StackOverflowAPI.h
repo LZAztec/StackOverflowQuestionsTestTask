@@ -24,9 +24,7 @@
 @property BOOL simulateQueries;
 
 - (instancetype)initWithDelegate:(id <StackOverflowAPIDelegate>)delegate;
-
 - (void)getQuestionsByTags:(NSArray *)tags page:(NSNumber *)page limit:(NSNumber *)limit;
-
 - (void)getAnswersByQuestionIds:(NSArray *)ids page:(NSNumber *)page limit:(NSNumber *)limit;
 
 @end

@@ -231,7 +231,6 @@ static const int kLoadingCellTag = 1273;
 - (void)handleError:(NSError *)error
 {
     NSLog(@"Error happened:%@", error);
-    _hasMore = NO;
 
     NSString *message = (error.domain != nil) ? error.domain : kErrorText;
     [self controlsEnabled:NO];

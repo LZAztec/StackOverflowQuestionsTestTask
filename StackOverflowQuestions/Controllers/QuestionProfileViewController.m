@@ -59,6 +59,7 @@ static const int kAnswerCellTag = 123124;
 
 - (void)refreshFirstPage
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     [self clearFirstPageData];
     [self queryAnswersForQuestion];
 }
@@ -123,29 +124,27 @@ static const int kAnswerCellTag = 123124;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@ %zd", NSStringFromSelector(_cmd), indexPath.row);
+    NSLog(@"\n%@ %zd", NSStringFromSelector(_cmd), indexPath.row);
     
-    static NSString *cellId = @"QACell";
+    static NSString *reuseIdentifier = @"QACell";
 
-    UITableViewCell *cell = nil;
+    QuestionProfileTableViewCell *cell = nil;
     
     if (indexPath.row < self.tableData.count) {
-        QuestionProfileTableViewCell *questionProfileCell = [self questionProfileCellForIndexPath:indexPath reuseIdentifier:cellId];
-        (self.textViews)[indexPath] = questionProfileCell.QAText;
-        
+        cell = [self questionProfileCellForIndexPath:indexPath reuseIdentifier:reuseIdentifier];
+
         if (indexPath.row == 0) {
-            questionProfileCell.tag = kQuestionCellTag;
+            cell.tag = kQuestionCellTag;
         } else {
-            questionProfileCell.tag = kAnswerCellTag;
+            cell.tag = kAnswerCellTag;
         }
         
-        cell = questionProfileCell;
-        
     } else {
-        cell = [self loadingCell];
+        cell = [self loadingCellWithReuseIdentifier:reuseIdentifier];
     }
-    
-    
+
+    (self.textViews)[indexPath] = cell.QAText;
+
     return cell;
 }
 
@@ -160,9 +159,13 @@ static const int kAnswerCellTag = 123124;
     }
 }
 
-- (UITableViewCell *)loadingCell
+- (QuestionProfileTableViewCell *)loadingCellWithReuseIdentifier:(NSString *)reuseIdentifier
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    QuestionProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+
+    if (cell == nil) {
+        cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    }
 
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
             initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -173,6 +176,12 @@ static const int kAnswerCellTag = 123124;
     [activityIndicator startAnimating];
 
     cell.tag = kLoadingCellTag;
+
+    cell.authorName.hidden = YES;
+    cell.modificationDate.hidden = YES;
+    cell.score.hidden = YES;
+    cell.QAText.hidden = YES;
+    cell.isAnsweredImageView.hidden = YES;
 
     return cell;
 }
@@ -201,15 +210,17 @@ static const int kAnswerCellTag = 123124;
     // check here, if it is one of the cells, that needs to be resized
     // to the size of the contained UITextView
 
-    
+
     CGFloat height = [self textViewHeightForRowAtIndexPath:indexPath] + 81.0f;
     return height;
 }
 
 - (CGFloat)textViewHeightForRowAtIndexPath: (NSIndexPath*)indexPath
 {
-    UITextView *calculationView = [self.textViews objectForKey: indexPath];
-    CGFloat textViewWidth = CGRectGetWidth(calculationView.frame);
+    UITextView *calculationView = (self.textViews)[indexPath];
+    // full screen width - image width (50) - paddings(8*3) (left + right + distance between image and text view)
+    CGFloat textViewWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]) - 50 - (8*3);
+    NSLog(@"Width of calculation view: %f, %@", textViewWidth, NSStringFromCGRect(calculationView.frame));
     CGSize size = [calculationView sizeThatFits:CGSizeMake(textViewWidth, FLT_MAX)];
     return size.height;
 }

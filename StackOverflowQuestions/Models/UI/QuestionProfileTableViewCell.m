@@ -32,6 +32,13 @@
 
 - (void)setCellData:(StackOverflowResponseData *)data
 {
+
+    self.authorName.hidden = NO;
+    self.modificationDate.hidden = NO;
+    self.score.hidden = NO;
+    self.QAText.hidden = NO;
+    self.isAnsweredImageView.hidden = NO;
+
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.score.text = [data.counter stringValue];
     self.modificationDate.text = [FormatHelper formatDateFuzzy:data.lastModification];
