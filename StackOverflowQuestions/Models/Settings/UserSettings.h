@@ -16,7 +16,7 @@
 - (instancetype)init;
 
 - (void)setSimulateQueriesState:(BOOL)state;
-- (BOOL)getSimulateQueriesState;
+- (BOOL)simulateQueriesState;
 
 
 @end

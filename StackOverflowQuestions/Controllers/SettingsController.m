@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.simulateQueriesSwitch.on = [[UserSettings sharedInstance] getSimulateQueriesState];
+    self.simulateQueriesSwitch.on = [[UserSettings sharedInstance] simulateQueriesState];
 }
 
 - (void)didReceiveMemoryWarning

@@ -14,13 +14,12 @@ static NSString *const kCellDataAnswerType = @"answer";
 @property (strong, nonatomic) NSString *authorName;
 @property (strong, nonatomic) NSNumber *counter;
 @property (strong, nonatomic) NSDate *creationDate;
-@property (strong, nonatomic) NSDate *lastModification;
+@property (strong, nonatomic) NSDate *lastModificationDate;
 @property (strong, nonatomic) NSNumber *status;
-@property (strong, nonatomic) NSString *text;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *body;
 @property (strong, nonatomic) NSString *type;
 @property (strong, nonatomic) NSURL *link;
-
-- (instancetype)initWithAuthorName:(NSString *)authorName counter:(NSNumber *)counter creationDate:(NSDate *)creationDate lastModification:(NSDate *)lastModification status:(NSNumber *)status text:(NSString *)text id:(NSString *)id type:(NSString *)type link:(NSURL *)link;
 
 @end
 

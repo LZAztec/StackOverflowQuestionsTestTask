@@ -41,8 +41,8 @@
 
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.score.text = [data.counter stringValue];
-    self.modificationDate.text = [FormatHelper formatDateFuzzy:data.lastModification];
-    self.QAText.attributedText = [self attributedFormattedStringFromString:data.text];
+    self.modificationDate.text = [FormatHelper formatDateFuzzy:data.lastModificationDate];
+    self.QAText.attributedText = [self attributedFormattedStringFromString:data.body];
     
     self.isAnsweredImageView.hidden = [data.status isEqualToNumber:@0];
 

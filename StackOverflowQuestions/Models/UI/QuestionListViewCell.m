@@ -35,7 +35,7 @@
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.answerCount.text = [data.counter stringValue];
     self.modificationDate.text = [FormatHelper formatDateFuzzy:data.creationDate];
-    self.questionText.text = [data.text stringByDecodingHTMLEntities];
+    self.questionText.text = [data.title stringByDecodingHTMLEntities];
 }
 
 @end

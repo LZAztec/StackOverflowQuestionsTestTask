@@ -36,7 +36,7 @@ static const int kAnswerCellTag = 123124;
     [super viewDidLoad];
 
     self.tableData = [[NSMutableArray alloc]init];
-    self.title = question.text;
+    self.title = question.title;
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
     self.textViews = [[NSMutableDictionary alloc] init];
 
@@ -92,7 +92,7 @@ static const int kAnswerCellTag = 123124;
 
 - (void)showSharingControl
 {
-    NSArray *items = @[self.question.text, self.question.link];
+    NSArray *items = @[self.question.title, self.question.link];
     VKontakteActivity *vkontakteActivity = [[VKontakteActivity alloc] initWithParent:self];
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
@@ -229,7 +229,7 @@ static const int kAnswerCellTag = 123124;
 #pragma mark - Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
-    self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] getSimulateQueriesState];
+    self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] simulateQueriesState];
     NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getAnswersByQuestionIds:@[question.id] page:@(_page) limit:@50];
 }
@@ -246,15 +246,15 @@ static const int kAnswerCellTag = 123124;
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
     }
 
-    StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] initWithAuthorName:name
-                                                          counter:count
-                                                     creationDate:creationDate
-                                                 lastModification:date
-                                                           status:status
-                                                             text:[text stringByDecodingHTMLEntities]
-                                                               id:id
-                                                             type:kCellDataAnswerType
-                                                             link:nil];
+    StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] init];
+    cellData.authorName = name;
+    cellData.counter = count;
+    cellData.creationDate = creationDate;
+    cellData.lastModificationDate = date;
+    cellData.status = status;
+    cellData.body = text;
+    cellData.id = id;
+    cellData.type = kCellDataAnswerType;
 
     if (![self.tableData containsObject:cellData] ) {
         [self.tableData addObject:cellData];

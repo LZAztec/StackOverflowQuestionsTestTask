@@ -162,7 +162,7 @@ static const int kLoadingCellTag = 1273;
 
 - (void)queryData
 {
-    self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] getSimulateQueriesState];
+    self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] simulateQueriesState];
     NSLog(@"Querying data for page: %ld, tag: %@, hasMore: %@", (long)_page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getQuestionsByTags:@[_selectedTag] page:@(_page) limit:@10];
 }
@@ -180,15 +180,18 @@ static const int kLoadingCellTag = 1273;
     NSArray *items = [response valueForKey:@"items"];
 
     for (NSDictionary *data in items) {
-        StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] initWithAuthorName:[(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities]
-                                                              counter:(NSNumber *) data[@"answer_count"]
-                                                         creationDate:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]]
-                                                     lastModification:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]]
-                                                               status:(NSNumber *) data[@"is_answered"]
-                                                                 text:[(NSString *) data[@"title"] stringByDecodingHTMLEntities]
-                                                                   id:(NSString *) data[@"question_id"]
-                                                                 type:kCellDataQuestionType
-                                                                 link:[NSURL URLWithString:data[@"link"]]];
+        StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] init];
+        cellData.authorName = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
+        cellData.counter = (NSNumber *) data[@"answer_count"];
+        cellData.creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
+        cellData.lastModificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]];
+        cellData.status = (NSNumber *) data[@"is_answered"];
+        cellData.title = [(NSString *) data[@"title"] stringByDecodingHTMLEntities];
+        cellData.body = [(NSString *) data[@"body"] stringByDecodingHTMLEntities];
+        cellData.id = (NSString *) data[@"question_id"];
+        cellData.type = kCellDataQuestionType;
+        cellData.link = [NSURL URLWithString:data[@"link"]];
+
         if (![self.questions containsObject:cellData]) {
             [self.questions addObject:cellData];
         }
