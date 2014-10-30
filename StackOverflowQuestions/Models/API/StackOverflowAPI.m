@@ -23,16 +23,18 @@ static NSString *const kAPIVersion = @"2.2";
 
 @implementation StackOverflowAPI
 
+- (instancetype)init
+{
+    NSAssert(false, @"You cannot init this class directly. Instead, use initWithParent");
+    return nil;
+}
+
 - (instancetype)initWithDelegate:(id <StackOverflowAPIDelegate>)delegate;
 {
     self = [super init];
-
-    if (!self) {
-        return nil;
+    if (self) {
+        _delegate = delegate;
     }
-
-    _delegate = delegate;
-
     return self;
 }
 
