@@ -58,7 +58,9 @@ static NSString *const kAPIVersion = @"2.2";
     NSString *methodURLString = [NSString stringWithFormat:@"%@/%@/questions", kAPIHost, kAPIVersion];
 
     if (self.simulateQueries) {
-        [self.delegate handleQuestionsByTagsResponse:[self makeQuestionsStubResponse]];
+        if ([self.delegate respondsToSelector:@selector(handleQuestionsByTagsResponse:)]) {
+            [self.delegate handleQuestionsByTagsResponse:[self makeQuestionsStubResponse]];
+        }
     } else {
         [self executeQueryForUrlString:methodURLString andParams:params];
     }
