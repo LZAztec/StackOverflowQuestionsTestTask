@@ -43,7 +43,6 @@
     return pickerData[(NSUInteger) row];
 }
 
-#pragma mark - 
 #pragma mark - Button actions methods
 
 - (IBAction)doneButtonPressed:(id)sender;

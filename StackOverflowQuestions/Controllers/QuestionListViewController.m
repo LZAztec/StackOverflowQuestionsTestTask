@@ -26,7 +26,6 @@ static const int kLoadingCellTag = 1273;
 @synthesize questions;
 @synthesize stackOverflowAPI;
 
-#pragma mark -
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
@@ -70,7 +69,6 @@ static const int kLoadingCellTag = 1273;
     [self queryData];
 }
 
-#pragma mark - 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -84,7 +82,6 @@ static const int kLoadingCellTag = 1273;
     }
 }
 
-#pragma mark -
 #pragma mark - UI Table View Methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -161,7 +158,6 @@ static const int kLoadingCellTag = 1273;
     return cell;
 }
 
-#pragma mark -
 #pragma mark - Stack Overflow API response handling methods
 
 - (void)queryData
@@ -204,7 +200,6 @@ static const int kLoadingCellTag = 1273;
     [self.refreshControl endRefreshing];
 }
 
-#pragma mark -
 #pragma mark - Tag Picker View Controller Delegate methods
 - (void) tagPickerDoneButtonPressed:(TagPickerViewController *)sender;
 {

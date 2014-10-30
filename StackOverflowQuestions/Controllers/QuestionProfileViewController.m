@@ -102,8 +102,7 @@ static const int kAnswerCellTag = 123124;
 
 }
 
-#pragma mark -
-#pragma mark UI Table View Methods
+#pragma mark - UI Table View Methods
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -216,8 +215,7 @@ static const int kAnswerCellTag = 123124;
 }
 
 
-#pragma mark -
-#pragma mark Stack Overflow data processing
+#pragma mark - Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
     self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] getSimulateQueriesState];

@@ -105,8 +105,7 @@ static NSString *const kAPIVersion = @"2.2";
     [conn start];
 }
 
-#pragma mark -
-#pragma mark Response processing methods
+#pragma mark - Response processing methods
 - (NSRegularExpression *)makeRegexForPattern:(NSString *)pattern
 {
     // Create a regular expression
@@ -140,8 +139,7 @@ static NSString *const kAPIVersion = @"2.2";
     return responseDict;
 }
 
-#pragma mark -
-#pragma mark NSURLConnection Delegate Methods
+#pragma mark - NSURLConnection Delegate Methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
