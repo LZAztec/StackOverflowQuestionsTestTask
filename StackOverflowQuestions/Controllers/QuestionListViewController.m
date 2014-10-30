@@ -78,7 +78,7 @@ static const int kLoadingCellTag = 1273;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         QuestionProfileViewController *destinationVC = segue.destinationViewController;
 
-        QACellData *data = questions[(NSUInteger) indexPath.row];
+        StackOverflowResponseData *data = questions[(NSUInteger) indexPath.row];
         NSLog(@"Question: %@", data);
         destinationVC.question = questions[(NSUInteger) indexPath.row];
     }
@@ -133,7 +133,7 @@ static const int kLoadingCellTag = 1273;
         cell = [[QuestionListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
 
-    [cell setCellData:(QACellData *)questions[(NSUInteger) indexPath.row]];
+    [cell setCellData:(StackOverflowResponseData *)questions[(NSUInteger) indexPath.row]];
 
     if ([cell.questionText.text isEqualToString:kErrorText]){
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -184,7 +184,7 @@ static const int kLoadingCellTag = 1273;
     NSArray *items = [response valueForKey:@"items"];
 
     for (NSDictionary *data in items) {
-        QACellData *cellData = [[QACellData alloc] initWithAuthorName:[(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities]
+        StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] initWithAuthorName:[(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities]
                                                               counter:(NSNumber *) data[@"answer_count"]
                                                          creationDate:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]]
                                                      lastModification:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]]

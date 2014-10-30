@@ -124,7 +124,7 @@ static const int kAnswerCellTag = 123124;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"tableView:cellForRowAtIndexPath: %ld", indexPath.row);
+    NSLog(@"%@ %zd", NSStringFromSelector(_cmd), indexPath.row);
     
     static NSString *cellId = @"QACell";
 
@@ -132,7 +132,7 @@ static const int kAnswerCellTag = 123124;
     
     if (indexPath.row < self.tableData.count) {
         QuestionProfileTableViewCell *questionProfileCell = [self questionProfileCellForIndexPath:indexPath reuseIdentifier:cellId];
-        [self.textViews setObject:questionProfileCell.QAText forKey:indexPath];
+        (self.textViews)[indexPath] = questionProfileCell.QAText;
         
         if (indexPath.row == 0) {
             questionProfileCell.tag = kQuestionCellTag;
@@ -187,7 +187,7 @@ static const int kAnswerCellTag = 123124;
         cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
 
-    [cell setCellData:(QACellData *)tableData[(NSUInteger) indexPath.row]];
+    [cell setCellData:(StackOverflowResponseData *)tableData[(NSUInteger) indexPath.row]];
 
     return cell;
 }
@@ -237,7 +237,7 @@ static const int kAnswerCellTag = 123124;
         date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
     }
 
-    QACellData *cellData = [[QACellData alloc] initWithAuthorName:name
+    StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] initWithAuthorName:name
                                                           counter:count
                                                      creationDate:creationDate
                                                  lastModification:date

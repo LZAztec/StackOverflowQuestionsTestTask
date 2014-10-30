@@ -10,10 +10,10 @@
 #import "QuestionListViewController.h"
 #import "StackOverflowAPI.h"
 
-@class QACellData;
+@class StackOverflowResponseData;
 
 @interface QuestionProfileViewController : UITableViewController <StackOverflowAPIDelegate, UIAlertViewDelegate>{
-    QACellData *question;
+    StackOverflowResponseData *question;
     NSMutableArray *tableData;
     StackOverflowAPI *stackOverflowAPI;
 
@@ -21,7 +21,7 @@
     BOOL _hasMore;
 }
 
-@property (strong, nonatomic) QACellData *question;
+@property (strong, nonatomic) StackOverflowResponseData *question;
 @property (strong, nonatomic) NSMutableArray *tableData;
 @property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 

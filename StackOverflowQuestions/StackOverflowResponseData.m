@@ -3,9 +3,9 @@
 // Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "QACellData.h"
+#import "StackOverflowResponseData.h"
 
-@implementation QACellData
+@implementation StackOverflowResponseData
 
 - (instancetype)initWithAuthorName:(NSString *)authorName counter:(NSNumber *)counter creationDate:(NSDate *)creationDate lastModification:(NSDate *)lastModification status:(NSNumber *)status text:(NSString *)text id:(NSString *)id type:(NSString *)type link:(NSURL *)link
 {
@@ -29,7 +29,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    QACellData *cellDataCopy = [QACellData new];
+    StackOverflowResponseData *cellDataCopy = [StackOverflowResponseData new];
 
     cellDataCopy.authorName = self.authorName;
     cellDataCopy.counter = self.counter;

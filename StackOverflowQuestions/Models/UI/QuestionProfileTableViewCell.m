@@ -30,7 +30,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setCellData:(QACellData *)data
+- (void)setCellData:(StackOverflowResponseData *)data
 {
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.score.text = [data.counter stringValue];
