@@ -94,6 +94,13 @@
                         range:matchRange];
     }
 
+    // Set font, notice the range is for the whole string
+    UIFont *font = [UIFont fontWithName:@"Helvetica Neue" size:14];
+    
+    [newText addAttribute:NSFontAttributeName
+                                   value:font
+                                   range:NSMakeRange(0, [newText length])];
+    
     return [FormatHelper mutableAttributedStringByReplacingPattern:@"%/{0,1}code%"
                                                        replacement:@"\n"
                                            mutableAttributedString:newText];

@@ -38,11 +38,14 @@
     self.score.hidden = NO;
     self.QAText.hidden = NO;
     self.isAnsweredImageView.hidden = NO;
+    self.QAText.scrollEnabled = NO;
 
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.score.text = [data.counter stringValue];
     self.modificationDate.text = [FormatHelper formatDateFuzzy:data.lastModificationDate];
-    self.QAText.attributedText = [self attributedFormattedStringFromString:data.body];
+    self.QAText.attributedText = [FormatHelper formatText:data.body
+                               withCodeTagBackgroundColor:[UIColor brownColor]
+                                                textColor:[UIColor whiteColor]];
     
     self.isAnsweredImageView.hidden = [data.status isEqualToNumber:@0];
 
@@ -56,23 +59,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleDefault;
         self.score.hidden = NO;
     }
-    
-}
 
-- (NSMutableAttributedString *)attributedFormattedStringFromString:(NSString *)string
-{
-    NSMutableAttributedString *QATextAttributedString = [FormatHelper formatText:string
-                                                      withCodeTagBackgroundColor:[UIColor brownColor]
-                                                                       textColor:[UIColor whiteColor]];
-    
-    // Set font, notice the range is for the whole string
-    UIFont *font = [UIFont fontWithName:@"Helvetica Neue" size:14];
-    
-    [QATextAttributedString addAttribute:NSFontAttributeName
-                                   value:font
-                                   range:NSMakeRange(0, [QATextAttributedString length])];
-
-    return QATextAttributedString;
 }
 
 @end

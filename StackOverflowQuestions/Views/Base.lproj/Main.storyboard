@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VPG-oI-ERR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KFL-Vx-Lum">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -34,8 +34,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-Sa-sMX">
+                                <rect key="frame" x="492" y="114" width="51" height="31"/>
+                                <connections>
+                                    <action selector="simulateQueriesChanged:" destination="QiK-gS-AAF" eventType="valueChanged" id="bMe-vE-15H"/>
+                                </connections>
+                            </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simulate API queries" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1j-1d-nTM">
-                                <rect key="frame" x="16" y="33" width="160" height="21"/>
+                                <rect key="frame" x="16" y="119" width="160" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="UXf-zm-7SG"/>
                                 </constraints>
@@ -43,19 +49,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-Sa-sMX">
-                                <rect key="frame" x="493" y="28" width="51" height="31"/>
-                                <connections>
-                                    <action selector="simulateQueriesChanged:" destination="QiK-gS-AAF" eventType="valueChanged" id="bMe-vE-15H"/>
-                                </connections>
-                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="b1j-1d-nTM" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="13" id="1GC-3x-oqn"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="d2b-Sa-sMX" secondAttribute="trailing" constant="42" id="6gE-ek-3yr"/>
-                            <constraint firstItem="b1j-1d-nTM" firstAttribute="leading" secondItem="fR2-3R-rVZ" secondAttribute="leadingMargin" id="ed1-0v-s14"/>
-                            <constraint firstItem="d2b-Sa-sMX" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="8" id="huJ-g0-JP9"/>
+                            <constraint firstItem="d2b-Sa-sMX" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="50" id="OE5-cF-WFd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="d2b-Sa-sMX" secondAttribute="trailing" constant="43" id="RyU-YC-8dp"/>
+                            <constraint firstItem="b1j-1d-nTM" firstAttribute="leading" secondItem="fR2-3R-rVZ" secondAttribute="leadingMargin" id="V1o-O0-6zo"/>
+                            <constraint firstItem="b1j-1d-nTM" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="55" id="hpb-Bm-WKI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -64,20 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7c-ZV-CHy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="385" y="666"/>
-        </scene>
-        <!--Split View Controller-->
-        <scene sceneID="E8s-lF-x0e">
-            <objects>
-                <splitViewController id="VPG-oI-ERR" sceneMemberID="viewController">
-                    <connections>
-                        <segue destination="QiK-gS-AAF" kind="relationship" relationship="detailViewController" id="u6s-MQ-koo"/>
-                        <segue destination="KFL-Vx-Lum" kind="relationship" relationship="masterViewController" id="vUr-aK-jGR"/>
-                    </connections>
-                </splitViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f9Z-tM-fb1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-466" y="266"/>
+            <point key="canvasLocation" x="1083" y="648"/>
         </scene>
         <!--Question List View Controller-->
         <scene sceneID="hj3-Ug-IVz">
@@ -178,7 +165,7 @@
                     <navigationItem key="navigationItem" id="Xmq-VV-f9J">
                         <barButtonItem key="leftBarButtonItem" title="Settings" id="iHs-th-SkI">
                             <connections>
-                                <segue destination="QiK-gS-AAF" kind="showDetail" id="he1-7S-E85"/>
+                                <segue destination="QiK-gS-AAF" kind="show" id="he1-7S-E85"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Change tag" id="8nl-F4-3qm">
@@ -247,9 +234,16 @@
                                                 <constraint firstAttribute="height" constant="50" id="YMx-Im-G6E"/>
                                             </constraints>
                                         </imageView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" text="QA Text" translatesAutoresizingMaskIntoConstraints="NO" id="8Bt-Cu-Yjb">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Bt-Cu-Yjb">
                                             <rect key="frame" x="8" y="73" width="526" height="64"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="QA Text">
+                                                    <attributes>
+                                                        <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                                 <rect key="frame" x="0.0" y="62" width="309" height="77"/>
@@ -257,17 +251,17 @@
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="leading" secondItem="elm-a7-Dgd" secondAttribute="leadingMargin" id="0dI-zp-vHF"/>
-                                        <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="top" secondItem="elm-a7-Dgd" secondAttribute="topMargin" constant="65" id="DHf-Ih-KBD"/>
+                                        <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="leading" secondItem="elm-a7-Dgd" secondAttribute="leadingMargin" id="J85-LV-1ih"/>
                                         <constraint firstItem="8Ma-fO-c6I" firstAttribute="top" secondItem="elm-a7-Dgd" secondAttribute="topMargin" id="M8y-dT-Gcd"/>
+                                        <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="bottom" secondItem="elm-a7-Dgd" secondAttribute="bottomMargin" id="MKJ-lN-A6j"/>
                                         <constraint firstItem="6yT-UX-0Cs" firstAttribute="top" secondItem="elm-a7-Dgd" secondAttribute="topMargin" id="Qsi-yZ-O49"/>
+                                        <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="top" secondItem="elm-a7-Dgd" secondAttribute="topMargin" constant="65" id="RlK-mz-nQI"/>
+                                        <constraint firstItem="aZn-83-mSZ" firstAttribute="leading" secondItem="8Bt-Cu-Yjb" secondAttribute="trailing" constant="8" id="VQz-GE-NVl"/>
                                         <constraint firstItem="6yT-UX-0Cs" firstAttribute="trailing" secondItem="elm-a7-Dgd" secondAttribute="trailingMargin" id="gyH-Kj-0FN"/>
                                         <constraint firstItem="8Ma-fO-c6I" firstAttribute="leading" secondItem="elm-a7-Dgd" secondAttribute="leadingMargin" id="iLR-zl-AMw"/>
-                                        <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="bottom" secondItem="elm-a7-Dgd" secondAttribute="bottomMargin" id="l4k-ca-c94"/>
                                         <constraint firstItem="aZn-83-mSZ" firstAttribute="trailing" secondItem="elm-a7-Dgd" secondAttribute="trailingMargin" id="oG2-Sc-MVL"/>
                                         <constraint firstItem="Jd8-u4-fbs" firstAttribute="top" secondItem="6yT-UX-0Cs" secondAttribute="bottom" constant="8" id="q4p-oG-OGj"/>
                                         <constraint firstItem="aZn-83-mSZ" firstAttribute="bottom" secondItem="elm-a7-Dgd" secondAttribute="bottomMargin" id="qnW-7n-vhz"/>
-                                        <constraint firstItem="aZn-83-mSZ" firstAttribute="leading" secondItem="8Bt-Cu-Yjb" secondAttribute="trailing" constant="8" id="vWU-oP-sEp"/>
                                         <constraint firstItem="Jd8-u4-fbs" firstAttribute="trailing" secondItem="elm-a7-Dgd" secondAttribute="trailingMargin" id="zUi-lB-RYE"/>
                                     </constraints>
                                     <variation key="widthClass=compact">
@@ -311,7 +305,4 @@
     <resources>
         <image name="coche_valid.png" width="200" height="200"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="he1-7S-E85"/>
-    </inferredMetricsTieBreakers>
 </document>

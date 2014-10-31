@@ -11,6 +11,7 @@
 #import "NSString+HTML.h"
 #import "UserSettings.h"
 #import "VKontakteActivity.h"
+#import "FormatHelper.h"
 
 static const int kLoadingCellTag = 1273;
 static const int kQuestionCellTag = 123123;
@@ -19,8 +20,6 @@ static const int kAnswerCellTag = 123124;
 @interface QuestionProfileViewController ()
 
 - (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
-
-@property (strong, nonatomic) NSMutableDictionary *textViews;
 
 @end
 
@@ -38,10 +37,10 @@ static const int kAnswerCellTag = 123124;
     self.tableData = [[NSMutableArray alloc]init];
     self.title = question.title;
     self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
-    self.textViews = [[NSMutableDictionary alloc] init];
 
     _page = 0;
     _hasMore = YES;
+
     [self extractQuestionDataToFirstCell];
     [self addRefreshControl];
 }
@@ -60,11 +59,11 @@ static const int kAnswerCellTag = 123124;
 - (void)refreshFirstPage
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    [self clearFirstPageData];
+    [self clearPageData];
     [self queryAnswersForQuestion];
 }
 
-- (void)clearFirstPageData
+- (void)clearPageData
 {
     _page = 1;
     _hasMore = YES;
@@ -124,8 +123,6 @@ static const int kAnswerCellTag = 123124;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"\n%@ %zd", NSStringFromSelector(_cmd), indexPath.row);
-    
     static NSString *reuseIdentifier = @"QACell";
 
     QuestionProfileTableViewCell *cell = nil;
@@ -142,8 +139,6 @@ static const int kAnswerCellTag = 123124;
     } else {
         cell = [self loadingCellWithReuseIdentifier:reuseIdentifier];
     }
-
-    (self.textViews)[indexPath] = cell.QAText;
 
     return cell;
 }
@@ -207,22 +202,37 @@ static const int kAnswerCellTag = 123124;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    CGFloat height = 0;
     // check here, if it is one of the cells, that needs to be resized
     // to the size of the contained UITextView
-
-
-    CGFloat height = [self textViewHeightForRowAtIndexPath:indexPath] + 81.0f;
+    if (indexPath.row > self.tableData.count){
+        height = 146.0f;
+    }else{
+        height = [self textViewHeightForRowAtIndexPath:indexPath] + 81.0f;
+    }
+    NSLog(@"Height for row at index: %zd, %f", indexPath.row, height);
     return height;
+
 }
 
 - (CGFloat)textViewHeightForRowAtIndexPath: (NSIndexPath*)indexPath
 {
-    UITextView *calculationView = (self.textViews)[indexPath];
-    // full screen width - image width (50) - paddings(8*3) (left + right + distance between image and text view)
-    CGFloat textViewWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]) - 50 - (8*3);
-    NSLog(@"Width of calculation view: %f, %@", textViewWidth, NSStringFromCGRect(calculationView.frame));
-    CGSize size = [calculationView sizeThatFits:CGSizeMake(textViewWidth, FLT_MAX)];
-    return size.height;
+    if (indexPath.row < [self.tableData count]) {
+        StackOverflowResponseData *data = [self.tableData objectAtIndex:(NSUInteger) indexPath.row];
+
+        UITextView *calculationView = [[UITextView alloc] init];
+        
+        calculationView.attributedText = [FormatHelper formatText:data.body
+                                       withCodeTagBackgroundColor:[UIColor brownColor]
+                                                        textColor:[UIColor whiteColor]];
+        
+        // full screen width - image width (50) - paddings(8*3) (left + right + distance between image and text view)
+        CGFloat textViewWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]) - 50 - (8*3);
+        CGSize size = [calculationView sizeThatFits:CGSizeMake(textViewWidth, FLT_MAX)];
+        return size.height + 10;
+    }
+    return 1;
 }
 
 
@@ -302,7 +312,6 @@ static const int kAnswerCellTag = 123124;
 - (void)handleError:(NSError *)error
 {
     NSLog(@"Error happened:%@", error);
-    _hasMore = NO;
 
     NSString *message = (error.domain != nil) ? error.domain : @"Unknon error! Please try again later!";
     [self controlsEnabled:NO];
