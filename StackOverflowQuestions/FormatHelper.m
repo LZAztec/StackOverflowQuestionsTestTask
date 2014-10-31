@@ -66,7 +66,7 @@
     text = [text stringByReplacingOccurrencesOfString:@"</code>" withString:@"%/code%"];
 
     if (text.length == 0) {
-        return [[NSMutableAttributedString alloc] initWithString:text];
+        return [[NSMutableAttributedString alloc] initWithString:@""];
     }
 
     NSMutableAttributedString *newText = [[NSMutableAttributedString alloc] initWithString:[text stringByConvertingHTMLToPlainText]];
