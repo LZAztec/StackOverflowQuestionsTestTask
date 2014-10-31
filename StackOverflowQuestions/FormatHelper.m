@@ -56,7 +56,7 @@
 + (NSString *)formatTimestampDefault:(NSNumber *)timestamp
 {
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [timestamp doubleValue]];
-    return [[FormatterFactory getDefaultDateTimeFormatter] stringFromDate:date];
+    return [[FormatterFactory defaultDateTimeFormatter] stringFromDate:date];
 }
 
 + (NSMutableAttributedString *)formatText:(NSString *)text withCodeTagBackgroundColor:(UIColor *)bgColor textColor:(UIColor *)textColor

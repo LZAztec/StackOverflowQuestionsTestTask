@@ -11,12 +11,10 @@
 @interface UserSettings : NSObject
 
 @property (strong, nonatomic) NSUserDefaults *settings;
+@property (assign, nonatomic) BOOL simulateQueriesState;
 
 + (instancetype)sharedInstance;
 - (instancetype)init;
-
-- (void)setSimulateQueriesState:(BOOL)state;
-- (BOOL)simulateQueriesState;
 
 
 @end

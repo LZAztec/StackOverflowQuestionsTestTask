@@ -10,7 +10,7 @@
 
 @implementation FormatterFactory
 
-+ (NSDateFormatter *)getDefaultDateTimeFormatter
++ (NSDateFormatter *)defaultDateTimeFormatter
 {
     static id sharedInstance = nil;
     

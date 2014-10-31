@@ -10,6 +10,7 @@
 #import "StackOverflowAPI.h"
 #import "NSURL+PathParameters.h"
 #import "NSCachedURLResponse+Expiration.h"
+#import "UserSettings.h"
 
 static NSString *const kAPIHost = @"https://api.stackexchange.com";
 static NSString *const kAPIVersion = @"2.2";
@@ -34,6 +35,7 @@ static NSString *const kAPIVersion = @"2.2";
     self = [super init];
     if (self) {
         _delegate = delegate;
+        _settings = [UserSettings sharedInstance];
     }
     return self;
 }
@@ -57,7 +59,7 @@ static NSString *const kAPIVersion = @"2.2";
 
     NSString *methodURLString = [NSString stringWithFormat:@"%@/%@/questions", kAPIHost, kAPIVersion];
 
-    if (self.simulateQueries) {
+    if (_settings.simulateQueriesState) {
         if ([self.delegate respondsToSelector:@selector(handleQuestionsByTagsResponse:)]) {
             [self.delegate handleQuestionsByTagsResponse:[self makeQuestionsStubResponse]];
         }
@@ -81,8 +83,10 @@ static NSString *const kAPIVersion = @"2.2";
 
     NSString *methodURLString = [NSString stringWithFormat:@"%@/%@/questions/%@/answers", kAPIHost, kAPIVersion, [self implode:ids]];
 
-    if (self.simulateQueries) {
-        [self.delegate handleAnswersByQuestionIdsResponse:[self makeAnswersByQuestionStubResponse]];
+    if (_settings.simulateQueriesState) {
+        if ([self.delegate respondsToSelector:@selector(handleAnswersByQuestionIdsResponse:)]) {
+            [self.delegate handleAnswersByQuestionIdsResponse:[self makeAnswersByQuestionStubResponse]];
+        }
     } else {
         [self executeQueryForUrlString:methodURLString andParams:params];
     }

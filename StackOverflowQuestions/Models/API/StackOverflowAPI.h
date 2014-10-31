@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Aztec. All rights reserved.
 //
 
+@class UserSettings;
+
 @protocol StackOverflowAPIDelegate <NSObject>
 
 @optional
@@ -21,7 +23,7 @@
 }
 
 @property (weak) id <StackOverflowAPIDelegate> delegate;
-@property BOOL simulateQueries;
+@property (weak) UserSettings* settings;
 
 - (instancetype)initWithDelegate:(id <StackOverflowAPIDelegate>)delegate;
 - (void)getQuestionsByTags:(NSArray *)tags page:(NSNumber *)page limit:(NSNumber *)limit;

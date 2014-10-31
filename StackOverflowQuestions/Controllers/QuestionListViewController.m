@@ -162,7 +162,6 @@ static const int kLoadingCellTag = 1273;
 
 - (void)queryData
 {
-    self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] simulateQueriesState];
     NSLog(@"Querying data for page: %ld, tag: %@, hasMore: %@", (long)_page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getQuestionsByTags:@[_selectedTag] page:@(_page) limit:@10];
 }

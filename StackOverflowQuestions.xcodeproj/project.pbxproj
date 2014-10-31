@@ -17,9 +17,6 @@
 		4D670EAC19F68053004E54CE /* NSCachedURLResponse+Expiration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EAB19F68053004E54CE /* NSCachedURLResponse+Expiration.m */; };
 		4D670EB019FA355A004E54CE /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EAF19FA355A004E54CE /* SettingsController.m */; };
 		4D670EB419FA3C94004E54CE /* UserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D670EB319FA3C94004E54CE /* UserSettings.m */; };
-		4D7DC88D19E668ED00D9294B /* QuestionListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC88B19E668ED00D9294B /* QuestionListViewCell.m */; };
-		4D7DC89219EBCBBA00D9294B /* QuestionProfileTableViewCell.h in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DC89119EBCBBA00D9294B /* QuestionProfileTableViewCell.h */; };
-		4D7DC89419EBCBDD00D9294B /* QuestionProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89319EBCBDD00D9294B /* QuestionProfileTableViewCell.m */; };
 		4D7DC89619EBCE0A00D9294B /* coche_valid.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DC89519EBCE0A00D9294B /* coche_valid.png */; };
 		4D7DC89A19EBD44700D9294B /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89919EBD44700D9294B /* NSString+Additions.m */; };
 		4D7DC89E19EBF68D00D9294B /* TagPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7DC89D19EBF68D00D9294B /* TagPickerViewController.m */; };
@@ -40,8 +37,10 @@
 		4DDA7BDE19E3B9D00021DFFB /* StackOverflowQuestionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BDD19E3B9D00021DFFB /* StackOverflowQuestionsTests.m */; };
 		4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */; };
 		4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */; };
+		5901D30B378F13199EA01D50 /* QuestionListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D807043EDC37E94CD23C /* QuestionListViewCell.m */; };
 		5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */; };
 		5901DA1F5908A3A55C57C22A /* FormatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D5BAF1C48244DA528468 /* FormatHelper.m */; };
+		5901DBE067D5D7C142FC9B65 /* QuestionProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DFAF3807F0AE6DFF46C8 /* QuestionProfileTableViewCell.m */; };
 		5901DD2241DD4022C44B5265 /* StackOverflowResponseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D80CC76381A14277D5EE /* StackOverflowResponseData.m */; };
 /* End PBXBuildFile section */
 
@@ -70,10 +69,6 @@
 		4D670EAF19FA355A004E54CE /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
 		4D670EB219FA3C94004E54CE /* UserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserSettings.h; path = Models/Settings/UserSettings.h; sourceTree = "<group>"; };
 		4D670EB319FA3C94004E54CE /* UserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserSettings.m; path = Models/Settings/UserSettings.m; sourceTree = "<group>"; };
-		4D7DC88A19E668ED00D9294B /* QuestionListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionListViewCell.h; path = Models/UI/QuestionListViewCell.h; sourceTree = "<group>"; };
-		4D7DC88B19E668ED00D9294B /* QuestionListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionListViewCell.m; path = Models/UI/QuestionListViewCell.m; sourceTree = "<group>"; };
-		4D7DC89119EBCBBA00D9294B /* QuestionProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionProfileTableViewCell.h; path = Models/UI/QuestionProfileTableViewCell.h; sourceTree = "<group>"; };
-		4D7DC89319EBCBDD00D9294B /* QuestionProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionProfileTableViewCell.m; path = Models/UI/QuestionProfileTableViewCell.m; sourceTree = "<group>"; };
 		4D7DC89519EBCE0A00D9294B /* coche_valid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coche_valid.png; sourceTree = "<group>"; };
 		4D7DC89819EBD44700D9294B /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Additions.h"; path = "Stubs/Foundation/NSString+Additions.h"; sourceTree = "<group>"; };
 		4D7DC89919EBD44700D9294B /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Additions.m"; path = "Stubs/Foundation/NSString+Additions.m"; sourceTree = "<group>"; };
@@ -113,7 +108,11 @@
 		5901D47DBDF37245CC1AFF8B /* FormatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatHelper.h; sourceTree = "<group>"; };
 		5901D5BAF1C48244DA528468 /* FormatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatHelper.m; sourceTree = "<group>"; };
 		5901D5FE7252989A21084856 /* StackOverflowResponseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponseData.h; sourceTree = "<group>"; };
+		5901D8048E70E4B520886528 /* QuestionProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionProfileTableViewCell.h; path = Models/UI/QuestionProfileTableViewCell.h; sourceTree = "<group>"; };
+		5901D807043EDC37E94CD23C /* QuestionListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionListViewCell.m; path = Models/UI/QuestionListViewCell.m; sourceTree = "<group>"; };
 		5901D80CC76381A14277D5EE /* StackOverflowResponseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowResponseData.m; sourceTree = "<group>"; };
+		5901DB8EE7F69F25281FFF2D /* QuestionListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionListViewCell.h; path = Models/UI/QuestionListViewCell.h; sourceTree = "<group>"; };
+		5901DFAF3807F0AE6DFF46C8 /* QuestionProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionProfileTableViewCell.m; path = Models/UI/QuestionProfileTableViewCell.m; sourceTree = "<group>"; };
 		73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F984BD706DBA301702C1C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B550769617CD92B6AA96C123 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -175,17 +174,6 @@
 				4D670EB319FA3C94004E54CE /* UserSettings.m */,
 			);
 			name = Settings;
-			sourceTree = "<group>";
-		};
-		4D7DC88919E6689300D9294B /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				4D7DC89119EBCBBA00D9294B /* QuestionProfileTableViewCell.h */,
-				4D7DC89319EBCBDD00D9294B /* QuestionProfileTableViewCell.m */,
-				4D7DC88A19E668ED00D9294B /* QuestionListViewCell.h */,
-				4D7DC88B19E668ED00D9294B /* QuestionListViewCell.m */,
-			);
-			name = UI;
 			sourceTree = "<group>";
 		};
 		4D7DC89719EBD30000D9294B /* Extensions */ = {
@@ -304,7 +292,7 @@
 				4D7DC8AB19F0FE7700D9294B /* Libraries */,
 				4D7DC89719EBD30000D9294B /* Extensions */,
 				4DDA7BF219E406370021DFFB /* Resources */,
-				4DDA7BE919E3BEEE0021DFFB /* ViewModels */,
+				4DDA7BE919E3BEEE0021DFFB /* View */,
 				4DDA7BE819E3BEE70021DFFB /* Controllers */,
 				4DDA7BE719E3BED00021DFFB /* Models */,
 				4DDA7BC519E3B9D00021DFFB /* AppDelegate.h */,
@@ -363,12 +351,15 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		4DDA7BE919E3BEEE0021DFFB /* ViewModels */ = {
+		4DDA7BE919E3BEEE0021DFFB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4D7DC88919E6689300D9294B /* UI */,
+				5901DFAF3807F0AE6DFF46C8 /* QuestionProfileTableViewCell.m */,
+				5901D8048E70E4B520886528 /* QuestionProfileTableViewCell.h */,
+				5901DB8EE7F69F25281FFF2D /* QuestionListViewCell.h */,
+				5901D807043EDC37E94CD23C /* QuestionListViewCell.m */,
 			);
-			name = ViewModels;
+			name = View;
 			sourceTree = "<group>";
 		};
 		4DDA7BEA19E3C44D0021DFFB /* API */ = {
@@ -516,7 +507,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D66F21319FF80E700E9F86A /* vk_activity@2x.png in Resources */,
-				4D7DC89219EBCBBA00D9294B /* QuestionProfileTableViewCell.h in Resources */,
 				4DDA7BCD19E3B9D00021DFFB /* Main.storyboard in Resources */,
 				4D7DC89619EBCE0A00D9294B /* coche_valid.png in Resources */,
 				4D66F21119FF80E700E9F86A /* vk_activity_ios8@2x.png in Resources */,
@@ -578,7 +568,6 @@
 				4D7DC89E19EBF68D00D9294B /* TagPickerViewController.m in Sources */,
 				4DDA7BCA19E3B9D00021DFFB /* QuestionListViewController.m in Sources */,
 				4DB9BE6219F1418F00862674 /* FormatterFactory.m in Sources */,
-				4D7DC88D19E668ED00D9294B /* QuestionListViewCell.m in Sources */,
 				4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */,
 				4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */,
 				4DB9BE5C19F138CA00862674 /* NSString+HTML.m in Sources */,
@@ -590,12 +579,13 @@
 				4D670EAC19F68053004E54CE /* NSCachedURLResponse+Expiration.m in Sources */,
 				4D7DC89A19EBD44700D9294B /* NSString+Additions.m in Sources */,
 				4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */,
-				4D7DC89419EBCBDD00D9294B /* QuestionProfileTableViewCell.m in Sources */,
 				4D670EB419FA3C94004E54CE /* UserSettings.m in Sources */,
 				4D7DC8AF19F0FE9D00D9294B /* UIViewController+MHSemiModal.m in Sources */,
 				5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */,
 				5901DA1F5908A3A55C57C22A /* FormatHelper.m in Sources */,
 				5901DD2241DD4022C44B5265 /* StackOverflowResponseData.m in Sources */,
+				5901DBE067D5D7C142FC9B65 /* QuestionProfileTableViewCell.m in Sources */,
+				5901D30B378F13199EA01D50 /* QuestionListViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

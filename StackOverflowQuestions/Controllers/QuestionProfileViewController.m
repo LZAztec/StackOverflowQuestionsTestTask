@@ -229,7 +229,6 @@ static const int kAnswerCellTag = 123124;
 #pragma mark - Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
-    self.stackOverflowAPI.simulateQueries = [[UserSettings sharedInstance] simulateQueriesState];
     NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getAnswersByQuestionIds:@[question.id] page:@(_page) limit:@50];
 }

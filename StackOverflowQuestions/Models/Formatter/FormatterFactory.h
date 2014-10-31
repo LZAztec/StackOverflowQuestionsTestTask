@@ -10,6 +10,6 @@
 
 @interface FormatterFactory : NSObject
 
-+ (NSDateFormatter *)getDefaultDateTimeFormatter;
++ (NSDateFormatter *)defaultDateTimeFormatter;
 
 @end
