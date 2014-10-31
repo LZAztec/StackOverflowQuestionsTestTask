@@ -191,6 +191,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="QACell" rowHeight="146" id="IFs-6Z-dX6" customClass="QuestionProfileTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -289,6 +290,7 @@
                         <connections>
                             <outlet property="dataSource" destination="LHq-rk-LG7" id="J5g-t5-7r4"/>
                             <outlet property="delegate" destination="LHq-rk-LG7" id="fd3-KF-X5Q"/>
+                            <outletCollection property="gestureRecognizers" destination="2WI-Bs-kAl" appends="YES" id="ycH-84-sbH"/>
                         </connections>
                     </tableView>
                 </tableViewController>
@@ -298,6 +300,7 @@
                         <action selector="cellLongPressed:" destination="LHq-rk-LG7" id="NN1-nz-SNZ"/>
                     </connections>
                 </pongPressGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="2WI-Bs-kAl"/>
             </objects>
             <point key="canvasLocation" x="1794" y="-159"/>
         </scene>
