@@ -165,7 +165,7 @@ static const int kLoadingCellTag = 1273;
 {
     _processingQuery = YES;
     NSLog(@"Querying data for page: %ld, tag: %@, hasMore: %@", (long)_page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
-    [stackOverflowAPI getQuestionsByTags:@[_selectedTag] page:@(_page) limit:@10];
+    [stackOverflowAPI questionsByTags:@[_selectedTag] page:@(_page) limit:@10];
 }
 
 - (void)clearTableDataAndResetAPIData
@@ -187,13 +187,13 @@ static const int kLoadingCellTag = 1273;
 
     [self queryData];
     [self mh_dismissSemiModalViewController:sender animated:YES];
-    [self controlsEnabled:YES];
+    [self setControlsEnabled:YES];
 }
 
 - (void) tagPickerCancelButtonPressed:(TagPickerViewController *)sender;
 {
     [self mh_dismissSemiModalViewController:sender animated:YES];
-    [self controlsEnabled:YES];
+    [self setControlsEnabled:YES];
 }
 
 #pragma -
@@ -215,9 +215,7 @@ static const int kLoadingCellTag = 1273;
         cellData.type = kCellDataQuestionType;
         cellData.link = [NSURL URLWithString:data[@"link"]];
 
-        if (![self.questions containsObject:cellData]) {
-            [self.questions addObject:cellData];
-        }
+        [self.questions addObject:cellData];
     }
     NSLog(@"questions: %@", self.questions);
     _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
@@ -233,7 +231,7 @@ static const int kLoadingCellTag = 1273;
     NSLog(@"Error happened:%@", error);
 
     NSString *message = (error.domain != nil) ? error.domain : kErrorText;
-    [self controlsEnabled:NO];
+    [self setControlsEnabled:NO];
     
     [[[UIAlertView alloc] initWithTitle:@"Oooops!"
                                 message:message
@@ -248,7 +246,7 @@ static const int kLoadingCellTag = 1273;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [self controlsEnabled:YES];
+        [self setControlsEnabled:YES];
     }
 }
 
@@ -257,12 +255,12 @@ static const int kLoadingCellTag = 1273;
 
 - (IBAction)changeTagPressed:(id)sender;
 {
-    [self controlsEnabled:NO];
+    [self setControlsEnabled:NO];
     [self mh_presentSemiModalViewController:tagPickerViewController animated:YES];
 }
 
 
-- (void)controlsEnabled:(BOOL)state
+- (void)setControlsEnabled:(BOOL)state
 {
     self.changeTagButton.enabled = state;
     self.tableView.scrollEnabled = state;

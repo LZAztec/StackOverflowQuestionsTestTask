@@ -40,7 +40,10 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return pickerData[(NSUInteger) row];
+    if (pickerData.count > row) {
+        return pickerData[row];
+    }
+    return nil;
 }
 
 #pragma mark - Button actions methods

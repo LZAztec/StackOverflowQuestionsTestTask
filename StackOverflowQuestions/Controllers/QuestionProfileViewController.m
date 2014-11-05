@@ -62,7 +62,7 @@ static const int kAnswerCellTag = 123124;
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
     [self clearPageData];
-    [self queryAnswersForQuestion];
+    [self queryAnswersForQuestionForce:NO];
 }
 
 - (void)clearPageData
@@ -152,7 +152,7 @@ static const int kAnswerCellTag = 123124;
         
         _page++;
 
-        [self queryAnswersForQuestion];
+        [self queryAnswersForQuestionForce:NO];
     }
 }
 
@@ -241,11 +241,11 @@ static const int kAnswerCellTag = 123124;
 
 
 #pragma mark - Stack Overflow data processing
-- (void)queryAnswersForQuestion
-{
+
+- (void)queryAnswersForQuestionForce:(BOOL)force {
     _processingQuery = YES;
     NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
-    [stackOverflowAPI getAnswersByQuestionIds:@[question.id] page:@(_page) limit:@50];
+    [stackOverflowAPI answersByQuestionIds:@[question.id] page:@(_page) limit:@50];
 }
 
 - (void)addCellDataWithAuthorName:(NSString *)name
@@ -270,16 +270,12 @@ static const int kAnswerCellTag = 123124;
     cellData.id = id;
     cellData.type = kCellDataAnswerType;
 
-    if (![self.tableData containsObject:cellData] ) {
-        [self.tableData addObject:cellData];
-    }
+    [self.tableData addObject:cellData];
 }
 
 - (void)extractQuestionDataToFirstCell
 {
-    if (![self.tableData containsObject:question] ){
-        [self.tableData addObject:question];
-    }
+    [self.tableData addObject:question];
 }
 
 #pragma -

@@ -48,7 +48,7 @@ static NSString *const kCancelPendingOperationsKey = @"cancelOperations";
     return [[array valueForKey:@"description"] componentsJoinedByString:@";"];
 }
 
-- (void)getQuestionsByTags:(NSArray *)tags page:(NSNumber *)page limit:(NSNumber *)limit
+- (void)questionsByTags:(NSArray *)tags page:(NSNumber *)page limit:(NSNumber *)limit
 {
     NSDictionary *params = @{
             @"page" : page,
@@ -72,7 +72,7 @@ static NSString *const kCancelPendingOperationsKey = @"cancelOperations";
 
 }
 
-- (void)getAnswersByQuestionIds:(NSArray *)ids page:(NSNumber *)page limit:(NSNumber *)limit
+- (void)answersByQuestionIds:(NSArray *)ids page:(NSNumber *)page limit:(NSNumber *)limit
 {
     NSDictionary *params = @{
             @"page" : page,
