@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *score;
 @property (weak, nonatomic) IBOutlet UITextView *QAText;
 @property (weak, nonatomic) IBOutlet UIImageView *isAnsweredImageView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

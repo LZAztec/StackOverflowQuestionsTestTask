@@ -250,6 +250,9 @@
                                                 <rect key="frame" x="0.0" y="62" width="309" height="77"/>
                                             </variation>
                                         </textView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2DG-kQ-e6x">
+                                            <rect key="frame" x="290" y="63" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="8Bt-Cu-Yjb" firstAttribute="leading" secondItem="elm-a7-Dgd" secondAttribute="leadingMargin" id="J85-LV-1ih"/>
@@ -279,6 +282,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="QAText" destination="8Bt-Cu-Yjb" id="BhR-7Y-sae"/>
+                                    <outlet property="activityIndicator" destination="2DG-kQ-e6x" id="gEz-Rd-Wko"/>
                                     <outlet property="authorName" destination="8Ma-fO-c6I" id="Uz4-TU-JbH"/>
                                     <outlet property="isAnsweredImageView" destination="aZn-83-mSZ" id="8G8-zQ-dLu"/>
                                     <outlet property="modificationDate" destination="6yT-UX-0Cs" id="LIJ-tx-zGi"/>

@@ -19,6 +19,8 @@ static const int kAnswerCellTag = 123124;
 
 @interface QuestionProfileViewController ()
 
+@property BOOL processingQuery;
+
 - (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
 
 @end
@@ -146,8 +148,8 @@ static const int kAnswerCellTag = 123124;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (cell.tag == kLoadingCellTag && _hasMore) {
-
+    if (cell.tag == kLoadingCellTag && _hasMore && !_processingQuery) {
+        
         _page++;
 
         [self queryAnswersForQuestion];
@@ -162,13 +164,15 @@ static const int kAnswerCellTag = 123124;
         cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
 
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
+//            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//
+//    activityIndicator.center = cell.center;
+//    [cell addSubview:activityIndicator];
 
-    activityIndicator.center = cell.center;
-    [cell addSubview:activityIndicator];
-
-    [activityIndicator startAnimating];
+    cell.activityIndicator.center = cell.center;
+    cell.activityIndicator.hidden = NO;
+//    [cell.activityIndicator startAnimating];
 
     cell.tag = kLoadingCellTag;
 
@@ -239,6 +243,7 @@ static const int kAnswerCellTag = 123124;
 #pragma mark - Stack Overflow data processing
 - (void)queryAnswersForQuestion
 {
+    _processingQuery = YES;
     NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getAnswersByQuestionIds:@[question.id] page:@(_page) limit:@50];
 }
@@ -307,13 +312,14 @@ static const int kAnswerCellTag = 123124;
 
     [self.tableView reloadData];
     [self.refreshControl endRefreshing];
+    _processingQuery = NO;
 }
 
 - (void)handleError:(NSError *)error
 {
     NSLog(@"Error happened:%@", error);
 
-    NSString *message = (error.domain != nil) ? error.domain : @"Unknon error! Please try again later!";
+    NSString *message = (error.domain != nil) ? error.domain : @"Unknown error! Please try again later!";
     [self controlsEnabled:NO];
 
     [[[UIAlertView alloc] initWithTitle:@"Oooops!"

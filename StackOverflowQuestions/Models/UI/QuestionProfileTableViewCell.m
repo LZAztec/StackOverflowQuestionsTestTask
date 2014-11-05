@@ -37,8 +37,9 @@
     self.modificationDate.hidden = NO;
     self.score.hidden = NO;
     self.QAText.hidden = NO;
-    self.isAnsweredImageView.hidden = NO;
     self.QAText.scrollEnabled = NO;
+    self.isAnsweredImageView.hidden = NO;
+    self.activityIndicator.hidden = YES;
 
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.score.text = [data.counter stringValue];

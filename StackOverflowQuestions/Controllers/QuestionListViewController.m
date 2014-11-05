@@ -10,12 +10,13 @@
 #import "QuestionProfileViewController.h"
 #import "QuestionListViewCell.h"
 #import "NSString+HTML.h"
-#import "UserSettings.h"
 
 static NSString *const kErrorText = @"Cannot get the data. Please check your connection and try later!";
 static const int kLoadingCellTag = 1273;
 
 @interface QuestionListViewController ()
+
+@property BOOL processingQuery;
 
 - (void)queryData;
 
@@ -112,7 +113,7 @@ static const int kLoadingCellTag = 1273;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (cell.tag == kLoadingCellTag && _hasMore) {
+    if (cell.tag == kLoadingCellTag && _hasMore && !_processingQuery) {
 
         _page++;
 
@@ -162,6 +163,7 @@ static const int kLoadingCellTag = 1273;
 
 - (void)queryData
 {
+    _processingQuery = YES;
     NSLog(@"Querying data for page: %ld, tag: %@, hasMore: %@", (long)_page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
     [stackOverflowAPI getQuestionsByTags:@[_selectedTag] page:@(_page) limit:@10];
 }
@@ -172,34 +174,6 @@ static const int kLoadingCellTag = 1273;
     _hasMore = YES;
     [questions removeAllObjects];
     [self.tableView reloadData];
-}
-
-- (void)questionsResponseReturned:(NSDictionary *)response
-{
-    NSArray *items = [response valueForKey:@"items"];
-
-    for (NSDictionary *data in items) {
-        StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] init];
-        cellData.authorName = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
-        cellData.counter = (NSNumber *) data[@"answer_count"];
-        cellData.creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
-        cellData.lastModificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]];
-        cellData.status = (NSNumber *) data[@"is_answered"];
-        cellData.title = [(NSString *) data[@"title"] stringByDecodingHTMLEntities];
-        cellData.body = [(NSString *) data[@"body"] stringByDecodingHTMLEntities];
-        cellData.id = (NSString *) data[@"question_id"];
-        cellData.type = kCellDataQuestionType;
-        cellData.link = [NSURL URLWithString:data[@"link"]];
-
-        if (![self.questions containsObject:cellData]) {
-            [self.questions addObject:cellData];
-        }
-    }
-    NSLog(@"questions: %@", self.questions);
-    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
-
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - Tag Picker View Controller Delegate methods
@@ -226,7 +200,31 @@ static const int kLoadingCellTag = 1273;
 #pragma Stack Overflow API Delegate methods
 - (void)handleQuestionsByTagsResponse:(NSDictionary *)response
 {
-    [self questionsResponseReturned:response];
+    NSArray *items = [response valueForKey:@"items"];
+
+    for (NSDictionary *data in items) {
+        StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] init];
+        cellData.authorName = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
+        cellData.counter = (NSNumber *) data[@"answer_count"];
+        cellData.creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
+        cellData.lastModificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]];
+        cellData.status = (NSNumber *) data[@"is_answered"];
+        cellData.title = [(NSString *) data[@"title"] stringByDecodingHTMLEntities];
+        cellData.body = [(NSString *) data[@"body"] stringByDecodingHTMLEntities];
+        cellData.id = (NSString *) data[@"question_id"];
+        cellData.type = kCellDataQuestionType;
+        cellData.link = [NSURL URLWithString:data[@"link"]];
+
+        if (![self.questions containsObject:cellData]) {
+            [self.questions addObject:cellData];
+        }
+    }
+    NSLog(@"questions: %@", self.questions);
+    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
+
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
+    _processingQuery = NO;
 }
 
 #pragma mark - Error handling
