@@ -14,8 +14,11 @@
 
 static NSString *const kAPIHost = @"https://api.stackexchange.com";
 static NSString *const kAPIVersion = @"2.2";
+static NSString *const kCancelPendingOperationsKey = @"cancelOperations";
 
 @interface StackOverflowAPI()
+
+@property NSURLConnection *connection;
 
 - (NSString *)implode:(NSArray *)array;
 
@@ -94,6 +97,13 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)executeQueryForUrlString:(NSString *)urlString andParams:(NSDictionary *)params
 {
+    NSNumber *cancelPendingOperations = params[kCancelPendingOperationsKey];
+
+    if ([cancelPendingOperations boolValue]){
+        [self.connection cancel];
+        self.connection = nil;
+    }
+
     [_responseData setLength:0];
 
     NSURL *methodURL = [NSURL URLWithString:urlString];
@@ -107,8 +117,9 @@ static NSString *const kAPIVersion = @"2.2";
                                          timeoutInterval:timeout];
 
     // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    [conn start];
+    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+
+    [self.connection start];
 }
 
 #pragma mark - Response processing methods
