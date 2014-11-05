@@ -23,9 +23,6 @@
                                                              diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
 
-    NSMutableDictionary *defaultValues = [@{@"SimulateQueries" : @NO} mutableCopy];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
-    
     return YES;
 }
 
