@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StackOverflowAPI.h"
+#import "StackOverflowAPINew.h"
 #import "TagPickerViewController.h"
 
 @interface QuestionListViewController : UITableViewController <StackOverflowAPIDelegate, TagPickerViewControllerDelegate, UIAlertViewDelegate>{

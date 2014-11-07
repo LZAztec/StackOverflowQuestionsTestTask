@@ -164,8 +164,20 @@ static const int kLoadingCellTag = 1273;
 - (void)queryData
 {
     _processingQuery = YES;
-    NSLog(@"Querying data for page: %ld, tag: %@, hasMore: %@", (long)_page, _selectedTag, (_hasMore) ? @"YES" : @"NO");
-    [stackOverflowAPI questionsByTags:@[_selectedTag] page:@(_page) limit:@10];
+    StackOverflowRequest *request = [[StackOverflowAPINew questions] questionsByTags:@[_selectedTag] page:_page limit:10];
+
+    [request executeWithSuccessBlock:^(StackOverflowResponse *response) {
+        for (NSDictionary *data in response.parsedModel.items) {
+            [self.questions addObject:data];
+        }
+        _hasMore = [response.parsedModel.hasMore boolValue];
+
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
+        _processingQuery = NO;
+    } errorBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
 
 - (void)clearTableDataAndResetAPIData
@@ -198,32 +210,32 @@ static const int kLoadingCellTag = 1273;
 
 #pragma -
 #pragma Stack Overflow API Delegate methods
-- (void)handleQuestionsByTagsResponse:(NSDictionary *)response
-{
-    NSArray *items = [response valueForKey:@"items"];
-
-    for (NSDictionary *data in items) {
-        StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] init];
-        cellData.authorName = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
-        cellData.counter = (NSNumber *) data[@"answer_count"];
-        cellData.creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
-        cellData.lastModificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]];
-        cellData.status = (NSNumber *) data[@"is_answered"];
-        cellData.title = [(NSString *) data[@"title"] stringByDecodingHTMLEntities];
-        cellData.body = [(NSString *) data[@"body"] stringByDecodingHTMLEntities];
-        cellData.id = (NSString *) data[@"question_id"];
-        cellData.type = kCellDataQuestionType;
-        cellData.link = [NSURL URLWithString:data[@"link"]];
-
-        [self.questions addObject:cellData];
-    }
-    NSLog(@"questions: %@", self.questions);
-    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
-
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
-    _processingQuery = NO;
-}
+//- (void)handleQuestionsByTagsResponse:(NSDictionary *)response
+//{
+//    NSArray *items = [response valueForKey:@"items"];
+//
+//    for (NSDictionary *data in items) {
+//        StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] init];
+//        cellData.authorName = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
+//        cellData.counter = (NSNumber *) data[@"answer_count"];
+//        cellData.creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
+//        cellData.lastModificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]];
+//        cellData.status = (NSNumber *) data[@"is_answered"];
+//        cellData.title = [(NSString *) data[@"title"] stringByDecodingHTMLEntities];
+//        cellData.body = [(NSString *) data[@"body"] stringByDecodingHTMLEntities];
+//        cellData.id = (NSString *) data[@"question_id"];
+//        cellData.type = kCellDataQuestionType;
+//        cellData.link = [NSURL URLWithString:data[@"link"]];
+//
+//        [self.questions addObject:cellData];
+//    }
+////    NSLog(@"questions: %@", self.questions);
+//    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
+//
+//    [self.tableView reloadData];
+//    [self.refreshControl endRefreshing];
+//    _processingQuery = NO;
+//}
 
 #pragma mark - Error handling
 - (void)handleError:(NSError *)error
