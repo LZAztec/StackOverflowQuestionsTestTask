@@ -39,13 +39,13 @@ static NSString *const kSimulateQueriesKey = @"SimulateQueries";
     return self;
 }
 
-- (void)setSimulateQueriesState:(BOOL)state
+- (void)setSimulateQueries:(BOOL)state
 {
     [self.settings setBool:state forKey:kSimulateQueriesKey];
     [self.settings synchronize];
 }
 
-- (BOOL)simulateQueriesState
+- (BOOL)simulateQueries
 {
     BOOL simulateState = [self.settings boolForKey:kSimulateQueriesKey];
     NSLog(@"Current state: %@", (simulateState)?@"yes":@"no");

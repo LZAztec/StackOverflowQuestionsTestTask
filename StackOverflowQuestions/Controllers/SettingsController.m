@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.simulateQueriesSwitch.on = [[UserSettings sharedInstance] simulateQueriesState];
+    self.simulateQueriesSwitch.on = [[UserSettings sharedInstance] simulateQueries];
 }
 
 - (void)didReceiveMemoryWarning
@@ -30,7 +30,7 @@
 - (IBAction)simulateQueriesChanged:(id)sender;
 {
     NSLog(@"Setting simulation to %@", (self.simulateQueriesSwitch.isOn)?@"YES":@"NO");
-    [[UserSettings sharedInstance] setSimulateQueriesState:self.simulateQueriesSwitch.isOn];
+    [[UserSettings sharedInstance] setSimulateQueries:self.simulateQueriesSwitch.isOn];
 }
 
 -(void) viewWillDisappear:(BOOL)animated {

@@ -38,14 +38,20 @@
 		4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */; };
 		4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */; };
 		5901D30B378F13199EA01D50 /* QuestionListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D807043EDC37E94CD23C /* QuestionListViewCell.m */; };
-		5901D63B7CA5912F3788F753 /* StacOverflowAPI_New.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D9159E07F79E9931270A /* StacOverflowAPI_New.m */; };
+		5901D34E2C6062980401C162 /* StackOverflowObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DC4D077D23A3D2281EF8 /* StackOverflowObject.m */; };
+		5901D45DB5FF0C7ED8727495 /* StackOverflowResponseModelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D7C19C1818A442FF079C /* StackOverflowResponseModelItem.m */; };
+		5901D63B7CA5912F3788F753 /* StackOverflowAPINew.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D9159E07F79E9931270A /* StackOverflowAPINew.m */; };
 		5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */; };
+		5901D92B39E5791684FDB8A9 /* StackOverflowResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D2A57369DA5BC718DCE2 /* StackOverflowResponseModel.m */; };
 		5901DA149E974890703400E8 /* StackOverflowAPIBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D664149D3D342EA73C9D /* StackOverflowAPIBase.m */; };
 		5901DA1F5908A3A55C57C22A /* FormatHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D5BAF1C48244DA528468 /* FormatHelper.m */; };
-		5901DAD1EAD1A9B73285E8AE /* StackOverflowAPIQuestions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D7EF5FF98B7E209D5B3E /* StackOverflowAPIQuestions.m */; };
-		5901DB512E573620476AA2F9 /* StackOverflowAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D297713C5129506BEDD7 /* StackOverflowAPIRequest.m */; };
+		5901DA48B527516892A29A62 /* StackOverflowResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D8955D3D38E9F25EF517 /* StackOverflowResponse.m */; };
+		5901DB512E573620476AA2F9 /* StackOverflowRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D297713C5129506BEDD7 /* StackOverflowRequest.m */; };
 		5901DBE067D5D7C142FC9B65 /* QuestionProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DFAF3807F0AE6DFF46C8 /* QuestionProfileTableViewCell.m */; };
 		5901DD2241DD4022C44B5265 /* StackOverflowResponseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D80CC76381A14277D5EE /* StackOverflowResponseData.m */; };
+		5901DE2FF2D9444F8F00DD53 /* StackOverflowAPIQuestions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DD273BF5953CC226F012 /* StackOverflowAPIQuestions.m */; };
+		5901DF7F8275AC95AD3961D7 /* StackOverflowResponseDataStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DA8AA83AD5705FF547F3 /* StackOverflowResponseDataStubs.m */; };
+		5901DFD80B57356F05CFAA83 /* MappingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D8A56CB2A324D2734B4C /* MappingModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,23 +114,35 @@
 		4DDA7BF419E51E4E0021DFFB /* QuestionProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionProfileViewController.h; sourceTree = "<group>"; };
 		4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionProfileViewController.m; sourceTree = "<group>"; };
 		5901D04EE6A938402C29581E /* NSURL+PathParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+PathParameters.h"; path = "Stubs/Foundation/NSURL+PathParameters.h"; sourceTree = "<group>"; };
-		5901D297713C5129506BEDD7 /* StackOverflowAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowAPIRequest.m; sourceTree = "<group>"; };
+		5901D297713C5129506BEDD7 /* StackOverflowRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowRequest.m; sourceTree = "<group>"; };
+		5901D2A57369DA5BC718DCE2 /* StackOverflowResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowResponseModel.m; sourceTree = "<group>"; };
 		5901D2DD81C78A8972869BCE /* NSURL+PathParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+PathParameters.m"; path = "Stubs/Foundation/NSURL+PathParameters.m"; sourceTree = "<group>"; };
+		5901D3956ACE189A9D56E06F /* StackOverflowResponseDataStubs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponseDataStubs.h; sourceTree = "<group>"; };
 		5901D47DBDF37245CC1AFF8B /* FormatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatHelper.h; sourceTree = "<group>"; };
 		5901D5BAF1C48244DA528468 /* FormatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatHelper.m; sourceTree = "<group>"; };
 		5901D5FE7252989A21084856 /* StackOverflowResponseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponseData.h; sourceTree = "<group>"; };
 		5901D664149D3D342EA73C9D /* StackOverflowAPIBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowAPIBase.m; sourceTree = "<group>"; };
-		5901D7EF5FF98B7E209D5B3E /* StackOverflowAPIQuestions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowAPIQuestions.m; sourceTree = "<group>"; };
+		5901D7C19C1818A442FF079C /* StackOverflowResponseModelItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowResponseModelItem.m; sourceTree = "<group>"; };
 		5901D8048E70E4B520886528 /* QuestionProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionProfileTableViewCell.h; path = Models/UI/QuestionProfileTableViewCell.h; sourceTree = "<group>"; };
 		5901D807043EDC37E94CD23C /* QuestionListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionListViewCell.m; path = Models/UI/QuestionListViewCell.m; sourceTree = "<group>"; };
 		5901D80CC76381A14277D5EE /* StackOverflowResponseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowResponseData.m; sourceTree = "<group>"; };
+		5901D8955D3D38E9F25EF517 /* StackOverflowResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowResponse.m; sourceTree = "<group>"; };
+		5901D8A56CB2A324D2734B4C /* MappingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingModel.m; sourceTree = "<group>"; };
 		5901D8CC0F540DFE4C988DD7 /* StackOverflowAPIBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowAPIBase.h; sourceTree = "<group>"; };
-		5901D9159E07F79E9931270A /* StacOverflowAPI_New.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StacOverflowAPI_New.m; sourceTree = "<group>"; };
-		5901DAF665AEDD3B2050872C /* StackOverflowAPIQuestions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowAPIQuestions.h; sourceTree = "<group>"; };
+		5901D9159E07F79E9931270A /* StackOverflowAPINew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowAPINew.m; sourceTree = "<group>"; };
+		5901D9809C9679BE58931945 /* StackOverflowResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponseModel.h; sourceTree = "<group>"; };
+		5901D9C769AE1979B567F145 /* StackOverflowResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponse.h; sourceTree = "<group>"; };
+		5901DA8AA83AD5705FF547F3 /* StackOverflowResponseDataStubs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowResponseDataStubs.m; sourceTree = "<group>"; };
+		5901DB5B8B45B86DEC66210E /* StackOverflowAPIQuestions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowAPIQuestions.h; sourceTree = "<group>"; };
 		5901DB8EE7F69F25281FFF2D /* QuestionListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionListViewCell.h; path = Models/UI/QuestionListViewCell.h; sourceTree = "<group>"; };
-		5901DEFC0FD66567E1A3E1D5 /* StacOverflowAPI_New.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StacOverflowAPI_New.h; sourceTree = "<group>"; };
+		5901DC1AEF713A7FE3EE4E33 /* MappingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingModel.h; sourceTree = "<group>"; };
+		5901DC4D077D23A3D2281EF8 /* StackOverflowObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowObject.m; sourceTree = "<group>"; };
+		5901DD273BF5953CC226F012 /* StackOverflowAPIQuestions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowAPIQuestions.m; sourceTree = "<group>"; };
+		5901DD8B9CC33417DBC54ED3 /* StackOverflowResponseModelItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponseModelItem.h; sourceTree = "<group>"; };
+		5901DEFC0FD66567E1A3E1D5 /* StackOverflowAPINew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowAPINew.h; sourceTree = "<group>"; };
 		5901DFAF3807F0AE6DFF46C8 /* QuestionProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionProfileTableViewCell.m; path = Models/UI/QuestionProfileTableViewCell.m; sourceTree = "<group>"; };
-		5901DFED069A19F13AB2EFEB /* StackOverflowAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowAPIRequest.h; sourceTree = "<group>"; };
+		5901DFB09E1B007E3C8D6B0D /* StackOverflowObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowObject.h; sourceTree = "<group>"; };
+		5901DFED069A19F13AB2EFEB /* StackOverflowRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowRequest.h; sourceTree = "<group>"; };
 		73E82169FEC35BAF58ECF7CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9F984BD706DBA301702C1C5B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B550769617CD92B6AA96C123 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -408,19 +426,47 @@
 			name = Response;
 			sourceTree = "<group>";
 		};
+		5901D771300C1C66A2363679 /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				5901D8A56CB2A324D2734B4C /* MappingModel.m */,
+				5901DC1AEF713A7FE3EE4E33 /* MappingModel.h */,
+			);
+			name = Mapping;
+			sourceTree = "<group>";
+		};
 		5901DAC015201DBDC4CCD344 /* StackOverflowAPI */ = {
 			isa = PBXGroup;
 			children = (
 				5901D664149D3D342EA73C9D /* StackOverflowAPIBase.m */,
 				5901D8CC0F540DFE4C988DD7 /* StackOverflowAPIBase.h */,
-				5901D9159E07F79E9931270A /* StacOverflowAPI_New.m */,
-				5901DEFC0FD66567E1A3E1D5 /* StacOverflowAPI_New.h */,
-				5901D297713C5129506BEDD7 /* StackOverflowAPIRequest.m */,
-				5901DFED069A19F13AB2EFEB /* StackOverflowAPIRequest.h */,
-				5901D7EF5FF98B7E209D5B3E /* StackOverflowAPIQuestions.m */,
-				5901DAF665AEDD3B2050872C /* StackOverflowAPIQuestions.h */,
+				5901D9159E07F79E9931270A /* StackOverflowAPINew.m */,
+				5901DEFC0FD66567E1A3E1D5 /* StackOverflowAPINew.h */,
+				5901D297713C5129506BEDD7 /* StackOverflowRequest.m */,
+				5901DFED069A19F13AB2EFEB /* StackOverflowRequest.h */,
+				5901DC4D077D23A3D2281EF8 /* StackOverflowObject.m */,
+				5901DFB09E1B007E3C8D6B0D /* StackOverflowObject.h */,
+				5901D8955D3D38E9F25EF517 /* StackOverflowResponse.m */,
+				5901D9C769AE1979B567F145 /* StackOverflowResponse.h */,
+				5901DD273BF5953CC226F012 /* StackOverflowAPIQuestions.m */,
+				5901DB5B8B45B86DEC66210E /* StackOverflowAPIQuestions.h */,
+				5901DBA4E0C570512B41CFBF /* Models */,
+				5901DA8AA83AD5705FF547F3 /* StackOverflowResponseDataStubs.m */,
+				5901D3956ACE189A9D56E06F /* StackOverflowResponseDataStubs.h */,
 			);
 			name = StackOverflowAPI;
+			sourceTree = "<group>";
+		};
+		5901DBA4E0C570512B41CFBF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5901D2A57369DA5BC718DCE2 /* StackOverflowResponseModel.m */,
+				5901D9809C9679BE58931945 /* StackOverflowResponseModel.h */,
+				5901D7C19C1818A442FF079C /* StackOverflowResponseModelItem.m */,
+				5901DD8B9CC33417DBC54ED3 /* StackOverflowResponseModelItem.h */,
+				5901D771300C1C66A2363679 /* Mapping */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		5901DBBFAE90DAEB6E58F52F /* Helper */ = {
@@ -615,9 +661,15 @@
 				5901DBE067D5D7C142FC9B65 /* QuestionProfileTableViewCell.m in Sources */,
 				5901D30B378F13199EA01D50 /* QuestionListViewCell.m in Sources */,
 				5901DA149E974890703400E8 /* StackOverflowAPIBase.m in Sources */,
-				5901D63B7CA5912F3788F753 /* StacOverflowAPI_New.m in Sources */,
-				5901DB512E573620476AA2F9 /* StackOverflowAPIRequest.m in Sources */,
-				5901DAD1EAD1A9B73285E8AE /* StackOverflowAPIQuestions.m in Sources */,
+				5901D63B7CA5912F3788F753 /* StackOverflowAPINew.m in Sources */,
+				5901DB512E573620476AA2F9 /* StackOverflowRequest.m in Sources */,
+				5901D34E2C6062980401C162 /* StackOverflowObject.m in Sources */,
+				5901DA48B527516892A29A62 /* StackOverflowResponse.m in Sources */,
+				5901DE2FF2D9444F8F00DD53 /* StackOverflowAPIQuestions.m in Sources */,
+				5901D92B39E5791684FDB8A9 /* StackOverflowResponseModel.m in Sources */,
+				5901D45DB5FF0C7ED8727495 /* StackOverflowResponseModelItem.m in Sources */,
+				5901DFD80B57356F05CFAA83 /* MappingModel.m in Sources */,
+				5901DF7F8275AC95AD3961D7 /* StackOverflowResponseDataStubs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

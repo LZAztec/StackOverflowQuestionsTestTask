@@ -1,244 +1,50 @@
 //
-//  StackOverflowQueryBuilder.m
-//  StackOverflowQuestions
-//
-//  Created by Aztec on 07.10.14.
-//  Copyright (c) 2014 Aztec. All rights reserved.
+// Created by Aztec on 07.11.14.
+// Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "StackOverflowAPI.h"
-#import "NSURL+PathParameters.h"
-#import "NSCachedURLResponse+Expiration.h"
-#import "UserSettings.h"
-
-static NSString *const kAPIHost = @"https://api.stackexchange.com";
-static NSString *const kAPIVersion = @"2.2";
-static NSString *const kCancelPendingOperationsKey = @"cancelOperations";
-
-@interface StackOverflowAPI()
-
-@property NSURLConnection *connection;
-
-- (NSString *)implode:(NSArray *)array;
-
-@end
+#import "StackOverflowResponseDataStubs.h"
 
 
-@implementation StackOverflowAPI
+@implementation StackOverflowResponseDataStubs
 
-- (instancetype)init
++ (NSDictionary *)jsonForMethod:(NSString *)method
 {
-    NSAssert(false, @"You cannot init this class directly. Instead, use initWithDelegate:");
+    if ([method isEqualToString:@"questions"]){
+        return [StackOverflowResponseDataStubs makeQuestionsStubResponse];
+    }
+    NSString *pattern = @"questions/(\\d+;{0,1})+/answers(/){0,1}\?{0,1}";
+    NSPredicate *matchPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+
+    if ([matchPredicate evaluateWithObject:method]){
+        return [StackOverflowResponseDataStubs makeAnswersByQuestionStubResponse];
+    }
+
     return nil;
-}
-
-- (instancetype)initWithDelegate:(id <StackOverflowAPIDelegate>)delegate;
-{
-    self = [super init];
-    if (self) {
-        _delegate = delegate;
-        _settings = [UserSettings sharedInstance];
-    }
-    return self;
-}
-
-- (NSString *)implode:(NSArray *)array;
-{
-    return [[array valueForKey:@"description"] componentsJoinedByString:@";"];
-}
-
-- (void)questionsByTags:(NSArray *)tags page:(NSNumber *)page limit:(NSNumber *)limit
-{
-    NSDictionary *params = @{
-            @"page" : page,
-            @"pagesize" : limit,
-            @"order" : @"desc",
-            @"sort" : @"creation",
-            @"tagged" : [self implode:tags],
-            @"site" : @"stackoverflow",
-            @"filter" : @"withbody"
-    };
-
-    NSString *methodURLString = [NSString stringWithFormat:@"%@/%@/questions", kAPIHost, kAPIVersion];
-
-    if (_settings.simulateQueries) {
-        if ([self.delegate respondsToSelector:@selector(handleQuestionsByTagsResponse:)]) {
-            [self.delegate handleQuestionsByTagsResponse:[self makeQuestionsStubResponse]];
-        }
-    } else {
-        [self executeQueryForUrlString:methodURLString andParams:params];
-    }
-
-}
-
-- (void)answersByQuestionIds:(NSArray *)ids page:(NSNumber *)page limit:(NSNumber *)limit
-{
-    NSDictionary *params = @{
-            @"page" : page,
-            @"pagesize" : limit,
-            @"order": @"desc",
-            @"sort": @"creation",
-            @"site": @"stackoverflow",
-            @"filter": @"withbody"
-    };
-
-
-    NSString *methodURLString = [NSString stringWithFormat:@"%@/%@/questions/%@/answers", kAPIHost, kAPIVersion, [self implode:ids]];
-
-    if (_settings.simulateQueries) {
-        if ([self.delegate respondsToSelector:@selector(handleAnswersByQuestionIdsResponse:)]) {
-            [self.delegate handleAnswersByQuestionIdsResponse:[self makeAnswersByQuestionStubResponse]];
-        }
-    } else {
-        [self executeQueryForUrlString:methodURLString andParams:params];
-    }
-}
-
-- (void)executeQueryForUrlString:(NSString *)urlString andParams:(NSDictionary *)params
-{
-    NSNumber *cancelPendingOperations = params[kCancelPendingOperationsKey];
-
-    if ([cancelPendingOperations boolValue]){
-        [self.connection cancel];
-        self.connection = nil;
-    }
-
-    [_responseData setLength:0];
-
-    NSURL *methodURL = [NSURL URLWithString:urlString];
-
-    // Set response timeout
-    NSTimeInterval timeout = 15;
-
-    // Create the request
-    NSURLRequest *request = [NSURLRequest requestWithURL:[methodURL URLByAppendingParameters:params]
-                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                         timeoutInterval:timeout];
-
-    // Create url connection and fire request
-    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-
-    [self.connection start];
-}
-
-#pragma mark - Response processing methods
-- (NSRegularExpression *)makeRegexForPattern:(NSString *)pattern
-{
-    // Create a regular expression
-    NSRegularExpressionOptions regexOptions = NSRegularExpressionCaseInsensitive;
-
-
-    return [NSRegularExpression regularExpressionWithPattern:pattern
-                                                     options:regexOptions
-                                                       error:nil];
-}
-
-- (BOOL)url:(NSURL *)url matchesPattern:(NSString *)pattern
-{
-    NSRegularExpression *regex = [self makeRegexForPattern:pattern];
-    NSString *URLString = url.absoluteString;
-
-    NSArray *matches = [regex matchesInString:URLString
-                                      options:NSMatchingReportProgress
-                                        range:NSMakeRange(0, URLString.length)];
-
-    return [matches count] > 0;
-}
-
-- (NSDictionary *)makeAPIResponseWithErrorHandling:(NSError **)error
-{
-    NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:_responseData
-                                                                 options:NSJSONReadingAllowFragments
-                                                                   error:error];
-
-    return responseDict;
-}
-
-#pragma mark - NSURLConnection Delegate Methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    _responseData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    // Append the new data to the instance variable you declared
-    [_responseData appendData:data];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse
-{
-    // Set time to live in cache to 5 minutes
-    return [cachedResponse responseWithExpirationDuration:(60*5)];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    // The request is complete and data has been received
-    NSError *error = nil;
-    NSDictionary *response = [self makeAPIResponseWithErrorHandling:&error];
-
-    if ([response valueForKey:@"error_id"] != nil) {
-        error = [NSError errorWithDomain:response[@"error_message"] code:[(NSString *)response[@"error_id"] integerValue] userInfo:response];
-    }
-
-    if (error != nil || response == nil) {
-        if ([self.delegate respondsToSelector:@selector(handleError:)]) {
-            [self.delegate handleError:error];
-        } else {
-            NSLog(@"Error occurred: %@", error);
-        }
-
-        return;
-    }
-
-
-    if ([self url:connection.originalRequest.URL matchesPattern:@"^.*/questions(/){0,1}\?"] &&
-            [self.delegate respondsToSelector:@selector(handleQuestionsByTagsResponse:)]) {
-        [self.delegate handleQuestionsByTagsResponse:response];
-    }
-    else if ([self url:connection.originalRequest.URL matchesPattern:@"/questions/(\\d+;{0,1})+/answers(/){0,1}\?"] &&
-            [self.delegate respondsToSelector:@selector(handleAnswersByQuestionIdsResponse:)]) {
-        [self.delegate handleAnswersByQuestionIdsResponse:response];
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    // The request has failed for some reason!
-    // Check the error var
-    [self.delegate handleError:error];
 }
 
 
 #pragma mark - Stubs: Responses
-- (NSDictionary *)makeQuestionsStubResponse
++ (NSDictionary *)makeQuestionsStubResponse
 {
     return @{
             @"items" : @[
                     @{
                             @"tags" : @[
-                                    @"ios",
-                                    @"uiview",
-                                    @"interpolation",
-                                    @"cglayer"
-                            ],
+                            @"ios",
+                            @"uiview",
+                            @"interpolation",
+                            @"cglayer"
+                    ],
                             @"owner" : @{
-                                    @"reputation" : @1476,
-                                    @"user_id" : @1408546,
-                                    @"user_type" : @"registered",
-                                    @"accept_rate" : @89,
-                                    @"profile_image" : @"https://www.gravatar.com/avatar/17ecfb60676a98e576ecc54ada8db67b?s=128&d=identicon&r=PG",
-                                    @"display_name" : @"Mrwolfy",
-                                    @"link" : @"http://stackoverflow.com/users/1408546/mrwolfy"
-                            },
+                            @"reputation" : @1476,
+                            @"user_id" : @1408546,
+                            @"user_type" : @"registered",
+                            @"accept_rate" : @89,
+                            @"profile_image" : @"https://www.gravatar.com/avatar/17ecfb60676a98e576ecc54ada8db67b?s=128&d=identicon&r=PG",
+                            @"display_name" : @"Mrwolfy",
+                            @"link" : @"http://stackoverflow.com/users/1408546/mrwolfy"
+                    },
                             @"is_answered" : @0,
                             @"view_count" : @129,
                             @"answer_count" : @2,
@@ -328,19 +134,19 @@ static NSString *const kCancelPendingOperationsKey = @"cancelOperations";
     };
 }
 
-- (NSDictionary *)makeAnswersByQuestionStubResponse
++ (NSDictionary *)makeAnswersByQuestionStubResponse
 {
     return @{
             @"items" : @[
                     @{
                             @"owner" : @{
-                                    @"reputation" : @467,
-                                    @"user_id" : @673363,
-                                    @"user_type" : @"registered",
-                                    @"profile_image" : @"https://www.gravatar.com/avatar/c42be5b468abc88ec114a92ad037c596?s=128&d=identicon&r=PG",
-                                    @"display_name" : @"Rasmus Taulborg Hummelmose",
-                                    @"link" : @"http://stackoverflow.com/users/673363/rasmus-taulborg-hummelmose"
-                            },
+                            @"reputation" : @467,
+                            @"user_id" : @673363,
+                            @"user_type" : @"registered",
+                            @"profile_image" : @"https://www.gravatar.com/avatar/c42be5b468abc88ec114a92ad037c596?s=128&d=identicon&r=PG",
+                            @"display_name" : @"Rasmus Taulborg Hummelmose",
+                            @"link" : @"http://stackoverflow.com/users/673363/rasmus-taulborg-hummelmose"
+                    },
                             @"is_accepted" : @0,
                             @"score" : @0,
                             @"last_activity_date" : @1414070722,
