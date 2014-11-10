@@ -62,6 +62,8 @@ static const int kLoadingCellTag = 1273;
 
 - (void)refreshFirstPage
 {
+    _page = 1;
+    _hasMore = YES;
     [self queryDataForce:YES];
 }
 
@@ -99,6 +101,7 @@ static const int kLoadingCellTag = 1273;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"ROW: %ld, questions count: %ld", (unsigned long)indexPath.row, (unsigned long)self.questions.count);
     if (indexPath.row < self.questions.count) {
         return [self questionCellForIndexPath:indexPath];
     } else {
@@ -140,7 +143,7 @@ static const int kLoadingCellTag = 1273;
 {
     QuestionListViewCell *cell = [[QuestionListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
 
-    if (indexPath.row > 0){
+    if (![self.refreshControl isRefreshing]){
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         activityIndicator.center = cell.center;
@@ -169,29 +172,22 @@ static const int kLoadingCellTag = 1273;
     }
 
     [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
+        if (force) {
+            [questions removeAllObjects];
+        }
+
         for (StackOverflowResponseModelItem *data in response.parsedModel.items) {
             data.type = kCellDataQuestionType;
             [self.questions addObject:data];
         }
         _hasMore = [response.parsedModel.hasMore boolValue];
 
-        if (force){
-            [self clearTableAndResetAPIData];
-        }
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
 
     } errorBlock:^(NSError *error) {
         [self handleError:error];
     }];
-}
-
-- (void)clearTableAndResetAPIData
-{
-    _page = 1;
-    _hasMore = YES;
-    [questions removeAllObjects];
-    [self.tableView reloadData];
 }
 
 #pragma mark - Tag Picker View Controller Delegate methods
@@ -201,9 +197,12 @@ static const int kLoadingCellTag = 1273;
     _selectedTag = (sender.pickerData)[(NSUInteger) selectedRow];
 
     self.title = _selectedTag;
-    [self clearTableAndResetAPIData];
+    [questions removeAllObjects];
+    [self.tableView reloadData];
+    _page = 1;
+    _hasMore = YES;
 
-    [self queryDataForce:NO];
+    [self queryDataForce:YES];
     [self mh_dismissSemiModalViewController:sender animated:YES];
     [self setControlsEnabled:YES];
 }

@@ -44,7 +44,6 @@
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.score.text = [data.counter stringValue];
 
-    NSLog(@"%@", data);
     self.modificationDate.text = [FormatHelper formatDateFuzzy:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data.lastModificationDate doubleValue]]];
     self.QAText.attributedText = [FormatHelper formatText:data.body
                                withCodeTagBackgroundColor:[UIColor brownColor]

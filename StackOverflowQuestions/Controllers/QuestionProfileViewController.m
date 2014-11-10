@@ -57,16 +57,9 @@ static const int kAnswerCellTag = 123124;
 - (void)refreshFirstPage
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    [self queryAnswersForQuestionForce:YES];
-}
-
-- (void)clearPageData
-{
     _page = 1;
-    _hasMore = YES;
-    [self.tableData removeAllObjects];
-    [self extractQuestionDataToFirstCell];
-    [self.tableView reloadData];
+    _hasMore = 1;
+    [self queryAnswersForQuestionForce:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -153,7 +146,7 @@ static const int kAnswerCellTag = 123124;
 {
     QuestionProfileTableViewCell *cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
 
-    if (indexPath.row > 0){
+    if ([self.refreshControl isRefreshing]) {
         UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         activityIndicator.center = cell.center;
@@ -250,15 +243,17 @@ static const int kAnswerCellTag = 123124;
 
     [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"answers response: %@", response);
+        if (force){
+            [self.tableData removeAllObjects];
+            [self extractQuestionDataToFirstCell];
+        }
+
         for (StackOverflowResponseModelItem *data in response.parsedModel.items) {
             data.type = kCellDataAnswerType;
             [self.tableData addObject:data];
         }
         _hasMore = [response.parsedModel.hasMore boolValue];
 
-        if (force){
-            [self clearPageData];
-        }
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
 
