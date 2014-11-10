@@ -251,6 +251,7 @@ static const int kAnswerCellTag = 123124;
     [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"answers response: %@", response);
         for (StackOverflowResponseModelItem *data in response.parsedModel.items) {
+            data.type = kCellDataAnswerType;
             [self.tableData addObject:data];
         }
         _hasMore = [response.parsedModel.hasMore boolValue];

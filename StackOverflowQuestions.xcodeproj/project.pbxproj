@@ -35,7 +35,6 @@
 		4DDA7BCF19E3B9D00021DFFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA7BCE19E3B9D00021DFFB /* Images.xcassets */; };
 		4DDA7BD219E3B9D00021DFFB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA7BD019E3B9D00021DFFB /* LaunchScreen.xib */; };
 		4DDA7BDE19E3B9D00021DFFB /* StackOverflowQuestionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BDD19E3B9D00021DFFB /* StackOverflowQuestionsTests.m */; };
-		4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */; };
 		4DDA7BF719E51E4E0021DFFB /* QuestionProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */; };
 		5901D158568225C20FA9E8C8 /* StackOverflowResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D38ABC8A1668F61FE051 /* StackOverflowResponseModel.m */; };
 		5901D30B378F13199EA01D50 /* QuestionListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D807043EDC37E94CD23C /* QuestionListViewCell.m */; };
@@ -48,7 +47,6 @@
 		5901DA48B527516892A29A62 /* StackOverflowResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D8955D3D38E9F25EF517 /* StackOverflowResponse.m */; };
 		5901DB512E573620476AA2F9 /* StackOverflowRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D297713C5129506BEDD7 /* StackOverflowRequest.m */; };
 		5901DBE067D5D7C142FC9B65 /* QuestionProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DFAF3807F0AE6DFF46C8 /* QuestionProfileTableViewCell.m */; };
-		5901DD2241DD4022C44B5265 /* StackOverflowResponseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D80CC76381A14277D5EE /* StackOverflowResponseData.m */; };
 		5901DE2FF2D9444F8F00DD53 /* StackOverflowAPIQuestions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DD273BF5953CC226F012 /* StackOverflowAPIQuestions.m */; };
 		5901DF7F8275AC95AD3961D7 /* StackOverflowResponseDataStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901DA8AA83AD5705FF547F3 /* StackOverflowResponseDataStubs.m */; };
 		5901DFD80B57356F05CFAA83 /* MappingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5901D8A56CB2A324D2734B4C /* MappingModel.m */; };
@@ -109,8 +107,6 @@
 		4DDA7BD719E3B9D00021DFFB /* StackOverflowQuestionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StackOverflowQuestionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDA7BDC19E3B9D00021DFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDA7BDD19E3B9D00021DFFB /* StackOverflowQuestionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StackOverflowQuestionsTests.m; sourceTree = "<group>"; };
-		4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StackOverflowAPI.m; path = Models/API/StackOverflowAPI.m; sourceTree = "<group>"; };
-		4DDA7BF119E3D67F0021DFFB /* StackOverflowAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StackOverflowAPI.h; path = Models/API/StackOverflowAPI.h; sourceTree = "<group>"; };
 		4DDA7BF419E51E4E0021DFFB /* QuestionProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionProfileViewController.h; sourceTree = "<group>"; };
 		4DDA7BF519E51E4E0021DFFB /* QuestionProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionProfileViewController.m; sourceTree = "<group>"; };
 		5901D04EE6A938402C29581E /* NSURL+PathParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+PathParameters.h"; path = "Stubs/Foundation/NSURL+PathParameters.h"; sourceTree = "<group>"; };
@@ -120,12 +116,10 @@
 		5901D3956ACE189A9D56E06F /* StackOverflowResponseDataStubs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponseDataStubs.h; sourceTree = "<group>"; };
 		5901D47DBDF37245CC1AFF8B /* FormatHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatHelper.h; sourceTree = "<group>"; };
 		5901D5BAF1C48244DA528468 /* FormatHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatHelper.m; sourceTree = "<group>"; };
-		5901D5FE7252989A21084856 /* StackOverflowResponseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponseData.h; sourceTree = "<group>"; };
 		5901D664149D3D342EA73C9D /* StackOverflowAPIBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowAPIBase.m; sourceTree = "<group>"; };
 		5901D7B68014CA46E70B8A0B /* StackOverflowResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowResponseModel.h; sourceTree = "<group>"; };
 		5901D8048E70E4B520886528 /* QuestionProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionProfileTableViewCell.h; path = Models/UI/QuestionProfileTableViewCell.h; sourceTree = "<group>"; };
 		5901D807043EDC37E94CD23C /* QuestionListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionListViewCell.m; path = Models/UI/QuestionListViewCell.m; sourceTree = "<group>"; };
-		5901D80CC76381A14277D5EE /* StackOverflowResponseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowResponseData.m; sourceTree = "<group>"; };
 		5901D8955D3D38E9F25EF517 /* StackOverflowResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackOverflowResponse.m; sourceTree = "<group>"; };
 		5901D8A56CB2A324D2734B4C /* MappingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingModel.m; sourceTree = "<group>"; };
 		5901D8CC0F540DFE4C988DD7 /* StackOverflowAPIBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackOverflowAPIBase.h; sourceTree = "<group>"; };
@@ -364,7 +358,6 @@
 				4D66F20619FF721800E9F86A /* Sharing */,
 				4D670EB119FA3742004E54CE /* Settings */,
 				4DB9BE5F19F1414000862674 /* Formatter */,
-				4DDA7BEA19E3C44D0021DFFB /* API */,
 				5901DBBFAE90DAEB6E58F52F /* Helper */,
 				5901DAC015201DBDC4CCD344 /* StackOverflowAPI */,
 			);
@@ -393,16 +386,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		4DDA7BEA19E3C44D0021DFFB /* API */ = {
-			isa = PBXGroup;
-			children = (
-				4DDA7BF119E3D67F0021DFFB /* StackOverflowAPI.h */,
-				4DDA7BEC19E3CD320021DFFB /* StackOverflowAPI.m */,
-				5901D41864E3B9708E618FF5 /* Response */,
-			);
-			name = API;
-			sourceTree = "<group>";
-		};
 		4DDA7BF219E406370021DFFB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,15 +398,6 @@
 				4DDA7BCE19E3B9D00021DFFB /* Images.xcassets */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		5901D41864E3B9708E618FF5 /* Response */ = {
-			isa = PBXGroup;
-			children = (
-				5901D5FE7252989A21084856 /* StackOverflowResponseData.h */,
-				5901D80CC76381A14277D5EE /* StackOverflowResponseData.m */,
-			);
-			name = Response;
 			sourceTree = "<group>";
 		};
 		5901D771300C1C66A2363679 /* Mapping */ = {
@@ -650,7 +624,6 @@
 				4D7DC89E19EBF68D00D9294B /* TagPickerViewController.m in Sources */,
 				4DDA7BCA19E3B9D00021DFFB /* QuestionListViewController.m in Sources */,
 				4DB9BE6219F1418F00862674 /* FormatterFactory.m in Sources */,
-				4DDA7BED19E3CD320021DFFB /* StackOverflowAPI.m in Sources */,
 				4DDA7BC719E3B9D00021DFFB /* AppDelegate.m in Sources */,
 				4DB9BE5C19F138CA00862674 /* NSString+HTML.m in Sources */,
 				4DDA7BC419E3B9D00021DFFB /* main.m in Sources */,
@@ -665,7 +638,6 @@
 				4D7DC8AF19F0FE9D00D9294B /* UIViewController+MHSemiModal.m in Sources */,
 				5901D72AA8A349B2C11902E9 /* NSURL+PathParameters.m in Sources */,
 				5901DA1F5908A3A55C57C22A /* FormatHelper.m in Sources */,
-				5901DD2241DD4022C44B5265 /* StackOverflowResponseData.m in Sources */,
 				5901DBE067D5D7C142FC9B65 /* QuestionProfileTableViewCell.m in Sources */,
 				5901D30B378F13199EA01D50 /* QuestionListViewCell.m in Sources */,
 				5901DA149E974890703400E8 /* StackOverflowAPIBase.m in Sources */,

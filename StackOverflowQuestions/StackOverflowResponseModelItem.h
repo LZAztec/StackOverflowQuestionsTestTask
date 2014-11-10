@@ -7,7 +7,7 @@
 #import "StackOverflowObject.h"
 #import "MappingModel.h"
 
-// TODO convert to enum
+// TODO convert constants to enum
 static NSString *const kCellDataQuestionType = @"question";
 static NSString *const kCellDataAnswerType = @"answer";
 
