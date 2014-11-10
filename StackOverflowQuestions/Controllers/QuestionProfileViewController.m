@@ -8,8 +8,6 @@
 
 #import "QuestionProfileViewController.h"
 #import "QuestionProfileTableViewCell.h"
-#import "NSString+HTML.h"
-#import "UserSettings.h"
 #import "VKontakteActivity.h"
 #import "FormatHelper.h"
 
@@ -19,7 +17,7 @@ static const int kAnswerCellTag = 123124;
 
 @interface QuestionProfileViewController ()
 
-@property BOOL processingQuery;
+@property (weak, nonatomic) StackOverflowRequest *request;
 
 - (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
 
@@ -29,7 +27,6 @@ static const int kAnswerCellTag = 123124;
 
 @synthesize question;
 @synthesize tableData;
-@synthesize stackOverflowAPI;
 
 #pragma mark - Lifecycle
 - (void)viewDidLoad
@@ -38,7 +35,6 @@ static const int kAnswerCellTag = 123124;
 
     self.tableData = [[NSMutableArray alloc]init];
     self.title = question.title;
-    self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
 
     _page = 0;
     _hasMore = YES;
@@ -61,8 +57,7 @@ static const int kAnswerCellTag = 123124;
 - (void)refreshFirstPage
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    [self clearPageData];
-    [self queryAnswersForQuestionForce:NO];
+    [self queryAnswersForQuestionForce:YES];
 }
 
 - (void)clearPageData
@@ -125,12 +120,10 @@ static const int kAnswerCellTag = 123124;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *reuseIdentifier = @"QACell";
-
     QuestionProfileTableViewCell *cell = nil;
     
     if (indexPath.row < self.tableData.count) {
-        cell = [self questionProfileCellForIndexPath:indexPath reuseIdentifier:reuseIdentifier];
+        cell = [self questionProfileCellForIndexPath:indexPath];
 
         if (indexPath.row == 0) {
             cell.tag = kQuestionCellTag;
@@ -139,7 +132,7 @@ static const int kAnswerCellTag = 123124;
         }
         
     } else {
-        cell = [self loadingCellWithReuseIdentifier:reuseIdentifier];
+        cell = [self loadingCellWithIndexPath:indexPath];
     }
 
     return cell;
@@ -148,7 +141,7 @@ static const int kAnswerCellTag = 123124;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (cell.tag == kLoadingCellTag && _hasMore && !_processingQuery) {
+    if (cell.tag == kLoadingCellTag && _hasMore && !_request.isExecuting) {
         
         _page++;
 
@@ -156,26 +149,20 @@ static const int kAnswerCellTag = 123124;
     }
 }
 
-- (QuestionProfileTableViewCell *)loadingCellWithReuseIdentifier:(NSString *)reuseIdentifier
+- (QuestionProfileTableViewCell *)loadingCellWithIndexPath:(NSIndexPath *)indexPath
 {
-    QuestionProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    QuestionProfileTableViewCell *cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
 
-    if (cell == nil) {
-        cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    if (indexPath.row > 0){
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        activityIndicator.center = cell.center;
+        [cell addSubview:activityIndicator];
+
+        [activityIndicator startAnimating];
     }
 
-//    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-//            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//
-//    activityIndicator.center = cell.center;
-//    [cell addSubview:activityIndicator];
-
-    cell.activityIndicator.center = cell.center;
-    cell.activityIndicator.hidden = NO;
-//    [cell.activityIndicator startAnimating];
-
     cell.tag = kLoadingCellTag;
-
     cell.authorName.hidden = YES;
     cell.modificationDate.hidden = YES;
     cell.score.hidden = YES;
@@ -185,8 +172,9 @@ static const int kAnswerCellTag = 123124;
     return cell;
 }
 
-- (QuestionProfileTableViewCell *)questionProfileCellForIndexPath:(NSIndexPath *)indexPath reuseIdentifier:(NSString *)reuseIdentifier
+- (QuestionProfileTableViewCell *)questionProfileCellForIndexPath:(NSIndexPath *)indexPath
 {
+    static NSString *reuseIdentifier = @"QACell";
 
     QuestionProfileTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
 
@@ -194,7 +182,7 @@ static const int kAnswerCellTag = 123124;
         cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
 
-    [cell setCellData:(StackOverflowResponseData *)tableData[(NSUInteger) indexPath.row]];
+    [cell setCellData:(StackOverflowResponseModelItem *)tableData[(NSUInteger) indexPath.row]];
 
     return cell;
 }
@@ -206,7 +194,6 @@ static const int kAnswerCellTag = 123124;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     CGFloat height = 0;
     // check here, if it is one of the cells, that needs to be resized
     // to the size of the contained UITextView
@@ -222,8 +209,10 @@ static const int kAnswerCellTag = 123124;
 
 - (CGFloat)textViewHeightForRowAtIndexPath: (NSIndexPath*)indexPath
 {
+    CGFloat height = 0;
+
     if (indexPath.row < [self.tableData count]) {
-        StackOverflowResponseData *data = [self.tableData objectAtIndex:(NSUInteger) indexPath.row];
+        StackOverflowResponseModelItem *data = (self.tableData)[(NSUInteger) indexPath.row];
 
         UITextView *calculationView = [[UITextView alloc] init];
         
@@ -234,43 +223,47 @@ static const int kAnswerCellTag = 123124;
         // full screen width - image width (50) - paddings(8*3) (left + right + distance between image and text view)
         CGFloat textViewWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]) - 50 - (8*3);
         CGSize size = [calculationView sizeThatFits:CGSizeMake(textViewWidth, FLT_MAX)];
-        return size.height + 10;
+        height = size.height + 10;
     }
-    return 1;
+
+    return height + 1;
 }
 
 
 #pragma mark - Stack Overflow data processing
 
-- (void)queryAnswersForQuestionForce:(BOOL)force {
-    _processingQuery = YES;
-    NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
-    [stackOverflowAPI answersByQuestionIds:@[question.id] page:@(_page) limit:@50];
-}
-
-- (void)addCellDataWithAuthorName:(NSString *)name
-                            score:(NSNumber *)count
-                     lastEditDate:(NSDate *)date
-                           QAText:(NSString *)text
-                           status:(NSNumber *)status
-                               id:(NSString *)id
-                     creationDate:(NSDate *)creationDate
+- (void)queryAnswersForQuestionForce:(BOOL)force
 {
-    if (date == nil) {
-        date = [[NSDate alloc]initWithTimeIntervalSinceNow:0];
+    NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
+
+    if (_request == nil) {
+        _request = [[StackOverflowAPINew questions] answersByQuestionIds:@[question.id]
+                                                                    page:_page
+                                                                   limit:10];
     }
 
-    StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] init];
-    cellData.authorName = name;
-    cellData.counter = count;
-    cellData.creationDate = creationDate;
-    cellData.lastModificationDate = date;
-    cellData.status = status;
-    cellData.body = text;
-    cellData.id = id;
-    cellData.type = kCellDataAnswerType;
+    if (_request.isExecuting && force){
+        [_request cancel];
+    } else if (_request.isExecuting) {
+        return;
+    }
 
-    [self.tableData addObject:cellData];
+    [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
+        NSLog(@"answers response: %@", response);
+        for (StackOverflowResponseModelItem *data in response.parsedModel.items) {
+            [self.tableData addObject:data];
+        }
+        _hasMore = [response.parsedModel.hasMore boolValue];
+
+        if (force){
+            [self clearPageData];
+        }
+        [self.tableView reloadData];
+        [self.refreshControl endRefreshing];
+
+    } errorBlock:^(NSError *error) {
+        [self handleError:error];
+    }];
 }
 
 - (void)extractQuestionDataToFirstCell
@@ -286,29 +279,6 @@ static const int kAnswerCellTag = 123124;
     if (buttonIndex == 0) {
         [self controlsEnabled:YES];
     }
-}
-
-- (void)handleAnswersByQuestionIdsResponse:(NSDictionary *)response
-{
-    NSArray *items = response[@"items"];
-    for (id answer in items){
-        NSDate *modificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"last_activity_date"] doubleValue]];
-        NSDate *creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [[answer objectForKey:@"creation_date"] doubleValue]];
-
-        [self addCellDataWithAuthorName:answer[@"owner"][@"display_name"]
-                                  score:(NSNumber *) answer[@"score"]
-                           lastEditDate:modificationDate
-                                 QAText:answer[@"body"]
-                                 status:(NSNumber *) answer[@"is_accepted"]
-                                     id:answer[@"answer_id"]
-                           creationDate:creationDate];
-    }
-
-    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
-
-    [self.tableView reloadData];
-    [self.refreshControl endRefreshing];
-    _processingQuery = NO;
 }
 
 - (void)handleError:(NSError *)error

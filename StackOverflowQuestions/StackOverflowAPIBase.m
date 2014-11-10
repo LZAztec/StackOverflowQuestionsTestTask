@@ -3,10 +3,10 @@
 // Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "StackOverflowAPIBase_.h"
+#import "StackOverflowAPIBase.h"
 #import "StackOverflowResponseModel.h"
 
-@implementation StackOverflowAPIBase_
+@implementation StackOverflowAPIBase
 
 - (id)init {
     self = [super init];

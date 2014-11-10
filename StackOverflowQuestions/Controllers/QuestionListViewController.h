@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StackOverflowAPI.h"
 #import "StackOverflowAPINew.h"
 #import "TagPickerViewController.h"
 
-@interface QuestionListViewController : UITableViewController <StackOverflowAPIDelegate, TagPickerViewControllerDelegate, UIAlertViewDelegate>{
+@interface QuestionListViewController : UITableViewController <TagPickerViewControllerDelegate, UIAlertViewDelegate>{
     NSMutableArray *questions;
-    StackOverflowAPI *stackOverflowAPI;
     TagPickerViewController *tagPickerViewController;
 
     NSInteger _page;
@@ -23,7 +21,6 @@
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *changeTagButton;
 @property (copy, nonatomic) NSMutableArray *questions;
-@property (strong, nonatomic) StackOverflowAPI *stackOverflowAPI;
 
 - (IBAction) changeTagPressed:(id)sender;
 - (void)refreshFirstPage;

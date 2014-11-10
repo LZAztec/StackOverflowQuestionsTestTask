@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StackOverflowResponseData.h"
+#import "StackOverflowResponseModelItem.h"
 
-@interface QuestionProfileTableViewCell : UITableViewCell <StackOverflowResponseDataContainer>
+@interface QuestionProfileTableViewCell : UITableViewCell <StackOverflowResponseModelItemContainer>
 
 @property (weak, nonatomic) IBOutlet UILabel *authorName;
 @property (weak, nonatomic) IBOutlet UILabel *modificationDate;

@@ -3,9 +3,9 @@
 // Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "StackOverflowAPIBase_.h"
+#import "StackOverflowAPIBase.h"
 
-@interface StackOverflowAPIQuestions : StackOverflowAPIBase_
+@interface StackOverflowAPIQuestions : StackOverflowAPIBase
 
 - (StackOverflowRequest *)questionsByTags:(NSArray *)tags page:(NSInteger)page limit:(NSInteger)limit;
 - (StackOverflowRequest *)answersByQuestionIds:(NSArray *)ids page:(NSInteger)page limit:(NSInteger)limit;

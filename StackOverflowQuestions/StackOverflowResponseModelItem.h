@@ -7,13 +7,17 @@
 #import "StackOverflowObject.h"
 #import "MappingModel.h"
 
+// TODO convert to enum
+static NSString *const kCellDataQuestionType = @"question";
+static NSString *const kCellDataAnswerType = @"answer";
+
 @interface StackOverflowResponseModelItem : MappingModel <NSCopying>
 
 @property (strong, nonatomic) NSString *id;
 @property (strong, nonatomic) NSString *authorName;
 @property (strong, nonatomic) NSNumber *counter;
-@property (strong, nonatomic) NSDate *creationDate;
-@property (strong, nonatomic) NSDate *lastModificationDate;
+@property (strong, nonatomic) NSNumber *creationDate;
+@property (strong, nonatomic) NSNumber *lastModificationDate;
 @property (strong, nonatomic) NSNumber *status;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *body;

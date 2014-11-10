@@ -33,7 +33,7 @@
             @"filter" : @"withbody"
     };
 
-    NSString *methodName = [NSString stringWithFormat:@"questions/%@/answers", [self implode:ids]];
+    NSString *methodName = [NSString stringWithFormat:@"%@/answers", [self implode:ids]];
 
     return [self prepareRequestWithMethodName:methodName andParameters:params];
 }

@@ -9,31 +9,27 @@
 #import "QuestionListViewController.h"
 #import "QuestionProfileViewController.h"
 #import "QuestionListViewCell.h"
-#import "NSString+HTML.h"
 
 static NSString *const kErrorText = @"Cannot get the data. Please check your connection and try later!";
 static const int kLoadingCellTag = 1273;
 
 @interface QuestionListViewController ()
 
-@property BOOL processingQuery;
+@property (weak, nonatomic) StackOverflowRequest *request;
 
-- (void)queryData;
+- (void)queryDataForce:(BOOL)force;
 
 @end
 
 @implementation QuestionListViewController
 
 @synthesize questions;
-@synthesize stackOverflowAPI;
 
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.stackOverflowAPI = [[StackOverflowAPI alloc] initWithDelegate:self];
 
     _page = 0;
     _selectedTag = @"Objective-c";
@@ -66,8 +62,7 @@ static const int kLoadingCellTag = 1273;
 
 - (void)refreshFirstPage
 {
-    [self clearTableDataAndResetAPIData];
-    [self queryData];
+    [self queryDataForce:YES];
 }
 
 #pragma mark - Navigation
@@ -107,31 +102,30 @@ static const int kLoadingCellTag = 1273;
     if (indexPath.row < self.questions.count) {
         return [self questionCellForIndexPath:indexPath];
     } else {
-        return [self loadingCell];
+        return [self loadingCellForIndexPath:indexPath];
     }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (cell.tag == kLoadingCellTag && _hasMore && !_processingQuery) {
+    if (cell.tag == kLoadingCellTag && _hasMore && !_request.isExecuting) {
 
         _page++;
 
-        [self queryData];
+        [self queryDataForce:NO];
     }
 }
 
 - (QuestionListViewCell *)questionCellForIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellId = @"QuestionCell";
-
-    QuestionListViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellId];
+    static NSString *reusableIdentifier = @"QuestionCell";
+    QuestionListViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:reusableIdentifier];
 
     if (cell == nil) {
-        cell = [[QuestionListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[QuestionListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusableIdentifier];
     }
 
-    [cell setCellData:(StackOverflowResponseData *)questions[(NSUInteger) indexPath.row]];
+    [cell setCellData:questions[(NSUInteger) indexPath.row]];
 
     if ([cell.questionText.text isEqualToString:kErrorText]){
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -142,17 +136,18 @@ static const int kLoadingCellTag = 1273;
 }
 
 
-- (UITableViewCell *)loadingCell
+- (QuestionListViewCell *)loadingCellForIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    QuestionListViewCell *cell = [[QuestionListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
 
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]
-            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    if (indexPath.row > 0){
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        activityIndicator.center = cell.center;
+        [cell addSubview:activityIndicator];
 
-    activityIndicator.center = cell.center;
-    [cell addSubview:activityIndicator];
-
-    [activityIndicator startAnimating];
+        [activityIndicator startAnimating];
+    }
 
     cell.tag = kLoadingCellTag;
 
@@ -161,26 +156,37 @@ static const int kLoadingCellTag = 1273;
 
 #pragma mark - Stack Overflow API response handling methods
 
-- (void)queryData
+- (void)queryDataForce:(BOOL)force
 {
-    _processingQuery = YES;
-    StackOverflowRequest *request = [[StackOverflowAPINew questions] questionsByTags:@[_selectedTag] page:_page limit:10];
+    if (_request == nil){
+        _request = [[StackOverflowAPINew questions] questionsByTags:@[_selectedTag] page:_page limit:10];
+    }
 
-    [request executeWithSuccessBlock:^(StackOverflowResponse *response) {
-        for (NSDictionary *data in response.parsedModel.items) {
+    if (_request.isExecuting && force){
+        [_request cancel];
+    } else if (_request.isExecuting) {
+        return;
+    }
+
+    [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
+        for (StackOverflowResponseModelItem *data in response.parsedModel.items) {
+            data.type = kCellDataQuestionType;
             [self.questions addObject:data];
         }
         _hasMore = [response.parsedModel.hasMore boolValue];
 
+        if (force){
+            [self clearTableAndResetAPIData];
+        }
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
-        _processingQuery = NO;
+
     } errorBlock:^(NSError *error) {
-        NSLog(@"%@",error);
+        [self handleError:error];
     }];
 }
 
-- (void)clearTableDataAndResetAPIData
+- (void)clearTableAndResetAPIData
 {
     _page = 1;
     _hasMore = YES;
@@ -195,9 +201,9 @@ static const int kLoadingCellTag = 1273;
     _selectedTag = (sender.pickerData)[(NSUInteger) selectedRow];
 
     self.title = _selectedTag;
-    [self clearTableDataAndResetAPIData];
+    [self clearTableAndResetAPIData];
 
-    [self queryData];
+    [self queryDataForce:NO];
     [self mh_dismissSemiModalViewController:sender animated:YES];
     [self setControlsEnabled:YES];
 }
@@ -207,35 +213,6 @@ static const int kLoadingCellTag = 1273;
     [self mh_dismissSemiModalViewController:sender animated:YES];
     [self setControlsEnabled:YES];
 }
-
-#pragma -
-#pragma Stack Overflow API Delegate methods
-//- (void)handleQuestionsByTagsResponse:(NSDictionary *)response
-//{
-//    NSArray *items = [response valueForKey:@"items"];
-//
-//    for (NSDictionary *data in items) {
-//        StackOverflowResponseData *cellData = [[StackOverflowResponseData alloc] init];
-//        cellData.authorName = [(NSString *) data[@"owner"][@"display_name"] stringByDecodingHTMLEntities];
-//        cellData.counter = (NSNumber *) data[@"answer_count"];
-//        cellData.creationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"creation_date"] doubleValue]];
-//        cellData.lastModificationDate = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data[@"last_edit_date"] doubleValue]];
-//        cellData.status = (NSNumber *) data[@"is_answered"];
-//        cellData.title = [(NSString *) data[@"title"] stringByDecodingHTMLEntities];
-//        cellData.body = [(NSString *) data[@"body"] stringByDecodingHTMLEntities];
-//        cellData.id = (NSString *) data[@"question_id"];
-//        cellData.type = kCellDataQuestionType;
-//        cellData.link = [NSURL URLWithString:data[@"link"]];
-//
-//        [self.questions addObject:cellData];
-//    }
-////    NSLog(@"questions: %@", self.questions);
-//    _hasMore = [(NSNumber *)response[@"has_more"] isEqualToNumber:@1];
-//
-//    [self.tableView reloadData];
-//    [self.refreshControl endRefreshing];
-//    _processingQuery = NO;
-//}
 
 #pragma mark - Error handling
 - (void)handleError:(NSError *)error

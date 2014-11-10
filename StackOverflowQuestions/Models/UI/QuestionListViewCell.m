@@ -8,7 +8,6 @@
 
 #import "QuestionListViewCell.h"
 #import "NSString+HTML.h"
-#import "FormatterFactory.h"
 #import "FormatHelper.h"
 
 @implementation QuestionListViewCell
@@ -30,11 +29,12 @@
     // Configure the view for the selected state
 }
 
-- (void)setCellData:(StackOverflowResponseData *)data
+- (void)setCellData:(StackOverflowResponseModelItem *)data
 {
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.answerCount.text = [data.counter stringValue];
-    self.modificationDate.text = [FormatHelper formatDateFuzzy:data.creationDate];
+
+    self.modificationDate.text = [FormatHelper formatDateFuzzy:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data.creationDate doubleValue]]];
     self.questionText.text = [data.title stringByDecodingHTMLEntities];
 }
 

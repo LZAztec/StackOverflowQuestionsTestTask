@@ -9,7 +9,7 @@
 #import "UserSettings.h"
 
 
-@interface StackOverflowAPIBase_ : StackOverflowObject {
+@interface StackOverflowAPIBase : StackOverflowObject {
 @private
     NSString *_methodGroup;  ///< Selected methods group
 }

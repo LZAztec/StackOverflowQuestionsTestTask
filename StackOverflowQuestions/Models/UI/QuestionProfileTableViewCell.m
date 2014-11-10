@@ -30,7 +30,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setCellData:(StackOverflowResponseData *)data
+- (void)setCellData:(StackOverflowResponseModelItem *)data
 {
 
     self.authorName.hidden = NO;
@@ -43,7 +43,9 @@
 
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.score.text = [data.counter stringValue];
-    self.modificationDate.text = [FormatHelper formatDateFuzzy:data.lastModificationDate];
+
+    NSLog(@"%@", data);
+    self.modificationDate.text = [FormatHelper formatDateFuzzy:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data.lastModificationDate doubleValue]]];
     self.QAText.attributedText = [FormatHelper formatText:data.body
                                withCodeTagBackgroundColor:[UIColor brownColor]
                                                 textColor:[UIColor whiteColor]];
