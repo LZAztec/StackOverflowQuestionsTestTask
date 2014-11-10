@@ -74,7 +74,7 @@ static const int kLoadingCellTag = 1273;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         QuestionProfileViewController *destinationVC = segue.destinationViewController;
 
-        StackOverflowResponseData *data = questions[(NSUInteger) indexPath.row];
+        StackOverflowResponseModelItem *data = questions[(NSUInteger) indexPath.row];
         NSLog(@"Question: %@", data);
         destinationVC.question = questions[(NSUInteger) indexPath.row];
     }

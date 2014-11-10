@@ -27,7 +27,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"{ id: %@, type: %@, AuthorName: %@, counter: %@, CreationDate: %@, ModificationDate: %@, status: %@, title: \"%@\", body: \"%@\",link: %@ }", self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModificationDate, self.status, self.title, self.body, self.link];
+    return [NSString stringWithFormat:@"<StackOverflowResponseModelItem : %p> { id: %@, type: %@, AuthorName: %@, counter: %@, CreationDate: %@, ModificationDate: %@, status: %@, title: \"%@\", body: \"%@\",link: %@ }", self, self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModificationDate, self.status, self.title, self.body, self.link];
 }
 
 - (NSDictionary *)keyToClassMappingRulesUsingMappingMethod:(NSString *)mappingMethod
