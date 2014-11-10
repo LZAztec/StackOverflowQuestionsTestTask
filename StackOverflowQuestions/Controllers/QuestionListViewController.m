@@ -36,7 +36,7 @@ static const int kLoadingCellTag = 1273;
     _hasMore = YES;
     self.title = _selectedTag;
 
-    tagPickerViewController = [[TagPickerViewController alloc]initWithNibName:@"TagPickerViewController" bundle:nil];
+    tagPickerViewController = [[TagPickerViewController alloc] initWithNibName:@"TagPickerViewController" bundle:nil];
     tagPickerViewController.delegate = self;
     questions = [[NSMutableArray alloc] init];
 
