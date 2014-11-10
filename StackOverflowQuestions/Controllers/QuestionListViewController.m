@@ -162,7 +162,7 @@ static const int kLoadingCellTag = 1273;
 - (void)queryDataForce:(BOOL)force
 {
     if (_request == nil){
-        _request = [[StackOverflowAPINew questions] questionsByTags:@[_selectedTag] page:_page limit:10];
+        _request = [[StackOverflowAPI questions] questionsByTags:@[_selectedTag] page:_page limit:10];
     }
 
     if (_request.isExecuting && force){

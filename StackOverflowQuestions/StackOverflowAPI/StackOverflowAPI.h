@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "StackOverflowAPIQuestions.h"
 
-@interface StackOverflowAPINew : NSObject
+@interface StackOverflowAPI : NSObject
 
 /**
 https://api.stackexchange.com/docs

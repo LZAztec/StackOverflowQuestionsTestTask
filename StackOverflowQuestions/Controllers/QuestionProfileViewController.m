@@ -230,7 +230,7 @@ static const int kAnswerCellTag = 123124;
     NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
 
     if (_request == nil) {
-        _request = [[StackOverflowAPINew questions] answersByQuestionIds:@[question.id]
+        _request = [[StackOverflowAPI questions] answersByQuestionIds:@[question.id]
                                                                     page:_page
                                                                    limit:10];
     }

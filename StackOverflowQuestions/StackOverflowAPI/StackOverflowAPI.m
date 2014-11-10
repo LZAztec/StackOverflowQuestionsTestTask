@@ -3,9 +3,9 @@
 // Copyright (c) 2014 Aztec. All rights reserved.
 //
 
-#import "StackOverflowAPINew.h"
+#import "StackOverflowAPI.h"
 
-@implementation StackOverflowAPINew
+@implementation StackOverflowAPI
 
 + (StackOverflowAPIQuestions *)questions {
     return [StackOverflowAPIQuestions new];
