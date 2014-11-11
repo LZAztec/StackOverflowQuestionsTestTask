@@ -12,15 +12,9 @@
 {
     if ([method isEqualToString:@"questions"]){
         return [StackOverflowResponseDataStubs makeQuestionsStubResponse];
-    }
-    NSString *pattern = @"questions/(\\d+;{0,1})+/answers(/){0,1}\?{0,1}";
-    NSPredicate *matchPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
-
-    if ([matchPredicate evaluateWithObject:method]){
+    } else {
         return [StackOverflowResponseDataStubs makeAnswersByQuestionStubResponse];
     }
-
-    return nil;
 }
 
 
