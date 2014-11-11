@@ -85,7 +85,7 @@
 
 - (void)showNotice:(NSString *)string forKey:(NSString *)key
 {
-    NSLog(@"Trying to %@ value. Property for key \"%@\" is undefined.", string, key);
+    NSLog(@"Trying to %@ undefined property (property for key \"%@\" is undefined)", string, key);
 }
 
 @end
