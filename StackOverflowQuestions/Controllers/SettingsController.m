@@ -12,14 +12,20 @@
 
 @interface SettingsController ()
 
+@property (weak) UserSettings *settings;
+
 @end
 
 @implementation SettingsController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.simulateQueriesSwitch.on = [[UserSettings sharedInstance] simulateQueries];
+    _settings = [UserSettings sharedInstance];
+    self.simulateQueriesSwitch.on = [_settings simulateQueries];
+    self.useUIActivityControllerForSharingSwitch.on = [_settings useUIActivityControllerForSharing];
 }
 
 - (void)didReceiveMemoryWarning
@@ -27,17 +33,24 @@
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)simulateQueriesChanged:(id)sender;
-{
-    NSLog(@"Setting simulation to %@", (self.simulateQueriesSwitch.isOn)?@"YES":@"NO");
-    [[UserSettings sharedInstance] setSimulateQueries:self.simulateQueriesSwitch.isOn];
-}
-
 -(void) viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers[0] class] == [QuestionListViewController class]) {
         [self.navigationController.viewControllers[0] refreshFirstPage];
     }
     [super viewWillDisappear:animated];
+}
+
+#pragma mark - Actions
+- (IBAction)simulateQueriesChanged:(id)sender;
+{
+    NSLog(@"Setting simulation to %@", (self.simulateQueriesSwitch.isOn)?@"YES":@"NO");
+    [_settings setSimulateQueries:self.simulateQueriesSwitch.isOn];
+}
+
+- (IBAction)useUIActivityControllerForSharingChanged:(id)sender;
+{
+    NSLog(@"Setting UseUIActivityControllerForSharing to %@", (self.useUIActivityControllerForSharingSwitch.isOn) ? @"YES" : @"NO");
+    [_settings setSimulateQueries:self.useUIActivityControllerForSharingSwitch.isOn];
 }
 
 @end

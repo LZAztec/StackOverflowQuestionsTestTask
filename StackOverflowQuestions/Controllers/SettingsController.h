@@ -11,7 +11,9 @@
 @interface SettingsController : UIViewController
 
 @property (nonatomic, retain) IBOutlet UISwitch *simulateQueriesSwitch;
+@property (nonatomic, retain) IBOutlet UISwitch *useUIActivityControllerForSharingSwitch;
 
 - (IBAction)simulateQueriesChanged:(id)sender;
+- (IBAction)useUIActivityControllerForSharingChanged:(id)sender;
 
 @end

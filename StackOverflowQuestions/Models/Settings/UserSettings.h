@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSUserDefaults *settings;
 @property (assign, nonatomic) BOOL simulateQueries;
+@property (assign, nonatomic) BOOL useUIActivityControllerForSharing;
 
 + (instancetype)sharedInstance;
 - (instancetype)init;

@@ -9,6 +9,7 @@
 #import "UserSettings.h"
 
 static NSString *const kSimulateQueriesKey = @"SimulateQueries";
+static NSString *const kUseUIActivityControllerForSharingKey = @"UseUIActivityControllerForSharing";
 
 @implementation UserSettings
 
@@ -33,7 +34,12 @@ static NSString *const kSimulateQueriesKey = @"SimulateQueries";
     }
     
     self.settings = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *defaultValues = [@{kSimulateQueriesKey : @YES} mutableCopy];
+    // TODO Add check on iOS version. disable useUIActivityControllerSwitch if iOS < 6 and set parameter to "false"
+    NSMutableDictionary *defaultValues = [@{
+            kSimulateQueriesKey : @YES,
+            kUseUIActivityControllerForSharingKey : @YES
+    } mutableCopy];
+
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
 
     return self;
@@ -41,15 +47,42 @@ static NSString *const kSimulateQueriesKey = @"SimulateQueries";
 
 - (void)setSimulateQueries:(BOOL)state
 {
-    [self.settings setBool:state forKey:kSimulateQueriesKey];
-    [self.settings synchronize];
+    [self setBoolState:state forKey:kSimulateQueriesKey];
 }
 
 - (BOOL)simulateQueries
 {
-    BOOL simulateState = [self.settings boolForKey:kSimulateQueriesKey];
-    NSLog(@"Current state: %@", (simulateState)?@"yes":@"no");
-    return [self.settings boolForKey:kSimulateQueriesKey];
+    return [self boolStateForKey:kSimulateQueriesKey];
+}
+
+- (void)setUseUIActivityControllerForSharing:(BOOL)state
+{
+    [self setBoolState:state forKey:kUseUIActivityControllerForSharingKey];
+}
+
+- (BOOL)useUIActivityControllerForSharing
+{
+    return [self boolStateForKey:kUseUIActivityControllerForSharingKey];
+}
+
+#pragma mark - Private methods
+
+- (void)logState:(BOOL)state forKey:(NSString *)key
+{
+    NSLog(@"%@ state: %@", key, (state) ? @"YES" : @"NO");
+}
+
+- (BOOL)boolStateForKey:(NSString *)key
+{
+    BOOL state = [self.settings boolForKey:key];
+    [self logState:state forKey:key];
+    return state;
+}
+
+- (void)setBoolState:(BOOL)state forKey:(NSString *)key
+{
+    [self.settings setBool:state forKey:key];
+    [self.settings synchronize];
 }
 
 @end

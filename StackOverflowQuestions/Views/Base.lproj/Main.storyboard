@@ -49,17 +49,37 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jyb-RU-R8P">
+                                <rect key="frame" x="492" y="160" width="51" height="31"/>
+                                <connections>
+                                    <action selector="useUIActivityControllerForSharingChanged:" destination="QiK-gS-AAF" eventType="valueChanged" id="Agv-35-S6z"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use UIActivityController for sharing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU5-hm-h1T">
+                                <rect key="frame" x="16" y="165" width="270" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="r1d-qs-0GW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Jyb-RU-R8P" firstAttribute="top" secondItem="d2b-Sa-sMX" secondAttribute="bottom" constant="15" id="9p4-Vi-MM1"/>
+                            <constraint firstItem="QU5-hm-h1T" firstAttribute="leading" secondItem="fR2-3R-rVZ" secondAttribute="leadingMargin" id="IQ9-mh-7hh"/>
                             <constraint firstItem="d2b-Sa-sMX" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="50" id="OE5-cF-WFd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="d2b-Sa-sMX" secondAttribute="trailing" constant="43" id="RyU-YC-8dp"/>
                             <constraint firstItem="b1j-1d-nTM" firstAttribute="leading" secondItem="fR2-3R-rVZ" secondAttribute="leadingMargin" id="V1o-O0-6zo"/>
                             <constraint firstItem="b1j-1d-nTM" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="55" id="hpb-Bm-WKI"/>
+                            <constraint firstItem="QU5-hm-h1T" firstAttribute="top" secondItem="b1j-1d-nTM" secondAttribute="bottom" constant="25" id="wIh-26-5RX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jyb-RU-R8P" secondAttribute="trailing" constant="43" id="ytZ-Jz-cHV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="simulateQueriesSwitch" destination="d2b-Sa-sMX" id="kBq-fY-KdA"/>
+                        <outlet property="useUIActivityControllerForSharingSwitch" destination="Jyb-RU-R8P" id="NtQ-6F-twt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7c-ZV-CHy" userLabel="First Responder" sceneMemberID="firstResponder"/>
