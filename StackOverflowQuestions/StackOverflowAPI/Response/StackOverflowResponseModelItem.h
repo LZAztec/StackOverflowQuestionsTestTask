@@ -13,7 +13,7 @@ static NSString *const kCellDataAnswerType = @"answer";
 
 @interface StackOverflowResponseModelItem : MappingModel <NSCopying>
 
-@property (strong, nonatomic) NSString *id;
+@property (strong, nonatomic) NSString *dataId;
 @property (strong, nonatomic) NSString *authorName;
 @property (strong, nonatomic) NSNumber *counter;
 @property (strong, nonatomic) NSNumber *creationDate;
@@ -25,8 +25,6 @@ static NSString *const kCellDataAnswerType = @"answer";
 @property (strong, nonatomic) NSURL *link;
 
 @end
-
-@class StackOverflowResponseModelItem;
 
 @protocol StackOverflowResponseModelItemContainer
 @required

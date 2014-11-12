@@ -50,7 +50,7 @@
 - (IBAction)useUIActivityControllerForSharingChanged:(id)sender;
 {
     NSLog(@"Setting UseUIActivityControllerForSharing to %@", (self.useUIActivityControllerForSharingSwitch.isOn) ? @"YES" : @"NO");
-    [_settings setSimulateQueries:self.useUIActivityControllerForSharingSwitch.isOn];
+    [_settings setUseUIActivityControllerForSharing:self.useUIActivityControllerForSharingSwitch.isOn];
 }
 
 @end

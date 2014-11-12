@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "QuestionListViewController.h"
 
-@interface QuestionProfileViewController : UITableViewController <UIAlertViewDelegate>{
+@interface QuestionProfileViewController : UITableViewController <UIAlertViewDelegate, UIActionSheetDelegate>{
     StackOverflowResponseModelItem *question;
     NSMutableArray *tableData;
 

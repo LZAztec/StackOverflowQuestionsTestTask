@@ -81,14 +81,50 @@ static const int kAnswerCellTag = 123124;
 
 - (void)showSharingControl
 {
+    if ([[UserSettings sharedInstance] useUIActivityControllerForSharing]){
+        NSArray *items = @[self.question.title, self.question.link];
+        VKontakteActivity *vkontakteActivity = [[VKontakteActivity alloc] initWithParent:self];
+
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
+                initWithActivityItems:items
+                applicationActivities:@[vkontakteActivity]];
+
+        [self presentViewController:activityViewController animated:YES completion:nil];
+    } else {
+        UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share via..."
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"Facebook", @"Twitter", @"VK", nil];
+
+        [actionSheet showInView:self.view];
+    }
+
+
+}
+
+#pragma mark - UIActionSheetDelegate Methods
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    NSLog(@"Index of button %lu", (unsigned long) buttonIndex);
+
     NSArray *items = @[self.question.title, self.question.link];
-    VKontakteActivity *vkontakteActivity = [[VKontakteActivity alloc] initWithParent:self];
-    
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
-                                                        initWithActivityItems:items
-                                                        applicationActivities:@[vkontakteActivity]];
-    
-    [self presentViewController:activityViewController animated:YES completion:nil];
+
+    if (buttonIndex == 0) {
+        // share in facebook
+    } else if (buttonIndex == 1) {
+        // share in Twitter
+    } else if (buttonIndex == 2) {
+        // share in VK
+//        [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+        VKontakteActivity *vkontakteActivity = [[VKontakteActivity alloc] initWithParent:self];
+
+        if ([vkontakteActivity canPerformWithActivityItems:items]){
+            [vkontakteActivity prepareWithActivityItems:items];
+            [vkontakteActivity performActivity];
+        }
+    }
+
 
 }
 
@@ -227,10 +263,10 @@ static const int kAnswerCellTag = 123124;
 
 - (void)queryAnswersForQuestionForce:(BOOL)force
 {
-    NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.id, (_hasMore) ? @"YES" : @"NO");
+    NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.dataId, (_hasMore) ? @"YES" : @"NO");
 
     if (_request == nil) {
-        _request = [[StackOverflowAPI questions] answersByQuestionIds:@[question.id]
+        _request = [[StackOverflowAPI questions] answersByQuestionIds:@[question.dataId]
                                                                     page:_page
                                                                    limit:10];
     }

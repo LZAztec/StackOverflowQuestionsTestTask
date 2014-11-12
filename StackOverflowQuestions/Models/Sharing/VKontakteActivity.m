@@ -68,14 +68,12 @@ static NSString * kDefaultAppID= @"4574538";
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
 {
-    for (UIActivityItemProvider *item in activityItems) {
+    for (id item in activityItems) {
         if ([item isKindOfClass:[UIImage class]]) {
             return YES;
-        }
-        else if ([item isKindOfClass:[NSString class]]){
+        } else if ([item isKindOfClass:[NSString class]]) {
             return YES;
-        }
-        else if ([item isKindOfClass:[NSURL class]]){
+        } else if ([item isKindOfClass:[NSURL class]]) {
             return YES;
         }
     }
@@ -87,11 +85,9 @@ static NSString * kDefaultAppID= @"4574538";
     for (id item in activityItems) {
         if ([item isKindOfClass:[NSString class]]) {
             self.string = self.string ? [NSString stringWithFormat:@"%@ %@", self.string, item] : item;
-        }
-        else if([item isKindOfClass:[UIImage class]]) {
+        } else if ([item isKindOfClass:[UIImage class]]) {
             self.image = item;
-        }
-        else if([item isKindOfClass:[NSURL class]]) {
+        } else if ([item isKindOfClass:[NSURL class]]) {
             self.URL = item;
         }
     }
@@ -99,13 +95,10 @@ static NSString * kDefaultAppID= @"4574538";
 
 - (void)performActivity
 {
-    NSLog(@"perform activity!");
     [VKSdk initializeWithDelegate:self andAppId:self.appID];
-    if ([VKSdk wakeUpSession])
-    {
+    if ([VKSdk wakeUpSession]) {
         [self startComposeViewController];
-    }
-    else{
+    } else {
         [VKSdk authorize:@[VK_PER_WALL, VK_PER_PHOTOS]];
     }
 }
@@ -114,12 +107,9 @@ static NSString * kDefaultAppID= @"4574538";
 
 -(void)postToWall
 {
-    if (self.image)
-    {
+    if (self.image) {
         [self uploadPhoto];
-    }
-    else
-    {
+    } else {
         [self uploadText];
     }
 }
@@ -189,6 +179,7 @@ static NSString * kDefaultAppID= @"4574538";
 {
     [self startComposeViewController];
 }
+
 - (void)vkSdkUserDeniedAccess:(VKError *)authorizationError
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -216,13 +207,11 @@ static NSString * kDefaultAppID= @"4574538";
 {
     [composeViewController dismissViewControllerAnimated:YES completion:nil];
 
-    if (result == REComposeResultCancelled)
-    {
+    if (result == REComposeResultCancelled) {
         [self activityDidFinish:NO];
     }
 
-    if (result == REComposeResultPosted)
-    {
+    if (result == REComposeResultPosted) {
         self.string = composeViewController.text;
         [self postToWall];
     }

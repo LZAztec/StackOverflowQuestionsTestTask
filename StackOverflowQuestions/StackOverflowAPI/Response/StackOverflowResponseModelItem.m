@@ -18,7 +18,7 @@
     cellDataCopy.status = self.status;
     cellDataCopy.title = self.title;
     cellDataCopy.body = self.body;
-    cellDataCopy.id = self.id;
+    cellDataCopy.dataId = self.dataId;
     cellDataCopy.type = self.type;
     cellDataCopy.link = self.link;
 
@@ -27,7 +27,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<StackOverflowResponseModelItem : %p> { id: %@, type: %@, AuthorName: %@, counter: %@, CreationDate: %@, ModificationDate: %@, status: %@, title: \"%@\", body: \"%@\",link: %@ }", self, self.id, self.type, self.authorName, self.counter, self.creationDate, self.lastModificationDate, self.status, self.title, self.body, self.link];
+    return [NSString stringWithFormat:@"<StackOverflowResponseModelItem : %p> { dataId: %@, type: %@, AuthorName: %@, counter: %@, CreationDate: %@, ModificationDate: %@, status: %@, title: \"%@\", body: \"%@\",link: %@ }", self, self.dataId, self.type, self.authorName, self.counter, self.creationDate, self.lastModificationDate, self.status, self.title, self.body, self.link];
 }
 
 - (NSDictionary *)keyToClassMappingRulesUsingMappingMethod:(NSString *)mappingMethod
