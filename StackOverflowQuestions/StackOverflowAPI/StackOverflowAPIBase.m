@@ -6,25 +6,20 @@
 #import "StackOverflowAPIBase.h"
 #import "StackOverflowResponseBaseModel.h"
 
+@interface StackOverflowAPIBase ()
+
+@property (nonatomic, strong, readwrite) NSString *methodGroup;
+
+@end
+
 @implementation StackOverflowAPIBase
 
 - (id)init {
     self = [super init];
     if (self) {
-        NSString *methodsGroup = [[NSStringFromClass(self.class) substringFromIndex:@"StackOverflowAPI".length] lowercaseString];
-        [self setMethodGroup:methodsGroup];
+        self.methodGroup = [[NSStringFromClass(self.class) substringFromIndex:@"StackOverflowAPI".length] lowercaseString];
     }
     return self;
-}
-
-- (NSString *)getMethodGroup
-{
-    return _methodGroup;
-}
-
-- (void)setMethodGroup:(NSString *)methodGroup
-{
-    _methodGroup = methodGroup;
 }
 
 - (StackOverflowRequest *)prepareRequestWithMethodName:(NSString *)methodName

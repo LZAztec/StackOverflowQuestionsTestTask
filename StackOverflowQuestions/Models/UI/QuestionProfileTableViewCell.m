@@ -44,8 +44,8 @@
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.score.text = [data.counter stringValue];
 
-    if ([data.lastModificationDate isKindOfClass:NSDate.class]) {
-        self.modificationDate.text = [FormatHelper formatDateFuzzy:data.lastModificationDate];
+    if ([data.creationDate isKindOfClass:NSDate.class]) {
+        self.modificationDate.text = [FormatHelper formatDateFuzzy:data.creationDate];
     }
 
     self.QAText.attributedText = [FormatHelper formatText:data.body

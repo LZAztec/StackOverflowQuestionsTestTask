@@ -9,16 +9,9 @@
 #import "UserSettings.h"
 
 
-@interface StackOverflowAPIBase : StackOverflowObject {
-@private
-    NSString *_methodGroup;  ///< Selected methods group
-}
+@interface StackOverflowAPIBase : StackOverflowObject
 
-/**
-Return group name for current methods builder
-@return name of methods group, e.g. questions etc.
-*/
-- (NSString *)getMethodGroup;
+@property (nonatomic, strong, readonly) NSString *methodGroup;
 
 /**
 Builds request and return it for configure and loading
