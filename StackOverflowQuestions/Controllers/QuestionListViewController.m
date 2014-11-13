@@ -171,6 +171,8 @@ static const int kLoadingCellTag = 1273;
         return;
     }
 
+    __weak QuestionListViewController *controller = self;
+
     [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"Response model: %@", response.parsedModel);
         if (force) {
@@ -179,15 +181,15 @@ static const int kLoadingCellTag = 1273;
 
         for (StackOverflowResponseBaseModelItem *data in response.parsedModel.items) {
             data.type = kCellDataQuestionType;
-            [self.questions addObject:data];
+            [controller.questions addObject:data];
         }
         _hasMore = [response.parsedModel.hasMore boolValue];
 
-        [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
+        [controller.tableView reloadData];
+        [controller.refreshControl endRefreshing];
 
     } errorBlock:^(NSError *error) {
-        [self handleError:error];
+        [controller handleError:error];
     }];
 }
 

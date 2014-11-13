@@ -277,24 +277,26 @@ static const int kAnswerCellTag = 123124;
         return;
     }
 
+    __weak QuestionProfileViewController *controller = self;
+
     [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"answers response: %@", response);
         if (force){
-            [self.tableData removeAllObjects];
-            [self extractQuestionDataToFirstCell];
+            [controller.tableData removeAllObjects];
+            [controller extractQuestionDataToFirstCell];
         }
 
         for (StackOverflowResponseBaseModelItem *data in response.parsedModel.items) {
             data.type = kCellDataAnswerType;
-            [self.tableData addObject:data];
+            [controller.tableData addObject:data];
         }
         _hasMore = [response.parsedModel.hasMore boolValue];
 
-        [self.tableView reloadData];
-        [self.refreshControl endRefreshing];
+        [controller.tableView reloadData];
+        [controller.refreshControl endRefreshing];
 
     } errorBlock:^(NSError *error) {
-        [self handleError:error];
+        [controller handleError:error];
     }];
 }
 
