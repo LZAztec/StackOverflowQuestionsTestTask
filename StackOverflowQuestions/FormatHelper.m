@@ -13,6 +13,10 @@
 
 + (NSString *)formatDateFuzzy:(NSDate *)date
 {
+    if (!date) {
+        return @"";
+    }
+
     NSDate *dateNow = [NSDate date];
 
     //Calculate the delta in seconds between the two dates
