@@ -6,7 +6,10 @@
 #import "StackOverflowObject.h"
 
 
-@implementation StackOverflowObject {
+@implementation StackOverflowObject
+
+- (NSString *)debugName {
+    return [NSString stringWithFormat:@"<%@ : %p>", NSStringFromClass(self.class), self];
 
 }
 @end

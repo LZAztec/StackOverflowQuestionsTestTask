@@ -211,7 +211,7 @@ static const int kAnswerCellTag = 123124;
         cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
 
-    [cell setCellData:(StackOverflowResponseModelItem *)tableData[(NSUInteger) indexPath.row]];
+    [cell setCellData:(StackOverflowResponseBaseModelItem *)tableData[(NSUInteger) indexPath.row]];
 
     return cell;
 }
@@ -241,7 +241,7 @@ static const int kAnswerCellTag = 123124;
     CGFloat height = 0;
 
     if (indexPath.row < [self.tableData count]) {
-        StackOverflowResponseModelItem *data = (self.tableData)[(NSUInteger) indexPath.row];
+        StackOverflowResponseBaseModelItem *data = (self.tableData)[(NSUInteger) indexPath.row];
 
         UITextView *calculationView = [[UITextView alloc] init];
         
@@ -284,7 +284,7 @@ static const int kAnswerCellTag = 123124;
             [self extractQuestionDataToFirstCell];
         }
 
-        for (StackOverflowResponseModelItem *data in response.parsedModel.items) {
+        for (StackOverflowResponseBaseModelItem *data in response.parsedModel.items) {
             data.type = kCellDataAnswerType;
             [self.tableData addObject:data];
         }

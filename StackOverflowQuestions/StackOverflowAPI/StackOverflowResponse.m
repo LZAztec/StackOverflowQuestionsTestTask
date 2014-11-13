@@ -4,7 +4,7 @@
 //
 
 #import "StackOverflowResponse.h"
-#import "StackOverflowResponseModel.h"
+#import "StackOverflowResponseBaseModel.h"
 
 
 @implementation StackOverflowResponse

@@ -5,19 +5,19 @@
 
 #import <Foundation/Foundation.h>
 #import "StackOverflowObject.h"
-#import "MappingModel.h"
+#import <Motis/Motis.h>
 
 // TODO convert constants to enum
 static NSString *const kCellDataQuestionType = @"question";
 static NSString *const kCellDataAnswerType = @"answer";
 
-@interface StackOverflowResponseModelItem : MappingModel <NSCopying>
+@interface StackOverflowResponseBaseModelItem : StackOverflowObject
 
 @property (strong, nonatomic) NSString *dataId;
 @property (strong, nonatomic) NSString *authorName;
 @property (strong, nonatomic) NSNumber *counter;
-@property (strong, nonatomic) NSNumber *creationDate;
-@property (strong, nonatomic) NSNumber *lastModificationDate;
+@property (strong, nonatomic) NSDate *creationDate;
+@property (strong, nonatomic) NSDate *lastModificationDate;
 @property (strong, nonatomic) NSNumber *status;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *body;
@@ -28,5 +28,5 @@ static NSString *const kCellDataAnswerType = @"answer";
 
 @protocol StackOverflowResponseModelItemContainer
 @required
-- (void)setCellData:(StackOverflowResponseModelItem *)data;
+- (void)setCellData:(StackOverflowResponseBaseModelItem *)data;
 @end

@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "StackOverflowObject.h"
-#import "StackOverflowResponseModel.h"
+#import "StackOverflowResponseBaseModel.h"
 
 @class StackOverflowRequest;
 
@@ -16,6 +16,6 @@
 /// Json content of response. Can be array or object.
 @property (nonatomic, strong) NSDictionary *json;
 /// Model parsed from response
-@property (nonatomic, strong) StackOverflowResponseModel *parsedModel;
+@property (nonatomic, strong) StackOverflowResponseBaseModel *parsedModel;
 
 @end

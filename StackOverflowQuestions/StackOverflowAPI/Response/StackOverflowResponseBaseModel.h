@@ -4,17 +4,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MappingModel.h"
-#import "StackOverflowResponseModelItem.h"
+#import <Motis/Motis.h>
+#import "StackOverflowResponseBaseModelItem.h"
 
 @protocol StackOverflowResponseModelProtocol
 
 @required
-- (id)initWithDictionary:(NSDictionary *)dictionary mappingMethod:(NSString *) mappingMethod;
+- (void)setValuesFromDictionary:(NSDictionary *)dictionary;
 
 @end
 
-@interface StackOverflowResponseModel : MappingModel <StackOverflowResponseModelProtocol>
+@interface StackOverflowResponseBaseModel : StackOverflowObject <StackOverflowResponseModelProtocol>
 
 @property (strong, nonatomic) NSArray *items;
 @property (strong, nonatomic) NSNumber *hasMore;

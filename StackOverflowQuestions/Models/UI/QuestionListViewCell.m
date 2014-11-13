@@ -29,12 +29,15 @@
     // Configure the view for the selected state
 }
 
-- (void)setCellData:(StackOverflowResponseModelItem *)data
+- (void)setCellData:(StackOverflowResponseBaseModelItem *)data
 {
     self.authorName.text = [data.authorName stringByDecodingHTMLEntities];
     self.answerCount.text = [data.counter stringValue];
 
-    self.modificationDate.text = [FormatHelper formatDateFuzzy:[NSDate dateWithTimeIntervalSince1970:(NSTimeInterval) [data.creationDate doubleValue]]];
+    if ([data.creationDate isKindOfClass:NSDate.class]) {
+        self.modificationDate.text = [FormatHelper formatDateFuzzy:data.creationDate];
+    }
+
     self.questionText.text = [data.title stringByDecodingHTMLEntities];
 }
 

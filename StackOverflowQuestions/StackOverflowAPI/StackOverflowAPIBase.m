@@ -4,7 +4,7 @@
 //
 
 #import "StackOverflowAPIBase.h"
-#import "StackOverflowResponseModel.h"
+#import "StackOverflowResponseBaseModel.h"
 
 @implementation StackOverflowAPIBase
 
@@ -44,8 +44,7 @@
     }
 
     return [StackOverflowRequest requestWithMethod:method
-                                     andParameters:methodParameters
-                                      classOfModel:[StackOverflowResponseModel class]];
+                                     andParameters:methodParameters];
 }
 
 - (NSString *)implode:(NSArray *)array

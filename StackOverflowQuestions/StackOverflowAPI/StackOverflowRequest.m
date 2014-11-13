@@ -7,6 +7,7 @@
 #import "NSCachedURLResponse+Expiration.h"
 #import "NSURL+PathParameters.h"
 #import "StackOverflowResponseDataStubs.h"
+#import "StackOverflowResponseFactory.h"
 
 static NSString *const kAPIHost = @"api.stackexchange.com";
 static NSString *const kAPIVersion = @"2.2";
@@ -27,6 +28,9 @@ static NSString *const kAPIVersion = @"2.2";
 @end
 
 @implementation StackOverflowRequest
+{
+    NSMutableData *_responseData;
+}
 
 #pragma mark Init
 
@@ -184,12 +188,8 @@ static NSString *const kAPIVersion = @"2.2";
     response.request = self;
     response.json = JSON;
 
-    if (self.parseModel && _modelClass) {
-        id object = [_modelClass alloc];
-
-        if ([object conformsToProtocol:@protocol(StackOverflowResponseModelProtocol)]) {
-            response.parsedModel = [object initWithDictionary:JSON mappingMethod:_methodName];
-        }
+    if (self.parseModel) {
+        response.parsedModel = [StackOverflowResponseFactory responseWithDictionary:JSON method:_methodName model:_modelClass];
     }
 
     self.response = response;

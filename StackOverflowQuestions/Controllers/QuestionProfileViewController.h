@@ -10,14 +10,14 @@
 #import "QuestionListViewController.h"
 
 @interface QuestionProfileViewController : UITableViewController <UIAlertViewDelegate, UIActionSheetDelegate>{
-    StackOverflowResponseModelItem *question;
+    StackOverflowResponseBaseModelItem *question;
     NSMutableArray *tableData;
 
     NSInteger _page;
     BOOL _hasMore;
 }
 
-@property (strong, nonatomic) StackOverflowResponseModelItem *question;
+@property (strong, nonatomic) StackOverflowResponseBaseModelItem *question;
 @property (strong, nonatomic) NSMutableArray *tableData;
 
 @end

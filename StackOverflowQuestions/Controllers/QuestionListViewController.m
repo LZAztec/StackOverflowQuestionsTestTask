@@ -74,7 +74,7 @@ static const int kLoadingCellTag = 1273;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         QuestionProfileViewController *destinationVC = segue.destinationViewController;
 
-        StackOverflowResponseModelItem *data = questions[(NSUInteger) indexPath.row];
+        StackOverflowResponseBaseModelItem *data = questions[(NSUInteger) indexPath.row];
         NSLog(@"Question: %@", data);
         destinationVC.question = questions[(NSUInteger) indexPath.row];
     }
@@ -161,7 +161,7 @@ static const int kLoadingCellTag = 1273;
 
 - (void)queryDataForce:(BOOL)force
 {
-    if (_request == nil){
+    if (_request == nil) {
         _request = [[StackOverflowAPI questions] questionsByTags:@[_selectedTag] page:_page limit:10];
     }
 
@@ -172,11 +172,12 @@ static const int kLoadingCellTag = 1273;
     }
 
     [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
+        NSLog(@"Response model: %@", response.parsedModel);
         if (force) {
             [questions removeAllObjects];
         }
 
-        for (StackOverflowResponseModelItem *data in response.parsedModel.items) {
+        for (StackOverflowResponseBaseModelItem *data in response.parsedModel.items) {
             data.type = kCellDataQuestionType;
             [self.questions addObject:data];
         }

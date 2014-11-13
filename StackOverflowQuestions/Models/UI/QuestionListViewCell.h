@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StackOverflowResponseModelItem.h"
+#import "StackOverflowResponseBaseModelItem.h"
 
 @interface QuestionListViewCell : UITableViewCell <StackOverflowResponseModelItemContainer>
 

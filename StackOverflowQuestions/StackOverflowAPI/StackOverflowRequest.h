@@ -6,14 +6,11 @@
 #import <Foundation/Foundation.h>
 #import "StackOverflowObject.h"
 #import "StackOverflowResponse.h"
-#import "StackOverflowResponseModel.h"
+#import "StackOverflowResponseBaseModel.h"
 #import "UserSettings.h"
 
 
 @interface StackOverflowRequest : StackOverflowObject <NSURLConnectionDelegate>
-{
-    NSMutableData *_responseData;
-}
 
 /// Specify completion block for request
 @property(nonatomic, copy) void (^completeBlock)(StackOverflowResponse *response);

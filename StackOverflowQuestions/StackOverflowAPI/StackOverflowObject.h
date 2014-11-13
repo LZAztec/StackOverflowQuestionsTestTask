@@ -7,4 +7,7 @@
 
 
 @interface StackOverflowObject : NSObject
+
+@property (nonatomic, assign) NSString *debugName;
+
 @end
