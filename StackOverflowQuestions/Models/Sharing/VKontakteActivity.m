@@ -99,7 +99,7 @@ static NSString * kDefaultAppID= @"4574538";
     if ([VKSdk wakeUpSession]) {
         [self startComposeViewController];
     } else {
-        [VKSdk authorize:@[VK_PER_WALL, VK_PER_PHOTOS]];
+        [VKSdk authorize:@[VK_PER_WALL]];
     }
 }
 
@@ -118,16 +118,19 @@ static NSString * kDefaultAppID= @"4574538";
 {
     NSString *userId = [VKSdk getAccessToken].userId;
     VKRequest *request = [VKApi uploadWallPhotoRequest:self.image parameters:[VKImageParameters jpegImageWithQuality:1.f] userId:[userId integerValue] groupId:0];
+
+    __weak VKontakteActivity *activity = self;
+
     [request executeWithResultBlock: ^(VKResponse *response) {
         VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
         NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id];
-        [self postToWall:@{ VK_API_ATTACHMENTS : photoAttachment,
+        [activity postToWall:@{ VK_API_ATTACHMENTS : photoAttachment,
                 VK_API_FRIENDS_ONLY : @(0),
                 VK_API_OWNER_ID : userId,
                 VK_API_MESSAGE : [NSString stringWithFormat:@"%@ %@",self.string, [self.URL absoluteString]]}];
     } errorBlock: ^(NSError *error) {
         NSLog(@"Error: %@", error);
-        [self activityDidFinish:NO];
+        [activity activityDidFinish:NO];
     }];
 }
 
@@ -141,14 +144,15 @@ static NSString * kDefaultAppID= @"4574538";
 -(void)postToWall:(NSDictionary *)params
 {
     VKRequest *post = [[VKApi wall] post:params];
-    [post executeWithResultBlock: ^(VKResponse *response)
-            {
-                [self activityDidFinish:YES];
+
+    __weak VKontakteActivity *activity = self;
+
+    [post executeWithResultBlock:^(VKResponse *response) {
+                [activity activityDidFinish:YES];
             }
-                      errorBlock: ^(NSError *error)
-                      {
+                      errorBlock:^(NSError *error) {
                           NSLog(@"Error: %@", error);
-                          [self activityDidFinish:NO];
+                          [activity activityDidFinish:NO];
                       }];
 }
 
