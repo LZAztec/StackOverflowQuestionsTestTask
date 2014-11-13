@@ -15,7 +15,7 @@ static const int kLoadingCellTag = 1273;
 
 @interface QuestionListViewController ()
 
-@property (weak, nonatomic) StackOverflowRequest *request;
+@property (strong, nonatomic) StackOverflowRequest *request;
 
 - (void)queryDataForce:(BOOL)force;
 
@@ -111,7 +111,7 @@ static const int kLoadingCellTag = 1273;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (cell.tag == kLoadingCellTag && _hasMore && !_request.isExecuting) {
+    if (cell.tag == kLoadingCellTag && _hasMore && !self.request.isExecuting) {
 
         _page++;
 
@@ -161,19 +161,19 @@ static const int kLoadingCellTag = 1273;
 
 - (void)queryDataForce:(BOOL)force
 {
-    if (_request == nil) {
-        _request = [[StackOverflowAPI questions] questionsByTags:@[_selectedTag] page:_page limit:10];
+    if (self.request == nil) {
+        self.request = [[StackOverflowAPI questions] questionsByTags:@[_selectedTag] page:_page limit:10];
     }
 
-    if (_request.isExecuting && force){
-        [_request cancel];
-    } else if (_request.isExecuting) {
+    if (self.request.isExecuting && force){
+        [self.request cancel];
+    } else if (self.request.isExecuting) {
         return;
     }
 
     __weak QuestionListViewController *controller = self;
 
-    [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
+    [self.request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"Response model: %@", response.parsedModel);
         if (force) {
             [questions removeAllObjects];

@@ -17,7 +17,7 @@ static const int kAnswerCellTag = 123124;
 
 @interface QuestionProfileViewController ()
 
-@property (weak, nonatomic) StackOverflowRequest *request;
+@property (strong, nonatomic) StackOverflowRequest *request;
 
 - (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
 
@@ -34,7 +34,7 @@ static const int kAnswerCellTag = 123124;
     [super viewDidLoad];
 
     self.tableData = [[NSMutableArray alloc]init];
-    self.title = question.title;
+    self.title = self.question.title;
 
     _page = 0;
     _hasMore = YES;
@@ -88,6 +88,18 @@ static const int kAnswerCellTag = 123124;
         UIActivityViewController *activityViewController = [[UIActivityViewController alloc]
                 initWithActivityItems:items
                 applicationActivities:@[vkontakteActivity]];
+
+        NSMutableArray *excludedActivityTypes = [@[
+                UIActivityTypeMail,
+                UIActivityTypeCopyToPasteboard,
+        ] mutableCopy];
+
+        // if current os version greater than 7.0, exclude "AddToReadingList" option
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+            [excludedActivityTypes addObject:UIActivityTypeAddToReadingList];
+        }
+
+        activityViewController.excludedActivityTypes = excludedActivityTypes;
 
         [self presentViewController:activityViewController animated:YES completion:nil];
     } else {
