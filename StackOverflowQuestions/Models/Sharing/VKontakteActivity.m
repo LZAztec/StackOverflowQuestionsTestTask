@@ -8,6 +8,7 @@
 
 #import "VKontakteActivity.h"
 #import "SharingController.h"
+#import "NSString+HTML.h"
 #import <VK-ios-sdk/VKSdk.h>
 
 @interface VKontakteActivity () <VKSdkDelegate, SharingControllerDelegate>
@@ -91,6 +92,7 @@ static NSString * kDefaultAppID= @"4574538";
             self.URL = item;
         }
     }
+    self.string = [self.string stringByDecodingHTMLEntities];
 }
 
 - (void)performActivity

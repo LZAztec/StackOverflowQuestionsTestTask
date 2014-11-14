@@ -9,8 +9,8 @@
 #import <Social/Social.h>
 #import "QuestionProfileViewController.h"
 #import "QuestionProfileTableViewCell.h"
-#import "VKontakteActivity.h"
 #import "FormatHelper.h"
+#import "NSString+HTML.h"
 
 static const int kLoadingCellTag = 1273;
 static const int kQuestionCellTag = 123123;
@@ -35,7 +35,7 @@ static const int kAnswerCellTag = 123124;
     [super viewDidLoad];
 
     self.tableData = [[NSMutableArray alloc]init];
-    self.title = self.question.title;
+    self.title = [self.question.title stringByDecodingHTMLEntities];
 
     _page = 0;
     _hasMore = YES;
@@ -125,7 +125,7 @@ static const int kAnswerCellTag = 123124;
         // share in facebook
         SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
 
-        [controller setInitialText:self.question.title];
+        [controller setInitialText:[self.question.title stringByDecodingHTMLEntities]];
         [controller addURL:self.question.link];
 
         [self presentViewController:controller animated:YES completion:Nil];
@@ -135,7 +135,7 @@ static const int kAnswerCellTag = 123124;
         SLComposeViewController *tweetSheet = [SLComposeViewController
                 composeViewControllerForServiceType:SLServiceTypeTwitter];
 
-        [tweetSheet setInitialText:self.question.title];
+        [tweetSheet setInitialText:[self.question.title stringByDecodingHTMLEntities]];
         [tweetSheet addURL:self.question.link];
 
         [self presentViewController:tweetSheet animated:YES completion:nil];
