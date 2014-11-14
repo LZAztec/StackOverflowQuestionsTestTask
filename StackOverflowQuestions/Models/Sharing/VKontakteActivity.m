@@ -198,8 +198,8 @@ static NSString * kDefaultAppID= @"4574538";
 
 -(void) startComposeViewController
 {
-    NSLog(@"Items: string %@, image %@, URL %@", self.string, self.image, self.URL);
-    
+    NSLog(@"Items to share: string %@, image %@, URL %@", self.string, self.image, self.URL);
+
     SharingController *sharingController = [[SharingController alloc] initWithNibName:@"SharingController" bundle:nil];
     sharingController.delegate = self;
     sharingController.sharingText = self.string;
