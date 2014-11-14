@@ -12,7 +12,7 @@
 
 @interface SettingsController ()
 
-@property (weak) UserSettings *settings;
+@property (strong) UserSettings *settings;
 
 @end
 
@@ -23,9 +23,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _settings = [UserSettings sharedInstance];
-    self.simulateQueriesSwitch.on = [_settings simulateQueries];
-    self.useUIActivityControllerForSharingSwitch.on = [_settings useUIActivityControllerForSharing];
+    self.settings = [UserSettings sharedInstance];
+    self.simulateQueriesSwitch.on = self.settings.simulateQueries;
+    self.useUIActivityControllerForSharingSwitch.on = self.settings.useUIActivityControllerForSharing;
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,13 +44,13 @@
 - (IBAction)simulateQueriesChanged:(id)sender;
 {
     NSLog(@"Setting simulation to %@", (self.simulateQueriesSwitch.isOn)?@"YES":@"NO");
-    [_settings setSimulateQueries:self.simulateQueriesSwitch.isOn];
+    [self.settings setSimulateQueries:self.simulateQueriesSwitch.isOn];
 }
 
 - (IBAction)useUIActivityControllerForSharingChanged:(id)sender;
 {
     NSLog(@"Setting UseUIActivityControllerForSharing to %@", (self.useUIActivityControllerForSharingSwitch.isOn) ? @"YES" : @"NO");
-    [_settings setUseUIActivityControllerForSharing:self.useUIActivityControllerForSharingSwitch.isOn];
+    [self.settings setUseUIActivityControllerForSharing:self.useUIActivityControllerForSharingSwitch.isOn];
 }
 
 @end

@@ -21,7 +21,13 @@ static const int kLoadingCellTag = 1273;
 
 @end
 
-@implementation QuestionListViewController
+@implementation QuestionListViewController{
+    TagPickerViewController *tagPickerViewController;
+
+    NSInteger _page;
+    BOOL _hasMore;
+    NSString *_selectedTag;
+}
 
 @synthesize questions;
 

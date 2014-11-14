@@ -35,7 +35,7 @@
 /// Specify attempts for request loading if caused HTTP-error. 0 for infinite
 @property(nonatomic, assign) int attempts;
 /// User settings for application
-@property (weak, readonly) UserSettings* settings;
+@property (strong, readonly) UserSettings* settings;
 
 ///-------------------------------
 /// @name Preparing requests

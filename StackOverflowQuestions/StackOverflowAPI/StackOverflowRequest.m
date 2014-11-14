@@ -15,15 +15,21 @@ static NSString *const kAPIVersion = @"2.2";
 @interface StackOverflowRequest ()
 
 /// Class for model parsing
-@property(nonatomic, strong) Class modelClass;
+@property (nonatomic, strong) Class modelClass;
 /// Paths to photos
-@property(nonatomic, strong) NSArray *photoObjects;
+@property (nonatomic, strong) NSArray *photoObjects;
 /// How much times request was loaded
-@property(readwrite, assign) int attemptsUsed;
+@property (readwrite, assign) int attemptsUsed;
 /// This request response
-@property(nonatomic, strong) StackOverflowResponse *response;
+@property (nonatomic, strong) StackOverflowResponse *response;
 /// This request error
-@property(nonatomic, strong) NSError *error;
+@property (nonatomic, strong) NSError *error;
+/// Specify NSUrlConnection for request
+@property (nonatomic, readwrite) NSURLConnection *connection;
+/// User settings for application
+@property (strong, readwrite) UserSettings* settings;
+/// Return YES if current request was started
+@property (nonatomic, readwrite) BOOL executing;
 
 @end
 
@@ -67,7 +73,7 @@ static NSString *const kAPIVersion = @"2.2";
         self.parseModel         = YES;
         //TODO realize customizing http-method. refactor "start" method. move connection code to http-client class
         self.httpMethod         = @"GET";
-        _settings               = [UserSettings sharedInstance];
+        self.settings           = [UserSettings sharedInstance];
     }
     return self;
 }
@@ -90,12 +96,16 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)start
 {
-    _executing = YES;
+    if (self.isExecuting) {
+        [self cancel];
+    }
 
-    if (_settings.simulateQueries) {
+    self.executing = YES;
+
+    if (self.settings.simulateQueries) {
         [self provideResponse:[StackOverflowResponseDataStubs jsonForMethod:self.methodName]];
     } else {
-        NSURL *apiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http%@://%@/%@", _secure ? @"s":@"", kAPIHost, kAPIVersion]];
+        NSURL *apiUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http%@://%@/%@", self.secure ? @"s":@"", kAPIHost, kAPIVersion]];
 
         NSURL *url = nil;
         if ([self.methodName hasPrefix:@"http"])
@@ -111,12 +121,10 @@ static NSString *const kAPIVersion = @"2.2";
                                                  cachePolicy:NSURLRequestUseProtocolCachePolicy
                                              timeoutInterval:self.requestTimeout];
 
-        if (self.attempts == 0 || self.attemptsUsed < self.attempts) {
-            self.attemptsUsed++;
-            // Create url connection and fire request
-            _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-            [_connection start];
-        }
+        self.attemptsUsed++;
+        // Create url connection and fire request
+        self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        [self.connection start];
     }
 }
 
@@ -128,6 +136,7 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)cancel
 {
+    NSLog(@"----Cancel request----");
     [self.connection cancel];
 }
 
@@ -189,7 +198,9 @@ static NSString *const kAPIVersion = @"2.2";
     response.json = JSON;
 
     if (self.parseModel) {
-        response.parsedModel = [StackOverflowResponseFactory responseWithDictionary:JSON method:_methodName model:_modelClass];
+        response.parsedModel = [StackOverflowResponseFactory responseWithDictionary:JSON
+                                                                             method:self.methodName
+                                                                              model:self.modelClass];
     }
 
     self.response = response;
@@ -198,7 +209,7 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)finishRequest
 {
-    _executing = NO;
+    self.executing = NO;
     if (self.error) {
         [self retryOrExecuteErrorBlock:self.error];
     } else {
@@ -211,7 +222,7 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)retryOrExecuteErrorBlock:(NSError *)error
 {
-    _executing = NO;
+    self.executing = NO;
     NSLog(@"Error occurred: %@", error);
     // Retry only if attempts was set and it greater than used attempts count
     if (self.attemptsUsed < self.attempts) {
@@ -234,12 +245,12 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)addExtraParameters:(NSDictionary *)extraParameters;
 {
-    if (!_methodParameters)
-        _methodParameters = [extraParameters mutableCopy];
+    if (!self.methodParameters)
+        self.methodParameters = [extraParameters mutableCopy];
     else {
         NSMutableDictionary *params = [_methodParameters mutableCopy];
         [params addEntriesFromDictionary:extraParameters];
-        _methodParameters = params;
+        self.methodParameters = params;
     }
 }
 

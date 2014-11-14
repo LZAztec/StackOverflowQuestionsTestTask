@@ -10,14 +10,7 @@
 #import "StackOverflowAPI.h"
 #import "TagPickerViewController.h"
 
-@interface QuestionListViewController : UITableViewController <TagPickerViewControllerDelegate, UIAlertViewDelegate>{
-    NSMutableArray *questions;
-    TagPickerViewController *tagPickerViewController;
-
-    NSInteger _page;
-    BOOL _hasMore;
-    NSString *_selectedTag;
-}
+@interface QuestionListViewController : UITableViewController <TagPickerViewControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *changeTagButton;
 @property (copy, nonatomic) NSMutableArray *questions;
