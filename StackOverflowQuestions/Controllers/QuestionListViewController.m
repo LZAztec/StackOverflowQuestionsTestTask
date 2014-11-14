@@ -29,8 +29,6 @@ static const int kLoadingCellTag = 1273;
     NSString *_selectedTag;
 }
 
-@synthesize questions;
-
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
@@ -44,7 +42,7 @@ static const int kLoadingCellTag = 1273;
 
     tagPickerViewController = [[TagPickerViewController alloc] initWithNibName:@"TagPickerViewController" bundle:nil];
     tagPickerViewController.delegate = self;
-    questions = [[NSMutableArray alloc] init];
+    self.questions = [[NSMutableArray alloc] init];
 
     [self addRefreshControl];
 }
@@ -80,9 +78,9 @@ static const int kLoadingCellTag = 1273;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         QuestionProfileViewController *destinationVC = segue.destinationViewController;
 
-        StackOverflowResponseBaseModelItem *data = questions[(NSUInteger) indexPath.row];
+        StackOverflowResponseBaseModelItem *data = self.questions[(NSUInteger) indexPath.row];
         NSLog(@"Question: %@", data);
-        destinationVC.question = questions[(NSUInteger) indexPath.row];
+        destinationVC.question = self.questions[(NSUInteger) indexPath.row];
     }
 }
 
@@ -134,7 +132,7 @@ static const int kLoadingCellTag = 1273;
         cell = [[QuestionListViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusableIdentifier];
     }
 
-    [cell setCellData:questions[(NSUInteger) indexPath.row]];
+    [cell setCellData:self.questions[(NSUInteger) indexPath.row]];
 
     if ([cell.questionText.text isEqualToString:kErrorText]){
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -182,7 +180,7 @@ static const int kLoadingCellTag = 1273;
     [self.request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"Response model: %@", response.parsedModel);
         if (force) {
-            [questions removeAllObjects];
+            [controller.questions removeAllObjects];
         }
 
         for (StackOverflowResponseBaseModelItem *data in response.parsedModel.items) {
@@ -206,7 +204,7 @@ static const int kLoadingCellTag = 1273;
     _selectedTag = (sender.pickerData)[(NSUInteger) selectedRow];
 
     self.title = _selectedTag;
-    [questions removeAllObjects];
+    [self.questions removeAllObjects];
     [self.tableView reloadData];
     _page = 1;
     _hasMore = YES;
@@ -260,6 +258,7 @@ static const int kLoadingCellTag = 1273;
 - (void)setControlsEnabled:(BOOL)state
 {
     self.changeTagButton.enabled = state;
+    self.settingsButton.enabled = state;
     self.tableView.scrollEnabled = state;
 }
 

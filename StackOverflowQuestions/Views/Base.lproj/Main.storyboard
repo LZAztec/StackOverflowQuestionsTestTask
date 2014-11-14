@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-Sa-sMX">
-                                <rect key="frame" x="492" y="114" width="51" height="31"/>
+                                <rect key="frame" x="535" y="114" width="51" height="31"/>
                                 <connections>
                                     <action selector="simulateQueriesChanged:" destination="QiK-gS-AAF" eventType="valueChanged" id="bMe-vE-15H"/>
                                 </connections>
@@ -50,13 +50,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jyb-RU-R8P">
-                                <rect key="frame" x="492" y="160" width="51" height="31"/>
+                                <rect key="frame" x="535" y="160" width="51" height="31"/>
                                 <connections>
                                     <action selector="useUIActivityControllerForSharingChanged:" destination="QiK-gS-AAF" eventType="valueChanged" id="Agv-35-S6z"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use UIActivityController for sharing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU5-hm-h1T">
-                                <rect key="frame" x="16" y="165" width="270" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Internal controller for sharing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU5-hm-h1T">
+                                <rect key="frame" x="16" y="165" width="303" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="r1d-qs-0GW"/>
                                 </constraints>
@@ -70,11 +70,11 @@
                             <constraint firstItem="Jyb-RU-R8P" firstAttribute="top" secondItem="d2b-Sa-sMX" secondAttribute="bottom" constant="15" id="9p4-Vi-MM1"/>
                             <constraint firstItem="QU5-hm-h1T" firstAttribute="leading" secondItem="fR2-3R-rVZ" secondAttribute="leadingMargin" id="IQ9-mh-7hh"/>
                             <constraint firstItem="d2b-Sa-sMX" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="50" id="OE5-cF-WFd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="d2b-Sa-sMX" secondAttribute="trailing" constant="43" id="RyU-YC-8dp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="d2b-Sa-sMX" secondAttribute="trailing" id="RyU-YC-8dp"/>
                             <constraint firstItem="b1j-1d-nTM" firstAttribute="leading" secondItem="fR2-3R-rVZ" secondAttribute="leadingMargin" id="V1o-O0-6zo"/>
                             <constraint firstItem="b1j-1d-nTM" firstAttribute="top" secondItem="BOU-WD-gAT" secondAttribute="bottom" constant="55" id="hpb-Bm-WKI"/>
                             <constraint firstItem="QU5-hm-h1T" firstAttribute="top" secondItem="b1j-1d-nTM" secondAttribute="bottom" constant="25" id="wIh-26-5RX"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Jyb-RU-R8P" secondAttribute="trailing" constant="43" id="ytZ-Jz-cHV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jyb-RU-R8P" secondAttribute="trailing" id="ytZ-Jz-cHV"/>
                         </constraints>
                     </view>
                     <connections>
@@ -196,6 +196,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="changeTagButton" destination="8nl-F4-3qm" id="dIg-ay-C4Y"/>
+                        <outlet property="settingsButton" destination="iHs-th-SkI" id="SbJ-Zi-Zk8"/>
                         <outlet property="view" destination="37q-wW-u54" id="eNQ-gB-jEp"/>
                     </connections>
                 </tableViewController>
@@ -266,7 +267,7 @@
                                                 </fragment>
                                             </attributedString>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                            <variation key="widthClass=compact" misplaced="YES">
                                                 <rect key="frame" x="0.0" y="62" width="309" height="77"/>
                                             </variation>
                                         </textView>

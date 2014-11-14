@@ -35,6 +35,9 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers[0] class] == [QuestionListViewController class]) {
+        QuestionListViewController *vc = self.navigationController.viewControllers[0];
+        [vc.questions removeAllObjects];
+        [vc.tableView reloadData];
         [self.navigationController.viewControllers[0] refreshFirstPage];
     }
     [super viewWillDisappear:animated];

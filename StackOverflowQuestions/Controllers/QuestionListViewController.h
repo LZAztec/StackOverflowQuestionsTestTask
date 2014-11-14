@@ -13,7 +13,8 @@
 @interface QuestionListViewController : UITableViewController <TagPickerViewControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *changeTagButton;
-@property (copy, nonatomic) NSMutableArray *questions;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
+@property (strong, nonatomic) NSMutableArray *questions;
 
 - (IBAction) changeTagPressed:(id)sender;
 - (void)refreshFirstPage;
