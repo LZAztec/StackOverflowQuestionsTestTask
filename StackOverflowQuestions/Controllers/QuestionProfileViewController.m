@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Aztec. All rights reserved.
 //
 
+#import <Social/Social.h>
 #import "QuestionProfileViewController.h"
 #import "QuestionProfileTableViewCell.h"
 #import "VKontakteActivity.h"
@@ -120,15 +121,28 @@ static const int kAnswerCellTag = 123124;
 {
     NSLog(@"Index of button %lu", (unsigned long) buttonIndex);
 
-    NSArray *items = @[self.question.title, self.question.link];
-
     if (buttonIndex == 0) {
         // share in facebook
+        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+
+        [controller setInitialText:self.question.title];
+        [controller addURL:self.question.link];
+
+        [self presentViewController:controller animated:YES completion:Nil];
+
     } else if (buttonIndex == 1) {
         // share in Twitter
+        SLComposeViewController *tweetSheet = [SLComposeViewController
+                composeViewControllerForServiceType:SLServiceTypeTwitter];
+
+        [tweetSheet setInitialText:self.question.title];
+        [tweetSheet addURL:self.question.link];
+
+        [self presentViewController:tweetSheet animated:YES completion:nil];
+
     } else if (buttonIndex == 2) {
+        NSArray *items = @[self.question.title, self.question.link];
         // share in VK
-//        [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
         VKontakteActivity *vkontakteActivity = [[VKontakteActivity alloc] initWithParent:self];
 
         if ([vkontakteActivity canPerformWithActivityItems:items]){
