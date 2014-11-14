@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "QuestionListViewController.h"
+#import "VKontakteActivity.h"
 
-@interface QuestionProfileViewController : UITableViewController <UIAlertViewDelegate, UIActionSheetDelegate>{
+@interface QuestionProfileViewController : UITableViewController <UIAlertViewDelegate, UIActionSheetDelegate, VKontakteActivityProtocol>{
     StackOverflowResponseBaseModelItem *question;
     NSMutableArray *tableData;
 

@@ -7,16 +7,16 @@
 //
 
 #import "VKontakteActivity.h"
-#import "REComposeViewController.h"
+#import "SharingController.h"
 #import <VK-ios-sdk/VKSdk.h>
 
-@interface VKontakteActivity () <VKSdkDelegate, REComposeViewControllerDelegate>
+@interface VKontakteActivity () <VKSdkDelegate, SharingControllerDelegate>
 
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *string;
 @property (nonatomic, strong) NSURL *URL;
 
-@property (nonatomic, strong) UIViewController *parent;
+@property (nonatomic, strong) UIViewController <VKontakteActivityProtocol> *parent;
 
 @end
 
@@ -32,7 +32,7 @@ static NSString * kDefaultAppID= @"4574538";
     return nil;
 }
 
-- (id)initWithParent:(UIViewController*)parent
+- (id)initWithParent:(UIViewController<VKontakteActivityProtocol> *)parent;
 {
     if ((self = [super init])) {
         self.parent = parent;
@@ -198,27 +198,32 @@ static NSString * kDefaultAppID= @"4574538";
 
 -(void) startComposeViewController
 {
-    REComposeViewController *composeViewController = [[REComposeViewController alloc] init];
-    composeViewController.title = @"VK";
-    composeViewController.hasAttachment = YES;
-    composeViewController.attachmentImage = self.image;
-    composeViewController.text = self.string;
-    [composeViewController setDelegate:self];
-    [composeViewController presentFromRootViewController];
+    NSLog(@"Items: string %@, image %@, URL %@", self.string, self.image, self.URL);
+    
+    SharingController *sharingController = [[SharingController alloc] initWithNibName:@"SharingController" bundle:nil];
+    sharingController.delegate = self;
+    sharingController.sharingText = self.string;
+
+    [self.parent enableUserInteractionState:NO];
+    [self.parent showModalController:sharingController];
 }
 
-- (void)composeViewController:(REComposeViewController *)composeViewController didFinishWithResult:(REComposeResult)result
-{
-    [composeViewController dismissViewControllerAnimated:YES completion:nil];
-
-    if (result == REComposeResultCancelled) {
-        [self activityDidFinish:NO];
+- (void)sharingDoneButtonPressed:(SharingController *)sender {
+    if ([self.parent respondsToSelector:@selector(mh_dismissSemiModalViewController:animated:)]) {
+        [self.parent mh_dismissSemiModalViewController:sender animated:YES];
     }
 
-    if (result == REComposeResultPosted) {
-        self.string = composeViewController.text;
-        [self postToWall];
+    self.string = sender.sharingTextView.text;
+    [self postToWall];
+    [self.parent enableUserInteractionState:YES];
+}
+
+- (void)sharingCancelButtonPressed:(SharingController *)sender {
+    if ([self.parent respondsToSelector:@selector(mh_dismissSemiModalViewController:animated:)]) {
+        [self.parent mh_dismissSemiModalViewController:sender animated:YES];
     }
+    [self activityDidFinish:NO];
+    [self.parent enableUserInteractionState:YES];
 }
 
 

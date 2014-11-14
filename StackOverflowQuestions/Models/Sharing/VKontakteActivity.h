@@ -23,10 +23,18 @@
 
 #define iOS8 SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")
 
+@protocol VKontakteActivityProtocol
+
+@required
+- (void)enableUserInteractionState:(BOOL)state;
+- (void)showModalController:(UIViewController *)controller;
+
+@end
+
 @interface VKontakteActivity : UIActivity
 
 @property (nonatomic, copy) NSString *appID;
 
-- (id)initWithParent:(UIViewController*)parent;
+- (id)initWithParent:(UIViewController<VKontakteActivityProtocol> *)parent;
 
 @end

@@ -317,8 +317,7 @@ static const int kAnswerCellTag = 123124;
     [self.tableData addObject:question];
 }
 
-#pragma -
-#pragma Stack Overflow API Delegate methods
+#pragma mark - Stack Overflow API Delegate methods
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -343,4 +342,18 @@ static const int kAnswerCellTag = 123124;
     [self.refreshControl endRefreshing];
     [self.tableView reloadData];
 }
+
+#pragma mark -
+
+- (void)enableUserInteractionState:(BOOL)state
+{
+    self.navigationItem.hidesBackButton = !state;
+    self.tableView.scrollEnabled = state;
+}
+
+- (void)showModalController:(UIViewController *)controller {
+    [self mh_presentSemiModalViewController:controller animated:YES];
+}
+
+
 @end
