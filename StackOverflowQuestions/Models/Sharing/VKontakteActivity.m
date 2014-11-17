@@ -153,21 +153,19 @@ static NSString * kDefaultAppID= @"4574538";
 {
     VKRequest *post = [[VKApi wall] post:params];
 
-    __weak VKontakteActivity *activity = self;
-
     [MBProgressHUD showHUDAddedTo:self.parent.view animated:YES];
     [self.parent enableUserInteraction:NO];
 
     [post executeWithResultBlock:^(VKResponse *response) {
-                [activity activityDidFinish:YES];
-                [MBProgressHUD hideHUDForView:activity.parent.view animated:YES];
-                [activity.parent enableUserInteraction:YES];
+                [self activityDidFinish:YES];
+                [MBProgressHUD hideHUDForView:self.parent.view animated:YES];
+                [self.parent enableUserInteraction:YES];
             }
                       errorBlock:^(NSError *error) {
                           NSLog(@"Error: %@", error);
-                          [activity activityDidFinish:NO];
-                          [MBProgressHUD hideHUDForView:activity.parent.view animated:YES];
-                          [activity.parent enableUserInteraction:YES];
+                          [self activityDidFinish:NO];
+                          [MBProgressHUD hideHUDForView:self.parent.view animated:YES];
+                          [self.parent enableUserInteraction:YES];
                       }];
 }
 
