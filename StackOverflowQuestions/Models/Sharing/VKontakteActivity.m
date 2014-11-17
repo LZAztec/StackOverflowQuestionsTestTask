@@ -9,7 +9,7 @@
 #import "VKontakteActivity.h"
 #import "SharingController.h"
 #import "NSString+HTML.h"
-#import "MBProgressHUD.h"
+#import "MMProgressHUD.h"
 #import <VK-ios-sdk/VKSdk.h>
 
 @interface VKontakteActivity () <VKSdkDelegate, SharingControllerDelegate>
@@ -155,16 +155,16 @@ static NSString * kDefaultAppID= @"4574538";
 
     __weak VKontakteActivity *activity = self;
 
-    [MBProgressHUD showHUDAddedTo:self.parent.view animated:YES];
+    [MMProgressHUD showWithTitle:@"Please wait..." status:@""];
 
     [post executeWithResultBlock:^(VKResponse *response) {
                 [activity activityDidFinish:YES];
-                [MBProgressHUD hideHUDForView:activity.parent.view animated:YES];
+                [MMProgressHUD dismissWithSuccess:@"Success!"];
             }
                       errorBlock:^(NSError *error) {
                           NSLog(@"Error: %@", error);
                           [activity activityDidFinish:NO];
-                          [MBProgressHUD hideHUDForView:activity.parent.view animated:YES];
+                          [MMProgressHUD dismissWithError:@"Error! Please try again later."];
                       }];
 }
 
