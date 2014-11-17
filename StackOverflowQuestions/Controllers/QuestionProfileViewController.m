@@ -26,9 +26,6 @@ static const int kAnswerCellTag = 123124;
 
 @implementation QuestionProfileViewController
 
-@synthesize question;
-@synthesize tableData;
-
 #pragma mark - Lifecycle
 - (void)viewDidLoad
 {
@@ -37,8 +34,8 @@ static const int kAnswerCellTag = 123124;
     self.tableData = [[NSMutableArray alloc]init];
     self.title = [self.question.title stringByDecodingHTMLEntities];
 
-    _page = 0;
-    _hasMore = YES;
+    self.page = 0;
+    self.hasMore = YES;
 
     [self extractQuestionDataToFirstCell];
     [self addRefreshControl];
@@ -58,8 +55,8 @@ static const int kAnswerCellTag = 123124;
 - (void)refreshFirstPage
 {
     NSLog(@"%@", NSStringFromSelector(_cmd));
-    _page = 1;
-    _hasMore = 1;
+    self.page = 1;
+    self.hasMore = 1;
     [self queryAnswersForQuestionForce:YES];
 }
 
@@ -162,11 +159,11 @@ static const int kAnswerCellTag = 123124;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_page == 0) {
+    if (self.page == 0) {
         return 2;
     }
 
-    if (_hasMore) {
+    if (self.hasMore) {
         return self.tableData.count + 1;
     }
     return self.tableData.count;
@@ -196,9 +193,9 @@ static const int kAnswerCellTag = 123124;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (cell.tag == kLoadingCellTag && _hasMore && !_request.isExecuting) {
+    if (cell.tag == kLoadingCellTag && self.hasMore && !self.request.isExecuting) {
         
-        _page++;
+        self.page++;
 
         [self queryAnswersForQuestionForce:NO];
     }
@@ -237,7 +234,7 @@ static const int kAnswerCellTag = 123124;
         cell = [[QuestionProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
 
-    [cell setCellData:(StackOverflowResponseBaseModelItem *)tableData[(NSUInteger) indexPath.row]];
+    [cell setCellData:(StackOverflowResponseBaseModelItem *)self.tableData[indexPath.row]];
 
     return cell;
 }
@@ -289,23 +286,22 @@ static const int kAnswerCellTag = 123124;
 
 - (void)queryAnswersForQuestionForce:(BOOL)force
 {
-    NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)_page, question.dataId, (_hasMore) ? @"YES" : @"NO");
-
-    if (_request == nil) {
-        _request = [[StackOverflowAPI questions] answersByQuestionIds:@[question.dataId]
-                                                                    page:_page
-                                                                   limit:10];
+    if (force && self.request.isExecuting){
+        [self.request cancel];
     }
 
-    if (_request.isExecuting && force){
-        [_request cancel];
-    } else if (_request.isExecuting) {
-        return;
-    }
+    NSLog(@"Querying data for page: %ld, questionId: %@, hasMore: %@", (long)self.page, self.question.dataId, (self.hasMore) ? @"YES" : @"NO");
+
+    StackOverflowRequest *request = [[StackOverflowAPI questions] answersByQuestionIds:@[self.question.dataId]];
+
+    [request addExtraParameters:@{
+            kStackOverflowAPIDataPerPageKey : @10,
+            kStackOverflowAPIPageKey : @(self.page)}
+    ];
 
     __weak QuestionProfileViewController *controller = self;
 
-    [_request executeWithSuccessBlock:^(StackOverflowResponse *response) {
+    [request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"answers response: %@", response);
         if (force){
             [controller.tableData removeAllObjects];
@@ -316,7 +312,7 @@ static const int kAnswerCellTag = 123124;
             data.type = kCellDataAnswerType;
             [controller.tableData addObject:data];
         }
-        _hasMore = [response.parsedModel.hasMore boolValue];
+        self.hasMore = [response.parsedModel.hasMore boolValue];
 
         [controller.tableView reloadData];
         [controller.refreshControl endRefreshing];
@@ -324,11 +320,13 @@ static const int kAnswerCellTag = 123124;
     } errorBlock:^(NSError *error) {
         [controller handleError:error];
     }];
+
+    self.request = request;
 }
 
 - (void)extractQuestionDataToFirstCell
 {
-    [self.tableData addObject:question];
+    [self.tableData addObject:self.question];
 }
 
 #pragma mark - Stack Overflow API Delegate methods

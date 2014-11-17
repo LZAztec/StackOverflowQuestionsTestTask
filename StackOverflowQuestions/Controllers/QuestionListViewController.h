@@ -12,9 +12,12 @@
 
 @interface QuestionListViewController : UITableViewController <TagPickerViewControllerDelegate, UIAlertViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *changeTagButton;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
-@property (strong, nonatomic) NSMutableArray *questions;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *changeTagButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *settingsButton;
+@property (nonatomic, strong) NSMutableArray *questions;
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, assign) BOOL hasMore;
+@property (nonatomic, strong) NSString *selectedTag;
 
 - (IBAction) changeTagPressed:(id)sender;
 - (void)refreshFirstPage;

@@ -16,18 +16,13 @@ static const int kLoadingCellTag = 1273;
 @interface QuestionListViewController ()
 
 @property (strong, nonatomic) StackOverflowRequest *request;
+@property (nonatomic, strong) TagPickerViewController *tagPickerViewController;
 
 - (void)queryDataForce:(BOOL)force;
 
 @end
 
-@implementation QuestionListViewController{
-    TagPickerViewController *tagPickerViewController;
-
-    NSInteger _page;
-    BOOL _hasMore;
-    NSString *_selectedTag;
-}
+@implementation QuestionListViewController
 
 #pragma mark - Lifecycle
 
@@ -35,13 +30,13 @@ static const int kLoadingCellTag = 1273;
 {
     [super viewDidLoad];
 
-    _page = 0;
-    _selectedTag = @"Objective-c";
-    _hasMore = YES;
-    self.title = _selectedTag;
+    self.page = 0;
+    self.selectedTag = @"Objective-c";
+    self.hasMore = YES;
+    self.title = self.selectedTag;
 
-    tagPickerViewController = [[TagPickerViewController alloc] initWithNibName:@"TagPickerViewController" bundle:nil];
-    tagPickerViewController.delegate = self;
+    self.tagPickerViewController = [[TagPickerViewController alloc] initWithNibName:@"TagPickerViewController" bundle:nil];
+    self.tagPickerViewController.delegate = self;
     self.questions = [[NSMutableArray alloc] init];
 
     [self addRefreshControl];
@@ -66,8 +61,8 @@ static const int kLoadingCellTag = 1273;
 
 - (void)refreshFirstPage
 {
-    _page = 1;
-    _hasMore = YES;
+    self.page = 1;
+    self.hasMore = YES;
     [self queryDataForce:YES];
 }
 
@@ -92,11 +87,11 @@ static const int kLoadingCellTag = 1273;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (_page == 0) {
+    if (self.page == 0) {
         return 1;
     }
 
-    if (_hasMore) {
+    if (self.hasMore) {
         return self.questions.count + 1;
     }
     return self.questions.count;
@@ -105,7 +100,6 @@ static const int kLoadingCellTag = 1273;
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"ROW: %ld, questions count: %ld", (unsigned long)indexPath.row, (unsigned long)self.questions.count);
     if (indexPath.row < self.questions.count) {
         return [self questionCellForIndexPath:indexPath];
     } else {
@@ -115,10 +109,9 @@ static const int kLoadingCellTag = 1273;
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (cell.tag == kLoadingCellTag && _hasMore && !self.request.isExecuting) {
-
-        _page++;
-
+    if (cell.tag == kLoadingCellTag && self.hasMore && !self.request.isExecuting) {
+        self.page++;
+        NSLog(@"Page: %lu", (unsigned long)self.page);
         [self queryDataForce:NO];
     }
 }
@@ -165,19 +158,20 @@ static const int kLoadingCellTag = 1273;
 
 - (void)queryDataForce:(BOOL)force
 {
-    if (self.request == nil) {
-        self.request = [[StackOverflowAPI questions] questionsByTags:@[_selectedTag] page:_page limit:10];
+    if (force && self.request.isExecuting){
+        [self.request cancel];
     }
 
-    if (self.request.isExecuting && force){
-        [self.request cancel];
-    } else if (self.request.isExecuting) {
-        return;
-    }
+    StackOverflowRequest *request = [[StackOverflowAPI questions] questionsByTags:@[self.selectedTag]];
+
+    [request addExtraParameters:@{
+            kStackOverflowAPIDataPerPageKey : @10,
+            kStackOverflowAPIPageKey : @(self.page)}
+    ];
 
     __weak QuestionListViewController *controller = self;
 
-    [self.request executeWithSuccessBlock:^(StackOverflowResponse *response) {
+    [request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"Response model: %@", response.parsedModel);
         if (force) {
             [controller.questions removeAllObjects];
@@ -187,7 +181,7 @@ static const int kLoadingCellTag = 1273;
             data.type = kCellDataQuestionType;
             [controller.questions addObject:data];
         }
-        _hasMore = [response.parsedModel.hasMore boolValue];
+        controller.hasMore = [response.parsedModel.hasMore boolValue];
 
         [controller.tableView reloadData];
         [controller.refreshControl endRefreshing];
@@ -195,19 +189,21 @@ static const int kLoadingCellTag = 1273;
     } errorBlock:^(NSError *error) {
         [controller handleError:error];
     }];
+
+    self.request = request;
 }
 
 #pragma mark - Tag Picker View Controller Delegate methods
 - (void) tagPickerDoneButtonPressed:(TagPickerViewController *)sender;
 {
     NSInteger selectedRow = [sender.picker selectedRowInComponent:0];
-    _selectedTag = (sender.pickerData)[(NSUInteger) selectedRow];
+    self.selectedTag = (sender.pickerData)[(NSUInteger) selectedRow];
 
-    self.title = _selectedTag;
+    self.title = self.selectedTag;
     [self.questions removeAllObjects];
     [self.tableView reloadData];
-    _page = 1;
-    _hasMore = YES;
+    self.page = 1;
+    self.hasMore = YES;
 
     [self queryDataForce:YES];
     [self mh_dismissSemiModalViewController:sender animated:YES];
@@ -251,7 +247,7 @@ static const int kLoadingCellTag = 1273;
 - (IBAction)changeTagPressed:(id)sender;
 {
     [self setControlsEnabled:NO];
-    [self mh_presentSemiModalViewController:tagPickerViewController animated:YES];
+    [self mh_presentSemiModalViewController:self.tagPickerViewController animated:YES];
 }
 
 

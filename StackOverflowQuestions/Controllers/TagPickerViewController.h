@@ -12,10 +12,6 @@
 @protocol TagPickerViewControllerDelegate;
 
 @interface TagPickerViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
-{
-    UIPickerView *picker;
-    NSArray *pickerData;
-}
 
 @property (nonatomic, retain) IBOutlet UIPickerView *picker;
 @property (nonatomic, retain) NSArray *pickerData;

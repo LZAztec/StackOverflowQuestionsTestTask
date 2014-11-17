@@ -14,12 +14,9 @@
 
 @implementation TagPickerViewController
 
-@synthesize pickerData;
-@synthesize picker;
-
 - (void)viewDidLoad
 {
-    pickerData = @[@"iOS", @"xcode", @"Objective-c", @"cocoa-touch", @"iPhone"];
+    self.pickerData = @[@"iOS", @"xcode", @"Objective-c", @"cocoa-touch", @"iPhone"];
     
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -33,15 +30,15 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return [pickerData count];
+    return [self.pickerData count];
 }
 
 #pragma mark - Picker Delegate Methods
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    if (pickerData.count > row) {
-        return pickerData[row];
+    if (self.pickerData.count > row) {
+        return self.pickerData[row];
     }
     return nil;
 }
