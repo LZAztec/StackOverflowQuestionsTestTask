@@ -126,10 +126,12 @@ static NSString * kDefaultAppID= @"4574538";
     [request executeWithResultBlock: ^(VKResponse *response) {
         VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
         NSString *photoAttachment = [NSString stringWithFormat:@"photo%@_%@", photoInfo.owner_id, photoInfo.id];
-        [activity postToWall:@{ VK_API_ATTACHMENTS : photoAttachment,
+        [activity postToWall:@{
+                VK_API_ATTACHMENTS : photoAttachment,
                 VK_API_FRIENDS_ONLY : @(0),
                 VK_API_OWNER_ID : userId,
-                VK_API_MESSAGE : [NSString stringWithFormat:@"%@ %@",self.string, [self.URL absoluteString]]}];
+                VK_API_MESSAGE : [NSString stringWithFormat:@"%@ %@",self.string, [self.URL absoluteString]]
+        }];
     } errorBlock: ^(NSError *error) {
         NSLog(@"Error: %@", error);
         [activity activityDidFinish:NO];
@@ -138,9 +140,12 @@ static NSString * kDefaultAppID= @"4574538";
 
 -(void)uploadText
 {
-    [self postToWall:@{ VK_API_FRIENDS_ONLY : @(0),
+    [self postToWall:@{
+            VK_API_FRIENDS_ONLY : @(0),
             VK_API_OWNER_ID : [VKSdk getAccessToken].userId,
-            VK_API_MESSAGE : [NSString stringWithFormat:@"%@\n%@",self.string, [self.URL absoluteString]]}];
+            VK_API_MESSAGE : self.string,
+            VK_API_ATTACHMENT: [self.URL absoluteString],
+    }];
 }
 
 -(void)postToWall:(NSDictionary *)params
