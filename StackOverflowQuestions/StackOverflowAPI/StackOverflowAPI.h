@@ -6,6 +6,10 @@
 #import <Foundation/Foundation.h>
 #import "StackOverflowAPIQuestions.h"
 
+// paging parameters
+static NSString *const kStackOverflowAPIDataPerPageKey = @"pagesize";
+static NSString *const kStackOverflowAPIPageKey = @"page";
+
 @interface StackOverflowAPI : NSObject
 
 /**

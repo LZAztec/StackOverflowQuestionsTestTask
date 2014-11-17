@@ -10,6 +10,6 @@
 
 - (NSString *)debugName {
     return [NSString stringWithFormat:@"<%@ : %p>", NSStringFromClass(self.class), self];
-
 }
+
 @end

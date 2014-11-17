@@ -13,27 +13,27 @@
 @interface StackOverflowRequest : StackOverflowObject <NSURLConnectionDelegate>
 
 /// Specify completion block for request
-@property(nonatomic, copy) void (^completeBlock)(StackOverflowResponse *response);
+@property (nonatomic, copy) void (^completeBlock)(StackOverflowResponse *response);
 /// Specity error (HTTP or API) block for request.
-@property(nonatomic, copy) void (^errorBlock)(NSError *error);
+@property (nonatomic, copy) void (^errorBlock)(NSError *error);
 /// Specify NSUrlConnection for request
-@property(nonatomic, readonly) NSURLConnection *connection;
+@property (nonatomic, readonly) NSURLConnection *connection;
 /// Timeout for this request
-@property(nonatomic, assign) NSInteger requestTimeout;
+@property (nonatomic, assign) NSInteger requestTimeout;
 /// Returns method for current request, e.g. questions
-@property(nonatomic, strong) NSString *methodName;
+@property (nonatomic, strong) NSString *methodName;
 /// Returns HTTP-method for current request
-@property(nonatomic, strong) NSString *httpMethod;
+@property (nonatomic, strong) NSString *httpMethod;
 /// Returns list of method parameters (without common parameters)
-@property(nonatomic, strong) NSDictionary *methodParameters;
+@property (nonatomic, strong) NSDictionary *methodParameters;
 /// Return YES if current request was started
-@property(nonatomic, readonly, getter=isExecuting) BOOL executing;
+@property (nonatomic, readonly, getter=isExecuting) BOOL executing;
 /// Set to NO if you don't need automatic model parsing
-@property(nonatomic, assign) BOOL parseModel;
+@property (nonatomic, assign) BOOL parseModel;
 /// Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version
-@property(nonatomic, assign) BOOL secure;
+@property (nonatomic, assign) BOOL secure;
 /// Specify attempts for request loading if caused HTTP-error. 0 for infinite
-@property(nonatomic, assign) int attempts;
+@property (nonatomic, assign) int attempts;
 /// User settings for application
 @property (strong, readonly) UserSettings* settings;
 

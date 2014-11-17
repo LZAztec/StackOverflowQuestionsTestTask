@@ -8,6 +8,6 @@
 
 @interface StackOverflowObject : NSObject
 
-@property (nonatomic, assign) NSString *debugName;
+@property (nonatomic, assign, readonly) NSString *debugName;
 
 @end

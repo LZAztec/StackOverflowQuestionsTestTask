@@ -7,7 +7,7 @@
 
 @interface StackOverflowAPIQuestions : StackOverflowAPIBase
 
-- (StackOverflowRequest *)questionsByTags:(NSArray *)tags page:(NSInteger)page limit:(NSInteger)limit;
-- (StackOverflowRequest *)answersByQuestionIds:(NSArray *)ids page:(NSInteger)page limit:(NSInteger)limit;
+- (StackOverflowRequest *)questionsByTags:(NSArray *)tags;
+- (StackOverflowRequest *)answersByQuestionIds:(NSArray *)ids;
 
 @end
