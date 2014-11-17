@@ -153,18 +153,20 @@ static NSString * kDefaultAppID= @"4574538";
 {
     VKRequest *post = [[VKApi wall] post:params];
 
-    [MBProgressHUD showHUDAddedTo:self.parent.view animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.parent.view animated:YES];
     [self.parent enableUserInteraction:NO];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.labelText = @"Processing...";
 
     [post executeWithResultBlock:^(VKResponse *response) {
                 [self activityDidFinish:YES];
-                [MBProgressHUD hideHUDForView:self.parent.view animated:YES];
+                [hud hide:YES];
                 [self.parent enableUserInteraction:YES];
             }
                       errorBlock:^(NSError *error) {
                           NSLog(@"Error: %@", error);
                           [self activityDidFinish:NO];
-                          [MBProgressHUD hideHUDForView:self.parent.view animated:YES];
+                          [hud hide:YES];
                           [self.parent enableUserInteraction:YES];
                       }];
 }
