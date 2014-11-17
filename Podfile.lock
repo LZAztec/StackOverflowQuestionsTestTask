@@ -1,18 +1,15 @@
 PODS:
   - MBProgressHUD (0.9)
-  - MMProgressHUD (0.2.3)
   - Motis (1.0.1)
   - VK-ios-sdk (1.0.8.6)
 
 DEPENDENCIES:
-  - MBProgressHUD (~> 0.8)
-  - MMProgressHUD (~> 0.2.3)
+  - MBProgressHUD
   - Motis (~> 1.0.1)
   - VK-ios-sdk
 
 SPEC CHECKSUMS:
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
-  MMProgressHUD: 416686cee2e9af16691e82ebfdcf7caf1dd6f621
   Motis: f42317aef142968f55a3823317e978e11ec3f6de
   VK-ios-sdk: 2388a23081481384b1ad67d9e988d4dd9f8973d3
 
