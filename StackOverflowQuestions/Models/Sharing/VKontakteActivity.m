@@ -159,12 +159,12 @@ static NSString * kDefaultAppID= @"4574538";
 
     [post executeWithResultBlock:^(VKResponse *response) {
                 [activity activityDidFinish:YES];
-                [MBProgressHUD hideHUDForView:self.parent.view animated:YES];
+                [MBProgressHUD hideHUDForView:activity.parent.view animated:YES];
             }
                       errorBlock:^(NSError *error) {
                           NSLog(@"Error: %@", error);
                           [activity activityDidFinish:NO];
-                          [MBProgressHUD hideHUDForView:self.parent.view animated:YES];
+                          [MBProgressHUD hideHUDForView:activity.parent.view animated:YES];
                       }];
 }
 
