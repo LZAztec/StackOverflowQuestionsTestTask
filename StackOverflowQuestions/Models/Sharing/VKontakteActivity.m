@@ -155,8 +155,9 @@ static NSString * kDefaultAppID= @"4574538";
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.parent.view animated:YES];
     [self.parent enableUserInteraction:NO];
-    hud.mode = MBProgressHUDModeAnnularDeterminate;
+
     hud.labelText = @"Processing...";
+    hud.dimBackground = YES;
 
     [post executeWithResultBlock:^(VKResponse *response) {
                 [self activityDidFinish:YES];
