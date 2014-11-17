@@ -130,7 +130,7 @@ static NSString *const kAPIVersion = @"2.2";
 
 - (void)repeat
 {
-    _attemptsUsed = 0;
+    self.attemptsUsed = 0;
     [self start];
 }
 
