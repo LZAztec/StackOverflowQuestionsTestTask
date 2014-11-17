@@ -357,7 +357,7 @@ static const int kAnswerCellTag = 123124;
 
 #pragma mark -
 
-- (void)enableUserInteractionState:(BOOL)state
+- (void)enableUserInteraction:(BOOL)state
 {
     self.navigationItem.hidesBackButton = !state;
     self.tableView.scrollEnabled = state;

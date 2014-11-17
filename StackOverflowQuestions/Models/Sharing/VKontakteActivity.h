@@ -26,7 +26,7 @@
 @protocol VKontakteActivityProtocol
 
 @required
-- (void)enableUserInteractionState:(BOOL)state;
+- (void)enableUserInteraction:(BOOL)state;
 - (void)showModalController:(UIViewController *)controller;
 
 @end

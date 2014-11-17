@@ -55,8 +55,8 @@
                                     <action selector="useUIActivityControllerForSharingChanged:" destination="QiK-gS-AAF" eventType="valueChanged" id="Agv-35-S6z"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Internal controller for sharing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU5-hm-h1T">
-                                <rect key="frame" x="16" y="165" width="303" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Internal controller for sharing" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU5-hm-h1T">
+                                <rect key="frame" x="16" y="165" width="221" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="r1d-qs-0GW"/>
                                 </constraints>
@@ -100,8 +100,8 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" tableViewCell="BUa-9j-dcW" id="oFq-gX-pHf">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="AuthorName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sU4-WI-1KA">
-                                            <rect key="frame" x="8" y="9" width="70" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AuthorName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sU4-WI-1KA">
+                                            <rect key="frame" x="8" y="8" width="70" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="6DB-90-Y2T"/>
                                             </constraints>
@@ -112,8 +112,8 @@
                                                 <rect key="frame" x="8" y="8" width="105" height="14"/>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0L-JN-1F8">
-                                            <rect key="frame" x="389" y="9" width="162" height="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0L-JN-1F8">
+                                            <rect key="frame" x="389" y="8" width="162" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="162" id="OSd-KW-vSv"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="VJs-Tf-0lo"/>
@@ -122,8 +122,8 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Question" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="551" translatesAutoresizingMaskIntoConstraints="NO" id="pw1-Pl-I8N">
-                                            <rect key="frame" x="8" y="54" width="551" height="54"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="551" translatesAutoresizingMaskIntoConstraints="NO" id="pw1-Pl-I8N">
+                                            <rect key="frame" x="8" y="53" width="551" height="54"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="54" id="tAC-x5-1cO"/>
                                             </constraints>
@@ -137,8 +137,8 @@
                                                 <rect key="frame" x="16" y="10" width="59" height="18"/>
                                             </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="12" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sc0-go-d4a">
-                                            <rect key="frame" x="389" y="32" width="162" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sc0-go-d4a">
+                                            <rect key="frame" x="389" y="30" width="162" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="9vv-CG-Myf"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="162" id="pkb-xK-0kh"/>

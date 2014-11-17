@@ -30,4 +30,14 @@
     }
 }
 
+- (void)mh_presentSemiModalViewController:(UIViewController *)viewController animated:(BOOL)animated;
+{
+    [super mh_presentSemiModalViewController:viewController animated:animated];
+}
+
+- (void)mh_dismissSemiModalViewController:(UIViewController *)viewController animated:(BOOL)animated;
+{
+    [super mh_dismissSemiModalViewController:viewController animated:animated];
+}
+
 @end

@@ -9,7 +9,7 @@
 #import "VKontakteActivity.h"
 #import "SharingController.h"
 #import "NSString+HTML.h"
-#import "MMProgressHUD.h"
+#import "MBProgressHUD.h"
 #import <VK-ios-sdk/VKSdk.h>
 
 @interface VKontakteActivity () <VKSdkDelegate, SharingControllerDelegate>
@@ -155,16 +155,19 @@ static NSString * kDefaultAppID= @"4574538";
 
     __weak VKontakteActivity *activity = self;
 
-    [MMProgressHUD showWithTitle:@"Please wait..." status:@""];
+    [MBProgressHUD showHUDAddedTo:self.parent.view animated:YES];
+    [self.parent enableUserInteraction:NO];
 
     [post executeWithResultBlock:^(VKResponse *response) {
                 [activity activityDidFinish:YES];
-                [MMProgressHUD dismissWithSuccess:@"Success!"];
+                [MBProgressHUD hideHUDForView:activity.parent.view animated:YES];
+                [activity.parent enableUserInteraction:YES];
             }
                       errorBlock:^(NSError *error) {
                           NSLog(@"Error: %@", error);
                           [activity activityDidFinish:NO];
-                          [MMProgressHUD dismissWithError:@"Error! Please try again later."];
+                          [MBProgressHUD hideHUDForView:activity.parent.view animated:YES];
+                          [activity.parent enableUserInteraction:YES];
                       }];
 }
 
@@ -216,7 +219,7 @@ static NSString * kDefaultAppID= @"4574538";
     sharingController.delegate = self;
     sharingController.sharingText = self.string;
 
-    [self.parent enableUserInteractionState:NO];
+    [self.parent enableUserInteraction:NO];
     [self.parent showModalController:sharingController];
 }
 
@@ -227,7 +230,7 @@ static NSString * kDefaultAppID= @"4574538";
 
     self.string = sender.sharingTextView.text;
     [self postToWall];
-    [self.parent enableUserInteractionState:YES];
+    [self.parent enableUserInteraction:YES];
 }
 
 - (void)sharingCancelButtonPressed:(SharingController *)sender {
@@ -235,7 +238,7 @@ static NSString * kDefaultAppID= @"4574538";
         [self.parent mh_dismissSemiModalViewController:sender animated:YES];
     }
     [self activityDidFinish:NO];
-    [self.parent enableUserInteractionState:YES];
+    [self.parent enableUserInteraction:YES];
 }
 
 
