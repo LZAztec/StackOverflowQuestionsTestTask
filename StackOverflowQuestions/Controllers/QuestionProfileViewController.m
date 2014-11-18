@@ -12,13 +12,20 @@
 #import "FormatHelper.h"
 #import "NSString+HTML.h"
 
+typedef NS_ENUM(NSInteger, StackOverflowQuestionsSharingType) {
+    StackOverflowQuestionsSharingTypeFacebook = 0,
+    StackOverflowQuestionsSharingTypeTwitter,
+    StackOverflowQuestionsSharingTypeVKontakte
+};
+
 static const int kLoadingCellTag = 1273;
 static const int kQuestionCellTag = 123123;
 static const int kAnswerCellTag = 123124;
 
 @interface QuestionProfileViewController ()
 
-@property (strong, nonatomic) StackOverflowRequest *request;
+@property (nonatomic, strong) StackOverflowRequest *request;
+@property (nonatomic, strong) NSMutableDictionary *sharingControllers;
 
 - (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
 
@@ -36,6 +43,12 @@ static const int kAnswerCellTag = 123124;
 
     self.page = 0;
     self.hasMore = YES;
+
+    self.sharingControllers = [@{
+            @(StackOverflowQuestionsSharingTypeFacebook) : [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook],
+            @(StackOverflowQuestionsSharingTypeTwitter) : [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter],
+            @(StackOverflowQuestionsSharingTypeVKontakte) : [[VKontakteActivity alloc] initWithParent:self]
+    } mutableCopy];
 
     [self extractQuestionDataToFirstCell];
     [self addRefreshControl];
@@ -116,39 +129,37 @@ static const int kAnswerCellTag = 123124;
 #pragma mark - UIActionSheetDelegate Methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
-    NSLog(@"Index of button %lu", (unsigned long) buttonIndex);
-
-    if (buttonIndex == 0) {
-        // share in facebook
-        SLComposeViewController *controller = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    if (buttonIndex == StackOverflowQuestionsSharingTypeFacebook) {
+        // share in Facebook
+        SLComposeViewController *controller = self.sharingControllers[@(buttonIndex)];
 
         [controller setInitialText:[self.question.title stringByDecodingHTMLEntities]];
         [controller addURL:self.question.link];
 
-        [self presentViewController:controller animated:YES completion:Nil];
+        [self presentViewController:controller animated:YES completion:nil];
 
-    } else if (buttonIndex == 1) {
+    } else if (buttonIndex == StackOverflowQuestionsSharingTypeTwitter) {
         // share in Twitter
-        SLComposeViewController *tweetSheet = [SLComposeViewController
-                composeViewControllerForServiceType:SLServiceTypeTwitter];
+        SLComposeViewController *tweetSheet = self.sharingControllers[@(buttonIndex)];
 
         [tweetSheet setInitialText:[self.question.title stringByDecodingHTMLEntities]];
         [tweetSheet addURL:self.question.link];
 
         [self presentViewController:tweetSheet animated:YES completion:nil];
 
-    } else if (buttonIndex == 2) {
-        NSArray *items = @[self.question.title, self.question.link];
+    } else if (buttonIndex == StackOverflowQuestionsSharingTypeVKontakte) {
         // share in VK
-        VKontakteActivity *vkontakteActivity = [[VKontakteActivity alloc] initWithParent:self];
+        NSArray *items = @[self.question.title, self.question.link];
+
+        VKontakteActivity *vkontakteActivity = self.sharingControllers[@(buttonIndex)];
+        [vkontakteActivity resetActivityData];
 
         if ([vkontakteActivity canPerformWithActivityItems:items]){
+
             [vkontakteActivity prepareWithActivityItems:items];
             [vkontakteActivity performActivity];
         }
     }
-
-
 }
 
 #pragma mark - UI Table View Methods

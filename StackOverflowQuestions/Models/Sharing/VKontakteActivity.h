@@ -36,5 +36,6 @@
 @property (nonatomic, copy) NSString *appID;
 
 - (id)initWithParent:(UIViewController<VKontakteActivityProtocol> *)parent;
+- (void)resetActivityData;
 
 @end

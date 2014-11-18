@@ -12,7 +12,7 @@
 #import "MBProgressHUD.h"
 #import <VK-ios-sdk/VKSdk.h>
 
-@interface VKontakteActivity () <VKSdkDelegate, SharingControllerDelegate>
+@interface VKontakteActivity () <VKSdkDelegate, SharingControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *string;
@@ -170,8 +170,26 @@ static NSString * kDefaultAppID= @"4574538";
                           NSLog(@"Error: %@", error);
                           [activity activityDidFinish:NO];
                           [hud hide:YES];
-                          [activity.parent enableUserInteraction:YES];
+
+                          if (error.code == -101){
+                              [VKSdk forceLogout];
+                              [activity showNeedAuthMessage];
+                          } else {
+                              [activity.parent enableUserInteraction:YES];
+                          }
                       }];
+}
+
+- (void)showNeedAuthMessage {
+    NSString *title = @"Access error.";
+    NSString *message = @"Give acceess to post on the wall!";
+
+    UIAlertView *alertMsg = [[UIAlertView alloc] initWithTitle:title
+                                                       message:message
+                                                      delegate:self
+                                             cancelButtonTitle:@"Cancel"
+                                             otherButtonTitles:@"OK", nil];
+    [alertMsg show];
 }
 
 #pragma mark - vkSdk
@@ -244,5 +262,22 @@ static NSString * kDefaultAppID= @"4574538";
     [self.parent enableUserInteraction:YES];
 }
 
+#pragma mark - UIAlertViewDelegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+{
+    NSLog(@"button %d pressed", buttonIndex);
 
+    if (buttonIndex == 0){
+
+    } else {
+        [self performActivity];
+    }
+}
+
+#pragma mark - Data manipulation methods
+- (void)resetActivityData {
+    self.string = nil;
+    self.image = nil;
+    self.URL = nil;
+}
 @end

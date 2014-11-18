@@ -4,7 +4,7 @@ PODS:
   - VK-ios-sdk (1.0.8.6)
 
 DEPENDENCIES:
-  - MBProgressHUD
+  - MBProgressHUD (~> 0.8)
   - Motis (~> 1.0.1)
   - VK-ios-sdk
 

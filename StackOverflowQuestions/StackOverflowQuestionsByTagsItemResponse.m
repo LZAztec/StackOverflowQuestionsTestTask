@@ -23,33 +23,4 @@
     };
 }
 
-- (NSDictionary *)keyToPropertyNameReplacementRulesUsingMappingMethod:(NSString *)mappingMethod
-{
-
-    if ([mappingMethod isEqualToString:@"questions"]){
-        return @{
-                @"owner.display_name": @"authorName",
-                @"answer_count": @"counter",
-                @"creation_date": @"creationDate",
-                @"last_edit_date": @"lastModificationDate",
-                @"is_answered": @"status",
-                @"title": @"title",
-                @"body": @"body",
-                @"question_id": @"dataId",
-                @"link": @"link",
-        };
-    } else {
-        return @{
-                @"owner.display_name": @"authorName",
-                @"score": @"counter",
-                @"creation_date": @"creationDate",
-                @"last_activity_date": @"lastModificationDate",
-                @"is_accepted": @"status",
-                @"title": @"title",
-                @"body": @"body",
-                @"answer_id": @"dataId",
-        };
-    }
-}
-
 @end
