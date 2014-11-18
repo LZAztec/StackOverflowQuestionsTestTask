@@ -159,16 +159,18 @@ static NSString * kDefaultAppID= @"4574538";
     hud.labelText = @"Processing...";
     hud.dimBackground = YES;
 
+    __weak VKontakteActivity *activity = self;
+
     [post executeWithResultBlock:^(VKResponse *response) {
-                [self activityDidFinish:YES];
+                [activity activityDidFinish:YES];
                 [hud hide:YES];
-                [self.parent enableUserInteraction:YES];
+                [activity.parent enableUserInteraction:YES];
             }
                       errorBlock:^(NSError *error) {
                           NSLog(@"Error: %@", error);
-                          [self activityDidFinish:NO];
+                          [activity activityDidFinish:NO];
                           [hud hide:YES];
-                          [self.parent enableUserInteraction:YES];
+                          [activity.parent enableUserInteraction:YES];
                       }];
 }
 
