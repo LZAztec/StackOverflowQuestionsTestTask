@@ -11,8 +11,6 @@
 
 static NSString *const kAPIHost = @"api.stackexchange.com";
 static NSString *const kAPIVersion = @"2.2";
-// API StackOverflowRequestRequestError codes
-static NSInteger const kStackOverflowRequestErrorCancelled = -2;
 
 @interface StackOverflowRequest ()
 

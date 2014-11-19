@@ -15,7 +15,7 @@ static const int kLoadingCellTag = 1273;
 
 @interface QuestionListViewController ()
 
-@property (strong, nonatomic) StackOverflowRequest *request;
+@property (nonatomic, strong) StackOverflowRequest *request;
 @property (nonatomic, strong) TagPickerViewController *tagPickerViewController;
 
 - (void)queryDataForce:(BOOL)force;
@@ -187,7 +187,12 @@ static const int kLoadingCellTag = 1273;
         [controller.refreshControl endRefreshing];
 
     } errorBlock:^(NSError *error) {
-        [controller handleError:error];
+        if (error.domain == NSStringFromClass(StackOverflowRequest.class) && error.code == kStackOverflowRequestErrorCancelled) {
+            NSLog(@"%@", error);
+        } else {
+            [controller handleError:error];
+        }
+
     }];
 
     self.request = request;

@@ -329,7 +329,11 @@ static const int kAnswerCellTag = 123124;
         [controller.refreshControl endRefreshing];
 
     } errorBlock:^(NSError *error) {
-        [controller handleError:error];
+        if (error.domain == NSStringFromClass(StackOverflowRequest.class) && error.code == kStackOverflowRequestErrorCancelled) {
+            NSLog(@"%@", error);
+        } else {
+            [controller handleError:error];
+        }
     }];
 
     self.request = request;

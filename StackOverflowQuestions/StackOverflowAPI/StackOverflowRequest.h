@@ -9,6 +9,8 @@
 #import "StackOverflowResponseBaseModel.h"
 #import "UserSettings.h"
 
+// API StackOverflowRequestRequestError codes
+static NSInteger const kStackOverflowRequestErrorCancelled = -2;
 
 @interface StackOverflowRequest : StackOverflowObject <NSURLConnectionDelegate>
 
