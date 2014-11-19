@@ -11,6 +11,8 @@
 
 static NSString *const kAPIHost = @"api.stackexchange.com";
 static NSString *const kAPIVersion = @"2.2";
+// API StackOverflowRequestRequestError codes
+static NSInteger const kStackOverflowRequestErrorCancelled = -2;
 
 @interface StackOverflowRequest ()
 
@@ -98,6 +100,12 @@ static NSString *const kAPIVersion = @"2.2";
 {
     if (self.isExecuting) {
         [self cancel];
+        NSError *error = [NSError errorWithDomain:NSStringFromClass(self.class)
+                                             code:kStackOverflowRequestErrorCancelled
+                                         userInfo:@{@"request" : @"Previous request was cancelled."}];
+        if (self.errorBlock){
+            self.errorBlock(error);
+        }
     }
 
     self.executing = YES;
@@ -172,7 +180,7 @@ static NSString *const kAPIVersion = @"2.2";
                                                              options:NSJSONReadingAllowFragments
                                                                error:&error];
 
-    if ([JSON valueForKey:@"error_id"] != nil) {
+    if ([JSON isKindOfClass:NSDictionary.class] && JSON[@"error_id"] != nil) {
         error = [NSError errorWithDomain:JSON[@"error_message"] code:[(NSString *) JSON[@"error_id"] integerValue] userInfo:JSON];
     }
 
