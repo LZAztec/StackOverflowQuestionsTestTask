@@ -26,6 +26,18 @@ static const int CoverViewTag = 88888888;
 
 @implementation UIViewController (MHSemiModal)
 
+- (void) orientationChanged:(NSNotification *)note
+{
+    UIDevice * device = note.object;
+    CGRect bounds = self.view.bounds;
+
+    if (UIDeviceOrientationIsLandscape(device.orientation)) {
+        bounds.origin.y -=32;
+    }
+    
+    self.view.bounds = bounds;
+}
+
 - (UIView *)mh_coverViewForViewController:(UIViewController *)viewController
 {
 	return [viewController.parentViewController.view viewWithTag:CoverViewTag];
@@ -33,14 +45,17 @@ static const int CoverViewTag = 88888888;
 
 - (void)mh_presentSemiModalViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-	UIView *coverView = [[UIView alloc] initWithFrame:self.view.bounds];
+    CGRect bounds = self.view.bounds;
+    
+	UIView *coverView = [[UIView alloc] initWithFrame:bounds];
+    NSLog(@"boubds: %@", NSStringFromCGRect(self.view.bounds));
 	coverView.backgroundColor = [UIColor blackColor];
 	coverView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	coverView.alpha = 0.0;
 	coverView.tag = CoverViewTag;
 	[self.view addSubview:coverView];
 
-	CGRect rect = self.view.bounds;
+	CGRect rect = bounds;
 	rect.origin.y += rect.size.height;
 	viewController.view.frame = rect;
 	[self.view addSubview:viewController.view];
@@ -62,12 +77,24 @@ static const int CoverViewTag = 88888888;
 
 - (void)mh_afterPresentAnimation:(UIViewController *)viewController
 {
-	viewController.view.frame = self.view.bounds;
+    CGRect bounds = self.view.bounds;
+    
+    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+        bounds.origin.y += 32;
+    }
+    
+    viewController.view.frame = bounds;
 
 	UIView *coverView = [self mh_coverViewForViewController:viewController];
 	coverView.alpha = 0.5;
 
 	[viewController didMoveToParentViewController:self];
+
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:[UIDevice currentDevice]];
 }
 
 - (void)mh_dismissSemiModalViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -103,6 +130,7 @@ static const int CoverViewTag = 88888888;
 
 	[viewController removeFromParentViewController];
 	[viewController.view removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
