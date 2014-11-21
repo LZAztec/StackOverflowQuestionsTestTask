@@ -22,25 +22,11 @@
 
 #import "UIViewController+MHSemiModal.h"
 
-static const int CoverViewTag = 88888888;
-
 @implementation UIViewController (MHSemiModal)
-
-- (void) orientationChanged:(NSNotification *)note
-{
-    UIDevice * device = note.object;
-    CGRect bounds = self.view.bounds;
-
-    if (UIDeviceOrientationIsLandscape(device.orientation)) {
-        bounds.origin.y -=32;
-    }
-    
-    self.view.bounds = bounds;
-}
 
 - (UIView *)mh_coverViewForViewController:(UIViewController *)viewController
 {
-	return [viewController.parentViewController.view viewWithTag:CoverViewTag];
+	return [viewController.parentViewController.view viewWithTag:kCoverViewTag];
 }
 
 - (void)mh_presentSemiModalViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -52,7 +38,7 @@ static const int CoverViewTag = 88888888;
 	coverView.backgroundColor = [UIColor blackColor];
 	coverView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	coverView.alpha = 0.0;
-	coverView.tag = CoverViewTag;
+	coverView.tag = kCoverViewTag;
 	[self.view addSubview:coverView];
 
 	CGRect rect = bounds;
@@ -90,11 +76,13 @@ static const int CoverViewTag = 88888888;
 
 	[viewController didMoveToParentViewController:self];
 
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:[UIDevice currentDevice]];
+    if ([self conformsToProtocol:@protocol(MHDeviceOrientationChangeProtocol)]){
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(orientationChanged:)
+                                                     name:UIDeviceOrientationDidChangeNotification
+                                                   object:[UIDevice currentDevice]];
+    }
 }
 
 - (void)mh_dismissSemiModalViewController:(UIViewController *)viewController animated:(BOOL)animated

@@ -17,6 +17,7 @@ static const int kLoadingCellTag = 1273;
 
 @property (nonatomic, strong) StackOverflowRequest *request;
 @property (nonatomic, strong) TagPickerViewController *tagPickerViewController;
+@property (nonatomic, assign) UIDeviceOrientation previousOrientation;
 
 - (void)queryDataForce:(BOOL)force;
 
@@ -64,6 +65,24 @@ static const int kLoadingCellTag = 1273;
     self.page = 1;
     self.hasMore = YES;
     [self queryDataForce:YES];
+}
+
+#pragma mark - Device orientation change methods
+
+- (void) orientationChanged:(NSNotification *)note
+{
+    UIDevice * device = note.object;
+    CGRect bounds = self.view.bounds;
+
+    NSLog(@"BOUNDS: %@", NSStringFromCGRect(bounds));
+    UIDeviceOrientation currentOrientation = device.orientation;
+    if (UIDeviceOrientationIsLandscape(currentOrientation) &&
+            !(UIDeviceOrientationIsLandscape(self.previousOrientation) || self.previousOrientation == UIDeviceOrientationPortraitUpsideDown)) {
+        bounds.origin.y -=32;
+    }
+
+    self.view.bounds = bounds;
+    self.previousOrientation = currentOrientation;
 }
 
 #pragma mark - Navigation

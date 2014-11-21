@@ -10,7 +10,7 @@
 #import "StackOverflowAPI.h"
 #import "TagPickerViewController.h"
 
-@interface QuestionListViewController : UITableViewController <TagPickerViewControllerDelegate, UIAlertViewDelegate>
+@interface QuestionListViewController : UITableViewController <TagPickerViewControllerDelegate, UIAlertViewDelegate, MHDeviceOrientationChangeProtocol>
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *changeTagButton;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *settingsButton;

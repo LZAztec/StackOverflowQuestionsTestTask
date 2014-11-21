@@ -26,6 +26,7 @@ static const int kAnswerCellTag = 123124;
 
 @property (nonatomic, strong) StackOverflowRequest *request;
 @property (nonatomic, strong) NSMutableDictionary *sharingControllers;
+@property (nonatomic, assign) UIDeviceOrientation previousOrientation;
 
 - (IBAction)cellLongPressed:(UILongPressGestureRecognizer *)sender;
 
@@ -124,6 +125,32 @@ static const int kAnswerCellTag = 123124;
     }
 
 
+}
+
+- (void) orientationChanged:(NSNotification *)note
+{
+    UIDevice * device = note.object;
+    UIDeviceOrientation currentOrientation = device.orientation;
+    CGRect bounds = self.view.bounds;
+
+    ////
+    UIView *coverView = [self.view viewWithTag:kCoverViewTag];
+    CGRect coverBounds = coverView.bounds;
+    UIViewController *presentedVC = (self.childViewControllers)[0];
+    CGRect presentedViewBounds = presentedVC.view.bounds;
+
+    NSLog(@"BOUNDS: cover: %@, presentedView: %@, real: %@", NSStringFromCGRect(coverBounds), NSStringFromCGRect(presentedViewBounds), NSStringFromCGRect(bounds));
+
+    if (UIDeviceOrientationIsLandscape(currentOrientation) &&
+            !(UIDeviceOrientationIsLandscape(self.previousOrientation) || self.previousOrientation == UIDeviceOrientationPortraitUpsideDown)) {
+
+
+        bounds.origin.y -=32;
+    }
+    NSLog(@"BOUNDS: corrected: %@", NSStringFromCGRect(bounds));
+
+    self.view.bounds = bounds;
+    self.previousOrientation = currentOrientation;
 }
 
 #pragma mark - UIActionSheetDelegate Methods

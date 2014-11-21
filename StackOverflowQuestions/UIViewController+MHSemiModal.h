@@ -31,6 +31,15 @@
 
 #import <UIKit/UIKit.h>
 
+static const int kCoverViewTag = 88888888;
+
+@protocol MHDeviceOrientationChangeProtocol
+
+@required
+- (void)orientationChanged:(NSNotification *)note;
+
+@end
+
 @interface UIViewController (MHSemiModal)
 
 - (void)mh_presentSemiModalViewController:(UIViewController *)viewController animated:(BOOL)animated;

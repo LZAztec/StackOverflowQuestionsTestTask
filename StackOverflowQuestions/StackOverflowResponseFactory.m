@@ -23,11 +23,29 @@
         object = [[StackOverflowAnswersByQuestionIdsResponse alloc] init];
     }
 
-    if ([object conformsToProtocol:@protocol(StackOverflowResponseModelProtocol)]) {
-        [object setValuesFromDictionary:dictionary];
-    }
+//    if ([object conformsToProtocol:@protocol(StackOverflowResponseModelProtocol)]) {
+    [object mts_setValuesForKeysWithDictionary:dictionary];
+//    [object setValuesFromDictionary:dictionary];
+//    }
 
     return object;
+}
+
++ (NSArray *)itemsFromArray:(NSArray *)sourceData mappedToClass:(Class)class
+{
+    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:sourceData.count];
+
+    if  ([sourceData isKindOfClass:[NSArray class]]) {
+        [sourceData enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[NSDictionary class]]) {
+                id object = [[class alloc] init];
+                [object mts_setValuesForKeysWithDictionary:obj];
+                [result addObject:object];
+            }
+        }];
+    }
+
+    return [result copy];
 }
 
 @end
