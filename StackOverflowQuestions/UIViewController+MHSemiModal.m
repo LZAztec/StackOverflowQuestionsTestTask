@@ -66,7 +66,7 @@
     CGRect bounds = self.view.bounds;
     
     if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
-        bounds.origin.y += 32;
+        bounds.origin.y -= bounds.origin.y/2;
     }
     
     viewController.view.frame = bounds;

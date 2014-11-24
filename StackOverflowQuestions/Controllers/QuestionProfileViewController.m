@@ -131,25 +131,19 @@ static const int kAnswerCellTag = 123124;
 {
     UIDevice * device = note.object;
     UIDeviceOrientation currentOrientation = device.orientation;
-    CGRect bounds = self.view.bounds;
-
     ////
     UIView *coverView = [self.view viewWithTag:kCoverViewTag];
     CGRect coverBounds = coverView.bounds;
-    UIViewController *presentedVC = (self.childViewControllers)[0];
-    CGRect presentedViewBounds = presentedVC.view.bounds;
-
-    NSLog(@"BOUNDS: cover: %@, presentedView: %@, real: %@", NSStringFromCGRect(coverBounds), NSStringFromCGRect(presentedViewBounds), NSStringFromCGRect(bounds));
 
     if (UIDeviceOrientationIsLandscape(currentOrientation) &&
             !(UIDeviceOrientationIsLandscape(self.previousOrientation) || self.previousOrientation == UIDeviceOrientationPortraitUpsideDown)) {
 
+        coverBounds.origin.y += coverBounds.origin.y;
 
-        bounds.origin.y -=32;
+        coverView.bounds = coverBounds;
+        coverView.frame = coverBounds;
     }
-    NSLog(@"BOUNDS: corrected: %@", NSStringFromCGRect(bounds));
 
-    self.view.bounds = bounds;
     self.previousOrientation = currentOrientation;
 }
 

@@ -265,8 +265,6 @@ static NSString * kDefaultAppID= @"4574538";
 #pragma mark - UIAlertViewDelegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
-    NSLog(@"button %d pressed", buttonIndex);
-
     if (buttonIndex == 0){
 
     } else {
