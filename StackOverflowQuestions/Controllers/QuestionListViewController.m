@@ -67,24 +67,6 @@ static const int kLoadingCellTag = 1273;
     [self queryDataForce:YES];
 }
 
-#pragma mark - Device orientation change methods
-
-- (void) orientationChanged:(NSNotification *)note
-{
-    UIDevice * device = note.object;
-    CGRect bounds = self.view.bounds;
-
-    NSLog(@"BOUNDS: %@", NSStringFromCGRect(bounds));
-    UIDeviceOrientation currentOrientation = device.orientation;
-    if (UIDeviceOrientationIsLandscape(currentOrientation) &&
-            !(UIDeviceOrientationIsLandscape(self.previousOrientation) || self.previousOrientation == UIDeviceOrientationPortraitUpsideDown)) {
-        bounds.origin.y -=32;
-    }
-
-    self.view.bounds = bounds;
-    self.previousOrientation = currentOrientation;
-}
-
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
