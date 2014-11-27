@@ -12,7 +12,7 @@
 
 @property (strong, nonatomic) NSString *sharingText;
 @property (weak, nonatomic) IBOutlet UITextView *sharingTextView;
-@property (strong, nonatomic) id<SharingControllerDelegate> delegate;
+@property (weak) id<SharingControllerDelegate> delegate;
 
 - (IBAction)doneButtonPressed:(id)sender;
 - (IBAction)cancelButtonPressed:(id)sender;

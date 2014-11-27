@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSString *string;
 @property (nonatomic, strong) NSURL *URL;
 
-@property (nonatomic, strong) UIViewController <VKontakteActivityProtocol> *parent;
+@property (nonatomic, weak) UIViewController <VKontakteActivityProtocol> *parent;
 
 @end
 
@@ -122,7 +122,7 @@ static NSString * kDefaultAppID= @"4574538";
     NSString *userId = [VKSdk getAccessToken].userId;
     VKRequest *request = [VKApi uploadWallPhotoRequest:self.image parameters:[VKImageParameters jpegImageWithQuality:1.f] userId:[userId integerValue] groupId:0];
 
-    __weak VKontakteActivity *activity = self;
+    VKontakteActivity *__weak activity = self;
 
     [request executeWithResultBlock: ^(VKResponse *response) {
         VKPhoto *photoInfo = [(VKPhotoArray*)response.parsedModel objectAtIndex:0];
@@ -159,7 +159,7 @@ static NSString * kDefaultAppID= @"4574538";
     hud.labelText = @"Processing...";
     hud.dimBackground = YES;
 
-    __weak VKontakteActivity *activity = self;
+    VKontakteActivity *__weak activity = self;
 
     [post executeWithResultBlock:^(VKResponse *response) {
                 [activity activityDidFinish:YES];
@@ -265,7 +265,7 @@ static NSString * kDefaultAppID= @"4574538";
 #pragma mark - UIAlertViewDelegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 {
-    if (buttonIndex == 0){
+    if (buttonIndex == alertView.cancelButtonIndex){
 
     } else {
         [self performActivity];

@@ -8,6 +8,7 @@
 #import "NSURL+PathParameters.h"
 #import "StackOverflowResponseDataStubs.h"
 #import "StackOverflowResponseFactory.h"
+#import "StackOverflowConstants.h"
 
 static NSString *const kAPIHost = @"api.stackexchange.com";
 static NSString *const kAPIVersion = @"2.2";
@@ -98,10 +99,11 @@ static NSString *const kAPIVersion = @"2.2";
 {
     if (self.isExecuting) {
         [self cancel];
-        NSError *error = [NSError errorWithDomain:NSStringFromClass(self.class)
-                                             code:kStackOverflowRequestErrorCancelled
-                                         userInfo:@{@"request" : @"Previous request was cancelled."}];
+
         if (self.errorBlock){
+            NSError *error = [NSError errorWithDomain:NSStringFromClass(self.class)
+                                                 code:StackOverflowErrorRequestCancelled
+                                             userInfo:@{NSLocalizedDescriptionKey : @"Previous request was cancelled."}];
             self.errorBlock(error);
         }
     }
@@ -179,7 +181,9 @@ static NSString *const kAPIVersion = @"2.2";
                                                                error:&error];
 
     if ([JSON isKindOfClass:NSDictionary.class] && JSON[@"error_id"] != nil) {
-        error = [NSError errorWithDomain:JSON[@"error_message"] code:[(NSString *) JSON[@"error_id"] integerValue] userInfo:JSON];
+        error = [NSError errorWithDomain: NSStringFromClass(self.class)
+                                    code: StackOverflowErrorAPIResponseWithError
+                                userInfo: @{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Error number %@: %@", (NSString *) JSON[@"error_id"], JSON[@"error_message"]]}];
     }
 
     if (error != nil ) {

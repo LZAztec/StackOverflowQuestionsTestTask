@@ -9,6 +9,7 @@
 #import "QuestionListViewController.h"
 #import "QuestionProfileViewController.h"
 #import "QuestionListViewCell.h"
+#import "StackOverflowConstants.h"
 
 static NSString *const kErrorText = @"Cannot get the data. Please check your connection and try later!";
 static const int kLoadingCellTag = 1273;
@@ -170,7 +171,7 @@ static const int kLoadingCellTag = 1273;
             kStackOverflowAPIPageKey : @(self.page)}
     ];
 
-    __weak QuestionListViewController *controller = self;
+    QuestionListViewController *__weak controller = self;
 
     [request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"Response model: %@", response.parsedModel);
@@ -188,7 +189,7 @@ static const int kLoadingCellTag = 1273;
         [controller.refreshControl endRefreshing];
 
     } errorBlock:^(NSError *error) {
-        if (error.domain == NSStringFromClass(StackOverflowRequest.class) && error.code == kStackOverflowRequestErrorCancelled) {
+        if (error.domain == NSStringFromClass(StackOverflowRequest.class) && error.code == StackOverflowErrorRequestCancelled) {
             NSLog(@"%@", error);
         } else {
             [controller handleError:error];

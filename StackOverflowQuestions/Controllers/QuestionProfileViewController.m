@@ -11,6 +11,7 @@
 #import "QuestionProfileTableViewCell.h"
 #import "FormatHelper.h"
 #import "NSString+HTML.h"
+#import "StackOverflowConstants.h"
 
 typedef NS_ENUM(NSInteger, StackOverflowQuestionsSharingType) {
     StackOverflowQuestionsSharingTypeFacebook = 0,
@@ -331,7 +332,7 @@ static const int kAnswerCellTag = 123124;
             kStackOverflowAPIPageKey : @(self.page)}
     ];
 
-    __weak QuestionProfileViewController *controller = self;
+    QuestionProfileViewController *__weak controller = self;
 
     [request executeWithSuccessBlock:^(StackOverflowResponse *response) {
         NSLog(@"answers response: %@", response);
@@ -350,7 +351,7 @@ static const int kAnswerCellTag = 123124;
         [controller.refreshControl endRefreshing];
 
     } errorBlock:^(NSError *error) {
-        if (error.domain == NSStringFromClass(StackOverflowRequest.class) && error.code == kStackOverflowRequestErrorCancelled) {
+        if (error.domain == NSStringFromClass(StackOverflowRequest.class) && error.code == StackOverflowErrorRequestCancelled) {
             NSLog(@"%@", error);
         } else {
             [controller handleError:error];
