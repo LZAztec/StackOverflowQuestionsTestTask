@@ -28,6 +28,10 @@
 @required
 - (void)enableUserInteraction:(BOOL)state;
 - (void)showModalController:(UIViewController *)controller;
+- (UIView *)viewForHUD;
+- (void)showVKViewController:(UIViewController *)controller;
+- (void)dismissVKModalController:(UIViewController *)controller;
+- (UIViewController *)controllerForVKCaptcha;
 
 @end
 
@@ -35,7 +39,7 @@
 
 @property (nonatomic, copy) NSString *appID;
 
-- (id)initWithParent:(UIViewController<VKontakteActivityProtocol> *)parent;
+- (id)initWithParent:(id<VKontakteActivityProtocol>)parent;
 - (void)resetActivityData;
 
 @end

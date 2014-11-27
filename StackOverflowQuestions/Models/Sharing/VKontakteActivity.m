@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSString *string;
 @property (nonatomic, strong) NSURL *URL;
 
-@property (nonatomic, weak) UIViewController <VKontakteActivityProtocol> *parent;
+@property (nonatomic, weak) id <VKontakteActivityProtocol> parent;
 
 @end
 
@@ -34,7 +34,7 @@ static NSString * kDefaultAppID= @"4574538";
     return nil;
 }
 
-- (id)initWithParent:(UIViewController<VKontakteActivityProtocol> *)parent;
+- (id)initWithParent:(id<VKontakteActivityProtocol>)parent;
 {
     if ((self = [super init])) {
         self.parent = parent;
@@ -153,7 +153,7 @@ static NSString * kDefaultAppID= @"4574538";
 {
     VKRequest *post = [[VKApi wall] post:params];
 
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.parent.view animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[self.parent viewForHUD] animated:YES];
     [self.parent enableUserInteraction:NO];
 
     hud.labelText = @"Processing...";
@@ -197,7 +197,7 @@ static NSString * kDefaultAppID= @"4574538";
 - (void)vkSdkNeedCaptchaEnter:(VKError *)captchaError
 {
     VKCaptchaViewController *vc = [VKCaptchaViewController captchaControllerWithError:captchaError];
-    [vc presentIn:self.parent];
+    [vc presentIn:[self.parent controllerForVKCaptcha]];
 }
 
 - (void)vkSdkTokenHasExpired:(VKAccessToken *)expiredToken
@@ -212,7 +212,7 @@ static NSString * kDefaultAppID= @"4574538";
 
 - (void)vkSdkShouldPresentViewController:(UIViewController *)controller
 {
-    [self.parent presentViewController:controller animated:YES completion:nil];
+    [self.parent showVKViewController:controller];
 }
 
 - (void)vkSdkDidAcceptUserToken:(VKAccessToken *)token
@@ -245,19 +245,14 @@ static NSString * kDefaultAppID= @"4574538";
 }
 
 - (void)sharingDoneButtonPressed:(SharingController *)sender {
-    if ([self.parent respondsToSelector:@selector(mh_dismissSemiModalViewController:animated:)]) {
-        [self.parent mh_dismissSemiModalViewController:sender animated:YES];
-    }
-
+    [self.parent dismissVKModalController:sender];
     self.string = sender.sharingTextView.text;
     [self postToWall];
     [self.parent enableUserInteraction:YES];
 }
 
 - (void)sharingCancelButtonPressed:(SharingController *)sender {
-    if ([self.parent respondsToSelector:@selector(mh_dismissSemiModalViewController:animated:)]) {
-        [self.parent mh_dismissSemiModalViewController:sender animated:YES];
-    }
+    [self.parent dismissVKModalController:sender];
     [self activityDidFinish:NO];
     [self.parent enableUserInteraction:YES];
 }

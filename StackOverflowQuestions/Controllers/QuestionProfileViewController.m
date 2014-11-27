@@ -392,7 +392,7 @@ static const int kAnswerCellTag = 123124;
     [self.tableView reloadData];
 }
 
-#pragma mark -
+#pragma mark - VKActivityProtocol methods
 
 - (void)enableUserInteraction:(BOOL)state
 {
@@ -404,5 +404,20 @@ static const int kAnswerCellTag = 123124;
     [self mh_presentSemiModalViewController:controller animated:YES];
 }
 
+- (UIView *)viewForHUD {
+    return self.view;
+}
+
+- (void)showVKViewController:(UIViewController *)controller {
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)dismissVKModalController:(UIViewController *)controller {
+    [self mh_dismissSemiModalViewController:controller animated:YES];
+}
+
+- (UIViewController *)controllerForVKCaptcha {
+    return self;
+}
 
 @end
